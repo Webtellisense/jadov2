@@ -37,3 +37,13 @@ Jado is an owner-verified local business discovery, structured feed, comparison,
 
 ## Stack (see decisions addendum for detail)
 Next.js App Router, TypeScript, PostgreSQL (locally and in production, no SQLite), a single ORM with explicit migrations, in-process modules (no microservices), replaceable adapters for Google, AI, WhatsApp, email and storage. Launch scope is M0 to M4. M5 (AI) and M6 (Learn) are post-launch and must not be started without founder approval. Hosting starts on free tiers and must stay portable: standard Postgres, no always-on server assumptions, Dockerfile included, all settings in environment variables.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

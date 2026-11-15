@@ -1,0 +1,50 @@
+{
+  "name": "jado-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "setup:local": "node --import tsx scripts/setup-local.ts",
+    "dev": "next dev --webpack --hostname 0.0.0.0",
+    "build": "next build --webpack && node --import tsx scripts/prepare-standalone.ts",
+    "start": "HOSTNAME=0.0.0.0 node --env-file-if-exists=.env .next/standalone/server.js",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --project unit",
+    "test:integration": "node --env-file-if-exists=.env --import tsx scripts/test-integration.ts",
+    "test:e2e": "node --env-file-if-exists=.env --import tsx scripts/test-e2e.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --env-file-if-exists=.env --import tsx db/migrate.ts",
+    "db:seed": "node --env-file-if-exists=.env --import tsx db/seed.ts",
+    "db:seed:undo": "node --env-file-if-exists=.env --import tsx db/seed.ts --undo",
+    "db:rollback": "node --env-file-if-exists=.env --import tsx db/rollback.ts"
+  },
+  "dependencies": {
+    "better-auth": "1.7.25",
+    "drizzle-orm": "0.45.4",
+    "next": "16.4.6",
+    "pg": "8.23.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "server-only": "0.0.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "drizzle-kit": "0.31.11",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.6",
+    "prettier": "3.10.1",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  }
+}

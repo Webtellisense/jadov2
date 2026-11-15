@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17-bookworm@sha256:40865bc877a289da75963d97d72b59633f639fc5af7a4e856bfa3714cae5b536
+    environment:
+      POSTGRES_USER: jado
+      POSTGRES_DB: jado_dev
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - jado-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jado -d jado_dev"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+volumes:
+  jado-postgres:

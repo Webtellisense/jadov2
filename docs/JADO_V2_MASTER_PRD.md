@@ -296,3 +296,7 @@ Google Places (New) supports name, address, phone, ratings, review count and pho
 - Nigerian Data Protection Act: https://ndpc.gov.ng/wp-content/uploads/2024/03/Nigeria_Data_Protection_Act_2023.pdf
 
 **Document boundary:** This PRD sets product requirements. Screen-level contracts, data/API architecture, verified acceptance tests and Codex execution prompts are defined in the companion documents. Any unapproved implementation decision belongs in a decision log, not silently in the codebase.
+
+## 12. M0 implementation boundary, 15 November 2026
+
+The founder reconfirmed PostgreSQL for local development and production, as required by Decisions Addendum D7. M0 establishes database-backed sessions and server authorization using explicitly labeled local development identities; it does not open public registration, send verification email, enable Google login, authorize a Google Business Profile, or grant verified business status. Production must reject development identities. Consumer Google sign-in and email/password with email OTP remain the approved product direction; real provider configuration and subsequent implementation are outstanding. No paid integration or production account access is authorized by this foundation work.
