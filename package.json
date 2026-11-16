@@ -26,7 +26,7 @@
     "db:prototype:rollback": "node --env-file-if-exists=.env --import tsx db/prototype-rollback.ts",
     "test:production": "npm run test:discovery",
     "test:discovery": "node --env-file-if-exists=.env --import tsx scripts/test-discovery.ts",
-    "verify:staging": "node --import tsx scripts/verify-discovery.ts"
+    "verify:staging": "node --env-file-if-exists=.env --import tsx scripts/verify-discovery.ts"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "5.3.0",

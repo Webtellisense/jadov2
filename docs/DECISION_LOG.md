@@ -1,5 +1,12 @@
 # Technical decisions
 
+## Verification runner shutdown fix — 16 November 2026
+
+- `verify:staging` loads `.env` automatically. Existing process environment takes precedence; no database migration or seed is part of verification. Removed the anonymous PATCH probe so all HTTP verification is GET-only.
+- Register exit/error listeners before signalling the child, return immediately for already-exited/failed-spawn processes, and bound shutdown with SIGTERM/grace/SIGKILL/deadline. Print the concise success summary only after cleanup settles. Always close the SQL pool even on query failure.
+- Regression coverage exercises normal shutdown, already-exited child, failed spawn and SIGTERM refusal. No application, verification eligibility or M1 changes.
+
+
 ## Permanent staging workflow — 16 November 2026
 
 - D12: founder explicitly accepted local verification for code completion and requested all changes committed on feat/staging-workflow. No main merge or M1 work; remote database verification remains an operational step outside Codex.
