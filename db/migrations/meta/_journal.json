@@ -15,6 +15,13 @@
       "when": 1794798595758,
       "tag": "0001_steep_spacker_dave",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794835908696,
+      "tag": "0002_m05_visual_media",
+      "breakpoints": true
     }
   ]
 }

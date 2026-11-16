@@ -1,3 +1,4 @@
+import type { BusinessPresentation, PostPresentation } from "./business-media";
 import { z } from "zod";
 export const filtersSchema = z.object({
   q: z.string().trim().max(120).default(""),
@@ -57,6 +58,7 @@ export type BusinessRecord = {
   neighbourhood: string;
   description: string;
   tagline: string;
+  presentation?: BusinessPresentation | null;
   tags: string[];
   createdAt: Date;
 };
@@ -68,6 +70,7 @@ export type PostRecord = {
   description: string;
   tags: string[];
   priceNaira: number | null;
+  presentation?: PostPresentation | null;
   publishedAt: Date;
   expiresAt: Date | null;
 };

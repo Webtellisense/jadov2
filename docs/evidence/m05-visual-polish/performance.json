@@ -1,0 +1,139 @@
+{
+  "runtime": "Optimised runtime; discovery reflects records present in the configured database.",
+  "profile": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "uploadBytesPerSecond": 93750,
+    "coldBrowserContext": true
+  },
+  "measurements": [
+    {
+      "path": "/?area=Uyo",
+      "viewport": "390x844",
+      "lcp": 1064,
+      "cls": 0.00046168296623489113,
+      "lcpSource": "/demo-businesses/amber-roof/photo-1-small.webp?w=320",
+      "shifts": [
+        {
+          "value": 0.0000941881215375746,
+          "nodes": [
+            "undefined.undefined"
+          ]
+        },
+        {
+          "value": 0.00036749484469731654,
+          "nodes": [
+            "A.chip",
+            "undefined.undefined",
+            "svg.[object SVGAnimatedString]"
+          ]
+        }
+      ],
+      "navigationMs": 2832.1999999955297,
+      "initialJavascriptGzipBytes": 184616,
+      "scriptFiles": 11,
+      "imageRequests": 10,
+      "imageBytes": 81264,
+      "brokenImages": 0,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/feed?area=Uyo",
+      "viewport": "390x844",
+      "lcp": 956,
+      "cls": 0.0014087250636259812,
+      "lcpSource": "/demo-businesses/amber-roof/photo-1-small.webp?w=320",
+      "shifts": [
+        {
+          "value": 0.0014087250636259812,
+          "nodes": [
+            "A.chip ",
+            "A.chip ",
+            "A.chip ",
+            "A.chip ",
+            "A.chip "
+          ]
+        }
+      ],
+      "navigationMs": 2573.2999999970198,
+      "initialJavascriptGzipBytes": 184616,
+      "scriptFiles": 11,
+      "imageRequests": 3,
+      "imageBytes": 16920,
+      "brokenImages": 0,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/b/amber-roof?area=Uyo",
+      "viewport": "390x844",
+      "lcp": 892,
+      "cls": 0.00099206640600028,
+      "lcpSource": "/demo-businesses/amber-roof/photo-1-small.webp?w=320",
+      "shifts": [
+        {
+          "value": 0.00011480375293940801,
+          "nodes": [
+            "undefined.undefined"
+          ]
+        },
+        {
+          "value": 0.0008772626530608719,
+          "nodes": [
+            "undefined.undefined",
+            "A.chip ",
+            "A.chip "
+          ]
+        }
+      ],
+      "navigationMs": 2341.2999999970198,
+      "initialJavascriptGzipBytes": 184616,
+      "scriptFiles": 11,
+      "imageRequests": 4,
+      "imageBytes": 29629,
+      "brokenImages": 0,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/search?area=Uyo&q=solar",
+      "viewport": "390x844",
+      "lcp": 720,
+      "cls": 0.012183081349106933,
+      "lcpSource": "",
+      "shifts": [
+        {
+          "value": 0.012183081349106933,
+          "nodes": [
+            "undefined.undefined",
+            "undefined.undefined",
+            "undefined.undefined",
+            "DIV.",
+            "undefined.undefined"
+          ]
+        }
+      ],
+      "navigationMs": 2390.2999999970198,
+      "initialJavascriptGzipBytes": 184616,
+      "scriptFiles": 11,
+      "imageRequests": 6,
+      "imageBytes": 47357,
+      "brokenImages": 0,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "viewport": "390x844",
+      "lcp": 728,
+      "cls": 0,
+      "lcpSource": "",
+      "shifts": [],
+      "navigationMs": 2618.7999999970198,
+      "initialJavascriptGzipBytes": 184616,
+      "scriptFiles": 11,
+      "imageRequests": 3,
+      "imageBytes": 987,
+      "brokenImages": 0,
+      "thirdPartyOrigins": []
+    }
+  ]
+}

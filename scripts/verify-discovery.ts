@@ -147,7 +147,9 @@ try {
           "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
       })) {
         await page.goto(origin + path);
-        await expect(page.getByText("Development data").first()).toBeVisible();
+        await expect(
+          page.getByRole("complementary", { name: "Staging disclosure" }),
+        ).toBeVisible();
         assert(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth,

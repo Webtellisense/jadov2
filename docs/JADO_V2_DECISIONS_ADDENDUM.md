@@ -115,3 +115,7 @@ Everything in Jado verification depends on this. Google reviews each request its
 Founder-approved: feature branch -> staging -> main; staging is permanent review/integration, main is future production. Normal staging routes read DATABASE_URL and render labelled namespaced fixtures without Preview flags or Basic auth. Production uses separate unseeded infrastructure/credentials. Seed requires ALLOW_DEV_SEED=true; targeted undo preserves real records. See PRD section 14 and DEPLOYMENT.md. M1 remains closed.
 
 **D12 — founder acceptance clarification, 16 November 2026:** Local implementation and verification suffice for feat/staging-workflow code completion. Remote database verification is an operational deployment step outside Codex; EAI_AGAIN is an accepted execution-environment limitation, not a code acceptance blocker. Commit the feature branch; do not merge main or start M1.
+
+## 9. D13 — approved M0.5 visual refinement
+
+PRD15 supersedes repeated per-card Development data labels: retain one quiet staging/demo disclosure outside main content and internal fixture provenance. Preserve stable IDs, additive migrations and genuine records. Image-led identities, galleries and post-type media limits are approved only for the prototype. No real business publishing, engagement, Google verification/reviews or M1. Feature branch requires founder visual approval before staging merge.

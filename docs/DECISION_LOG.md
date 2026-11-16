@@ -1,5 +1,21 @@
 # Technical decisions
 
+## PostgreSQL connection timeout investigation — 16 November 2026
+
+- The shared node-postgres pool allowed 5 seconds to connect or wait for a pool slot, while the founder's successful direct-client test allowed 15 seconds. Increased the pool timeout to 15 seconds for migrations and application reads; retained the maximum of five connections, idle timeout, URL-based TLS and existing pool lifecycle. This is a plausible explanation for the reported timeout, not a confirmed remote root cause: the workspace cannot resolve the Supabase pooler (EAI_AGAIN).
+- A delayed TCP handshake regression verifies that the pool does not abort at five seconds and remains bounded. The existing integration suite exercises migrations and pool shutdown against disposable local PostgreSQL. The shared migration, seed and staging UI checks remain pending until the staging host is reachable; no shared database reset or seed was performed here.
+
+## M0.5 visual polish — 16 November 2026
+
+- Created feat/m05-visual-polish from staging 1147e29; no staging/main merge or deployment. PRD15/D13 records the founder-approved imagery, fixture-field and disclosure changes before implementation.
+- Preserve the existing relational seed namespace and stable IDs. Add nullable presentation fields and validate deterministic seed content, including type-specific media limits; update only known namespaced fixtures and never genuine records.
+- Populated performance traces identified a mobile image URL replacement during hydration and a streamed Feed footer shift. Local image variants now use canonical tier URLs with mobile device sizes; the loading/main region reserves one viewport so the outside-main disclosure/footer cannot jump out of view during streaming. Fixed contact grid tracks prevent a font-swap profile-header wrap.
+- Original vector logos and generated local photographs carry a provenance manifest. Responsive WebP variants avoid third-party browser requests; shared media components use fixed aspect ratios, accessible galleries and Data Saver. No paid service integration, verification or engagement backend is introduced.
+- Final checks: typecheck/lint/standalone build exit 0; 55 unit, 32 PostgreSQL integration, 21 focused browser tests and 12 optimised discovery checks pass. Sixty captures cover fifteen views at 320/390/768/1280 px; all recorded zero broken images, page overflow and Axe violations. Intentional image failure/reload recovery is captured separately.
+- Populated local production-build measurements (390 px, 4× CPU, throttled connection) show LCP 0.720–1.064 s and CLS 0–0.01219. Initial JavaScript is 184,616 gzip bytes, above the Brain's approximate 170 KB guide; human screen-reader/visual approval remains pending. See M05_VISUAL_POLISH_ACCEPTANCE.md and evidence/m05-visual-polish/index.md for commands, scope and limits.
+- No shared Supabase migration/seed/reset or Vercel deployment was performed. The remote read attempt failed DNS in this environment. Under D12, shared enrichment/deployed confirmation is an operational step after visual approval, not a claim made from local captures. Leave additive columns in place for application rollback; never reset staging as a shortcut. Main and M1 remain untouched.
+
+
 ## Verification runner shutdown fix — 16 November 2026
 
 - `verify:staging` loads `.env` automatically. Existing process environment takes precedence; no database migration or seed is part of verification. Removed the anonymous PATCH probe so all HTTP verification is GET-only.

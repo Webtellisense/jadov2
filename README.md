@@ -85,7 +85,7 @@ See [technical decisions](docs/DECISION_LOG.md), [security boundaries](docs/SECU
 
 Permanent workflow: **feature branch -> staging -> main**. Staging is the continuously deployed integration/review branch; main is reserved for future production. Feature branches are temporary and merge into staging after acceptance.
 
-Normal Explore, Search, Feed, Profile and Compare routes read DATABASE_URL. The fixture seed supplies exactly ten namespaced fictional businesses and twenty structured posts to the shared staging database, visibly labelled Development data. There is no private Preview mode or reviewer login. Production uses separate unseeded infrastructure and credentials; never seed production. Existing sign-in/RBAC boundaries still protect account actions. M1 has not started.
+Normal Explore, Search, Feed, Profile and Compare routes read DATABASE_URL. The fixture seed supplies exactly ten namespaced fictional businesses and twenty structured posts to the shared staging database, identified by one quiet staging/demo disclosure outside main content. There is no private Preview mode or reviewer login. Production uses separate unseeded infrastructure and credentials; never seed production. Existing sign-in/RBAC boundaries still protect account actions. M1 has not started.
 
 With staging DATABASE_URL in your ignored .env:
 
@@ -99,3 +99,11 @@ ALLOW_DEV_SEED=true npm run db:prototype:undo
 Open `/?area=Uyo`, `/search?area=Uyo&q=ring+light`, `/feed?area=Uyo`, `/b/amber-roof?area=Uyo`, `/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak`, and `/design`.
 
 See [deployment and exact verification workflow](docs/DEPLOYMENT.md). Local checks use isolated databases and are sufficient for this code branch under founder decision D12. Remote database and live deployment verification are operational steps performed outside Codex, not code acceptance blockers. See [current status](docs/STAGING_WORKFLOW_ACCEPTANCE.md).
+
+## M0.5 visual refinement
+
+The ten stable fixture businesses now have original logos, locally generated WebP photographs, gallery media, representative details/hours, services and safe example contacts. There are still no Google ratings, reviews or verified badges, and Message/Like/Follow retain their existing sign-in gates and unavailable states.
+
+Review the additive migration `0002_m05_visual_media.sql` and [deployment notes](docs/DEPLOYMENT.md). Once visual approval is given, normal migration + explicitly opted-in prototype seeding enrich the same namespaced records without replacing genuine records. No shared database reset is required.
+
+[Visual acceptance report](docs/M05_VISUAL_POLISH_ACCEPTANCE.md) · [four-width screenshot index](docs/evidence/m05-visual-polish/index.md). `npm run measure:populated` measures the existing enriched DATABASE_URL without migrating or seeding; `npm run test:discovery` uses a disposable local database and also records populated performance. No paid image host or transformation API is used.

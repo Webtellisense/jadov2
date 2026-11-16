@@ -16,16 +16,21 @@ try {
   const migrations = readMigrationFiles({
     migrationsFolder: "./db/migrations",
   });
-  if (history.rows.length !== 2 || history.rows[1].hash !== migrations[1].hash)
+  if (
+    history.rows.length !== 3 ||
+    migrations.length !== 3 ||
+    history.rows.some((row, index) => row.hash !== migrations[index].hash)
+  )
     throw new Error(
       "Prototype rollback requires exactly the known M0 and M0.5 migrations.",
     );
   await client.query(
     "DROP TABLE development_post, development_business, development_category",
   );
-  await client.query("DELETE FROM drizzle.__drizzle_migrations WHERE hash=$1", [
-    migrations[1].hash,
-  ]);
+  await client.query(
+    "DELETE FROM drizzle.__drizzle_migrations WHERE hash = ANY($1::text[])",
+    [migrations.slice(1, 3).map((m) => m.hash)],
+  );
   await client.query("COMMIT");
   console.log("Prototype schema rolled back. M0 tables and data preserved.");
 } catch (error) {

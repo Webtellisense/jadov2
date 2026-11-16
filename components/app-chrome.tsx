@@ -104,6 +104,14 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
       >
         {children}
       </main>
+      <aside
+        className="wrap staging-disclosure"
+        aria-label="Staging disclosure"
+      >
+        Staging demo · Businesses, imagery, addresses and contact details are
+        representative examples. No Google verification or real customer
+        activity is implied.
+      </aside>
       {!staff && !gallery && (
         <>
           <footer className="site-footer wrap">

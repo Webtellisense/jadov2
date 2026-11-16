@@ -98,3 +98,11 @@
   --font-heading:
     "Jado Bricolage Currency", var(--font-bricolage), Arial, sans-serif;
 }
+:root {
+  --logo-size: 48px;
+  --logo-large: 88px;
+  --gallery-max: 900px;
+  --profile-cover-ratio: 16 / 7;
+  --media-square: 1;
+  --media-landscape: 4 / 3;
+}

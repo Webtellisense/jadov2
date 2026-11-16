@@ -83,3 +83,11 @@ git push -u origin staging
 ```
 
 These commands never switch or merge main. Run them from a clean checkout. A divergent local staging branch causes the fast-forward update to stop; resolve that separately without resetting unpublished work.
+
+## M0.5 visual polish feature branch
+
+`feat/m05-visual-polish` adds reviewed migration `0002_m05_visual_media.sql`: nullable JSONB presentation fields on `development_business` and `development_post` only. Review/approval precedes a staging merge. The standard migration and explicitly opted-in prototype seed enrich the existing ten stable IDs in place; no table reset or genuine-record overwrite is required. Do not seed production.
+
+Once the founder approves visuals, deploy the migration before the updated application and repeat the prototype seed against the intended staging database. Rolling application code back can leave the additive nullable columns and fixture metadata in place; older code ignores them. Do not drop columns or reset shared staging as a rollback shortcut. Namespaced fixture undo remains a separate explicit operation which removes its own fixture dataset, not a routine deployment step.
+
+Seeded contact links use reserved `.example` domains, and phone examples are deliberately not dialable. They exercise layouts without contacting unrelated real businesses. Google fields/reviews remain unavailable, with no verified badges. Live publishing, uploads, likes, messages and M1 remain out of scope.

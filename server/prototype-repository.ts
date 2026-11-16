@@ -75,6 +75,7 @@ export async function readPrototype(
       neighbourhood: b.neighbourhood,
       description: b.description,
       tagline: b.tagline,
+      presentation: b.presentation,
       tags: b.tags,
       createdAt: b.createdAt,
     })
