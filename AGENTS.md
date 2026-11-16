@@ -3,13 +3,14 @@
 Jado v2 is built by Webtellisense Consult. Codex reads this file automatically. Keep it in the repo root.
 
 ## Source of truth (read in full before any milestone)
-Docs live in `/docs`. Read in this order, then check the decisions file last because it wins on any conflict:
+Docs live in `/docs`. Read in this order. The decisions addendum wins on product scope, integration and policy; the Brain wins on look, feel and interaction patterns **only within approved milestone scope**:
 1. JADO_V2_MASTER_PRD.md
 2. JADO_V2_SCREEN_MAP.md
 3. JADO_V2_ARCHITECTURE.md
 4. JADO_V2_MILESTONES_ACCEPTANCE.md
 5. JADO_V2_CODEX_HANDOFF.md
-6. JADO_V2_DECISIONS_ADDENDUM.md (overrides the others)
+6. JADO_V2_UI_UX_BRAIN.md (binding for all look, feel, layout and UX behaviour **within the current milestone**)
+7. JADO_V2_DECISIONS_ADDENDUM.md (overrides the others on product, stack and policy)
 
 If a file is missing, ask. Never invent its contents.
 
@@ -27,6 +28,19 @@ Jado is an owner-verified local business discovery, structured feed, comparison,
 8. Every state-changing action is checked on the server for sign-in, permission, input validation and abuse limits. No secrets in git.
 9. Owners must complete sign-in and Google authorization on their own device. Staff may guide, but never act as the owner.
 10. If a consequential product decision is missing, ask. Do not invent it. Log every technical decision in `/docs/DECISION_LOG.md`.
+11. **Verified-only public supply:** never automatically publish businesses discovered through Google Places. Google results can appear as potential matches during owner onboarding, not as Jado public listings. A public business must have authorized Google Business Profile management access verified for the matching location. The owner-claim flow must support alternate Google accounts, manager invitations, Google ownership requests and Jado help while retaining a pending application.
+12. **Separate trust and activity:** every public business is verified, but a verification badge never indicates posting consistency, response speed, popularity or service quality. Any additional activity badge must use genuine defined metrics and have founder-approved thresholds; no invented or gamified badges in M0.5.
+13. **Development data:** M0.5 includes exactly ten fictional business fixtures in a dedicated, reversible, idempotent **development-only PostgreSQL seed**. Load them through normal server/database pathways for interactive search, feed and compare prototypes. All demo records and metrics must carry a visible "Development data" label and be inaccessible in production or public staging. Never display them as actual Google-verified businesses or live customer activity. Without real verified records, public Explore has an honest empty state.
+
+## UI and UX rule
+Before writing any UI, read `docs/JADO_V2_UI_UX_BRAIN.md`. Build tokens and a development-only `/design` component gallery **for components needed by the approved milestone**, then assemble screens from those components. Every milestone report must include screenshots at 320, 390, 768 and 1280 px plus the Screen Definition of Done checklist (UI/UX Brain section 11). Explore opens on search, location and business content when eligible records exist—not a marketing paragraph or sign-in prompt. M0.5 may use plainly marked fictional database records in a private preview; public launch must show genuine verified businesses only.
+
+## M0.5 is an interactive prototype, not a reset
+- Preserve M0 authentication, PostgreSQL, RBAC, security and tests. Do not restart the app from scratch, replace its architecture or reset/decommission existing databases.
+- Work against the approved M0.5 acceptance contract: functional selection, filtering, comparison, navigation, sign-in-gate returns and accurate states over ten seeded fictional records in a restricted development environment. Prototype interactions must truly work; avoid static screenshots and dead CTAs.
+- Do not claim that Google ownership verification, live publishing, live analytics or Jado messaging are operational before M1, M2, M3 or M4 respectively. Demonstrate clear blocked/empty states instead.
+- The existing milestone document mentions AI and Learn shells, but the later decisions addendum explicitly defers **M5 AI and M6 Learn**; do not expose their launch navigation or implement them without founder approval. If a milestone acceptance item conflicts, flag it explicitly and propose a documentation amendment before coding.
+- Finish the current milestone, provide an evidence-based report and stop for the founder's visual acceptance.
 
 ## Way of working
 - Before coding: state what exists, give a short plan (routes, data changes, tests, risks, external blockers).
