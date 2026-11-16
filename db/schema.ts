@@ -172,3 +172,63 @@ export const mutationLimit = pgTable(
   },
   (table) => [check("mutation_count_positive", sql`${table.count} > 0`)],
 );
+
+// M0.5 private prototype data, never verification evidence or production supply.
+export const developmentCategory = pgTable("development_category", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  icon: text("icon").notNull(),
+  seedKey: text("seed_key").notNull(),
+});
+export const developmentBusiness = pgTable(
+  "development_business",
+  {
+    id: text("id").primaryKey(),
+    slug: text("slug").notNull().unique(),
+    name: text("name").notNull(),
+    categoryId: text("category_id")
+      .notNull()
+      .references(() => developmentCategory.id),
+    city: text("city").notNull(),
+    neighbourhood: text("neighbourhood").notNull(),
+    description: text("description").notNull(),
+    tagline: text("tagline").notNull(),
+    tags: text("tags").array().notNull(),
+    seedKey: text("seed_key").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("development_business_category_idx").on(t.categoryId),
+    check("development_business_seed", sql`${t.seedKey} = 'jado-m05-v1'`),
+  ],
+);
+export const developmentPost = pgTable(
+  "development_post",
+  {
+    id: text("id").primaryKey(),
+    businessId: text("business_id")
+      .notNull()
+      .references(() => developmentBusiness.id, { onDelete: "cascade" }),
+    type: text("type", {
+      enum: ["service", "offer", "arrival", "update", "event", "portfolio"],
+    }).notNull(),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    tags: text("tags").array().notNull(),
+    priceNaira: integer("price_naira"),
+    publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    seedKey: text("seed_key").notNull(),
+  },
+  (t) => [
+    index("development_post_business_idx").on(t.businessId),
+    check(
+      "development_price_positive",
+      sql`${t.priceNaira} is null or ${t.priceNaira} >= 0`,
+    ),
+    check(
+      "development_post_type",
+      sql`${t.type} in ('service','offer','arrival','update','event','portfolio')`,
+    ),
+  ],
+);

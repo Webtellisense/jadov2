@@ -1,0 +1,25 @@
+{
+  "method": "fontTools TTFont cmap inspection; currency faces are restricted to U+20A6 in CSS",
+  "fonts": [
+    {
+      "file": "public/fonts/bricolage.woff2",
+      "naira_U20A6": false,
+      "sha256": "a97804dc9fbe5fc972a08018c5eda4dab7ef2346f64c57e61419d05e6de4ea1c"
+    },
+    {
+      "file": "public/fonts/bricolage-currency.woff2",
+      "naira_U20A6": true,
+      "sha256": "e808f16b56f84dc7933e498cc8a41d4a5cd853adc6eef154584baa5de1008b15"
+    },
+    {
+      "file": "public/fonts/inter.woff2",
+      "naira_U20A6": false,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "file": "public/fonts/inter-currency.woff2",
+      "naira_U20A6": true,
+      "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956"
+    }
+  ]
+}

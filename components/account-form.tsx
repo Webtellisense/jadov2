@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useHydrated } from "@/lib/use-hydrated";
 export function AccountForm({ initialName }: { initialName: string }) {
+  const ready = useHydrated();
   const router = useRouter();
   const [name, setName] = useState(initialName);
   const [pending, setPending] = useState(false);
@@ -10,6 +12,8 @@ export function AccountForm({ initialName }: { initialName: string }) {
   return (
     <form
       className="form-stack"
+      method="post"
+      action="/api/account/name"
       onSubmit={async (event) => {
         event.preventDefault();
         setPending(true);
@@ -55,7 +59,7 @@ export function AccountForm({ initialName }: { initialName: string }) {
         required
         autoComplete="name"
       />
-      <button type="submit" className="button" disabled={pending}>
+      <button type="submit" className="button" disabled={pending || !ready}>
         {pending ? "Saving…" : "Save name"}
       </button>
       {message && (

@@ -36,6 +36,8 @@ export async function withIsolatedDatabase(
       ALLOW_DEV_SEED: "true",
       DEV_SEED_PASSWORD: randomBytes(24).toString("base64url"),
       NODE_ENV: "test",
+      APP_ENV: "local",
+      DEV_PREVIEW_ENABLED: "true",
     };
     await run(process.execPath, ["--import", "tsx", "db/migrate.ts"], env);
     await work(env);

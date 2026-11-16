@@ -78,6 +78,8 @@ Stop point: present screenshots/log summaries of working local skeleton and test
 
 ## 5. M0.5 — Interactive public experience
 
+**16 November 2026 precedence amendment:** AGENTS.md, the UI/UX Brain and Decisions Addendum D6/D7 supersede the older shell list below. M0.5 excludes AI/Learn navigation and screens. It preserves M0 and adds a restricted local interactive PostgreSQL prototype with exactly ten fictional businesses, an idempotent/reversible seed, SQL-backed search/filter/feed/comparison, a development-only design gallery, honest future-feature shells, and four-width visual/accessibility evidence. No Google authorization, publishing, engagement/analytics or messaging backend is activated. Public production/staging excludes fictional records and shows an honest empty state until genuine authorized supply exists. Visual acceptance is still required before M1.
+
 **Outcome:** Explore-first UX approved before deep integrations.
 
 Deliver:

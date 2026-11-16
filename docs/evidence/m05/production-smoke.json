@@ -1,0 +1,75 @@
+{
+  "environment": "Local optimised production runtime over loopback HTTP; HTTPS configured for auth policy, actual deployment/TLS is not claimed.",
+  "fixtureDatabase": "Disposable local PostgreSQL with genuine fixture credentials and all ten fictional businesses.",
+  "previewFlagIntentionallyTrue": true,
+  "checks": [
+    {
+      "name": "real PostgreSQL health",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "production denies /dev?area=Uyo",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "name": "production denies /dev/b/amber-roof?area=Uyo",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "name": "production denies /design",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "name": "production denies /api/dev/discovery?area=Uyo",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "name": "public HTML remains empty despite fixture records and demo query",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "public API excludes all fixtures",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "production rejects valid fixture credentials",
+      "status": 403,
+      "pass": true
+    },
+    {
+      "name": "standalone font asset inter.woff2",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "standalone font asset bricolage.woff2",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "standalone font asset inter-currency.woff2",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "standalone font asset bricolage-currency.woff2",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "name": "standalone contains no local dotenv files",
+      "pass": true
+    },
+    {
+      "name": "public JavaScript has no fixture business names",
+      "pass": true
+    }
+  ]
+}

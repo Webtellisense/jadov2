@@ -20,9 +20,33 @@ export default async function Admin() {
     );
   }
   return (
-    <PageState title="Staff access confirmed">
-      Your administrator permission was checked on the server. Staff operations
-      will be introduced in later milestones.
-    </PageState>
+    <>
+      <PageState title="Staff access confirmed">
+        Your administrator permission was checked on the server. Staff
+        operations will be introduced in later milestones.
+      </PageState>
+      <nav className="owner-nav" aria-label="Staff sections">
+        {["Claims", "Businesses", "Moderation", "Support", "Security"].map(
+          (x) => (
+            <a className="chip" href={`#${x.toLowerCase()}`} key={x}>
+              {x}
+            </a>
+          ),
+        )}
+      </nav>
+      <div className="gallery-grid">
+        {["Claims", "Businesses", "Moderation", "Support", "Security"].map(
+          (x) => (
+            <section className="panel" id={x.toLowerCase()} key={x}>
+              <h2>{x}</h2>
+              <p>
+                No operational records are connected in this milestone. No
+                verification, moderation or role changes can be made here.
+              </p>
+            </section>
+          ),
+        )}
+      </div>
+    </>
   );
 }

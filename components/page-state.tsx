@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AreaLink as Link } from "./area-link";
 export function PageState({
   title,
   children,

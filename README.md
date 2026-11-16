@@ -1,8 +1,8 @@
 # Jado v2
 
-M0 foundation: Next.js App Router, strict TypeScript, PostgreSQL 17, Drizzle migrations and Better Auth sessions. Only the welcome, sign-in, account and protected staff foundation screens are implemented. Public registration and all external providers are unavailable.
+M0 foundation plus the M0.5 interactive UI prototype: Next.js App Router, strict TypeScript, PostgreSQL 17, Drizzle migrations and Better Auth sessions. Public registration and all external providers remain unavailable. The restricted development preview is described below.
 
-Read [AGENTS.md](AGENTS.md) and the six documents in its specified order. The Decisions Addendum requires PostgreSQL from M0 and limits launch to M0–M4. Implementation proceeds one accepted milestone at a time.
+Read [AGENTS.md](AGENTS.md) and all seven documents in its specified order. The Decisions Addendum requires PostgreSQL from M0 and limits launch to M0–M4. Implementation proceeds one accepted milestone at a time.
 
 ## Local setup
 
@@ -28,7 +28,7 @@ No user or business is seeded by default. To opt into clearly labeled local fixt
 ALLOW_DEV_SEED=true npm run db:seed
 ```
 
-Sign in with `consumer@example.invalid` or `admin@example.invalid` and the generated DEV_SEED_PASSWORD in your own ignored `.env`. The admin fixture exercises staff guards; neither account can verify a business. The only business fixture is pending with a deliberately invalid Google identifier. Do not publish fixtures or share the local password.
+Sign in with `consumer@example.invalid` or `admin@example.invalid` and the generated DEV_SEED_PASSWORD in your own ignored `.env`. The admin fixture exercises staff guards; neither account can verify a business. That M0 seed creates one pending-claim fixture with a deliberately invalid Google identifier; the ten-profile M0.5 dataset is a separate opt-in seed. Do not publish fixtures or share the local password.
 
 ```bash
 ALLOW_DEV_SEED=true npm run db:seed:undo
@@ -59,6 +59,7 @@ npm run test:integration
 npx playwright install chromium  # only if no compatible Chromium is installed
 npm run test:e2e
 NEXT_TELEMETRY_DISABLED=1 npm run build
+npm run test:production
 npm start
 ```
 
@@ -79,3 +80,44 @@ docker build --secret "id=proxy_ca,src=$NODE_EXTRA_CA_CERTS" -t jado-v2:m0 .
 TLS verification remains enabled and the CA is not copied into the image. A production host/provider and deployment are not selected or activated in M0. Health and production authentication must be verified against the eventual hosting configuration before release.
 
 See [technical decisions](docs/DECISION_LOG.md), [security boundaries](docs/SECURITY.md) and [M0 acceptance evidence](docs/M0_ACCEPTANCE.md) for scope and limitations.
+
+## M0.5 interactive UI prototype
+
+The current branch preserves M0 and adds an **authenticated local development preview**, not a live business directory. Read the UI/UX Brain and Decisions Addendum in the order in AGENTS.md. AI and Learn are intentionally absent from launch navigation.
+
+After the existing local setup and migrations, set these values in your ignored `.env`:
+
+```dotenv
+APP_ENV=local
+DEV_PREVIEW_ENABLED=true
+```
+
+Then run:
+
+```bash
+ALLOW_DEV_SEED=true npm run db:seed
+ALLOW_DEV_SEED=true npm run db:prototype:seed
+npm run dev
+```
+
+Sign in through `/sign-in` with a local fixture account, then open `/design` to inspect the component gallery or `/dev?area=Uyo` to explore the prototype. `/account` also links to both when authorised. The dedicated dataset contains exactly ten fictional businesses across seven categories and twenty typed posts (one expired offer). Names, prices and post dates are fictional and visibly labelled **Development data**. Google ratings, verified badges, genuine activity metrics and fabricated contact numbers are absent. Category illustrations stand in for unavailable owner photos.
+
+Search and filters run through the PostgreSQL repository; area, category, query, post type, offer filter, sort and comparison selections use URLs. Choose two or three businesses to compare. Message, Follow and Like preserve the intended business/post through authentication, then explain which milestone will connect the action. No fake write occurs. Owner and admin screens remain protected, honest shells.
+
+Public routes remain open without sign-in after an area choice. They show an honest empty state; the M0 foundation has no activated public profiles yet. `/api/discovery` never falls back to development records. Production denies `/dev`, `/design`, the private API and fixture sign-in even if a preview flag was accidentally retained. Never run `next dev` as a public staging or production service.
+
+Reversible operations:
+
+```bash
+ALLOW_DEV_SEED=true npm run db:prototype:undo
+ALLOW_DEV_SEED=true npm run db:prototype:seed
+# Optional schema reversal, disposable local database only:
+ALLOW_DEV_SEED=true CONFIRM_PROTOTYPE_ROLLBACK=true npm run db:prototype:rollback
+npm run db:migrate
+```
+
+Seed undo removes only the ten-record prototype namespace and its dependent posts/categories, preserving M0 auth, users, pending business and audit data. Schema rollback removes the three prototype tables only when the known two-migration history matches. The existing initial-M0 rollback remains separately guarded.
+
+The full `test:e2e` command now captures all major screens at 320/390/768/1280px in `docs/evidence/m05/`; no external service is activated. See `docs/M05_ACCEPTANCE.md` for the final acceptance evidence and deviations. Visual founder approval is required before M1.
+
+`npm run test:production` starts the optimised standalone runtime against an isolated PostgreSQL database seeded with fixtures, proves production denies them, checks packaged fonts/secrets, measures four public routes under a throttled mobile profile, and shuts down the test server/database. It does not deploy or access a production account.

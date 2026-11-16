@@ -24,9 +24,11 @@ test("anonymous browse, authentication gate and unavailable auth flows", async (
 }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Good businesses.",
+    "Where are you looking?",
   );
-  await page.getByRole("link", { name: "My account" }).click();
+  await page.getByRole("link", { name: "Account", exact: true }).click();
+  await expect(page).toHaveURL("/account");
+  await page.getByRole("link", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/sign-in\?next=/);
   expect((await page.request.get("/api/me")).status()).toBe(401);
   expect((await page.request.get("/api/auth/get-session")).status()).toBe(401);

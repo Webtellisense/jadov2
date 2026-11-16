@@ -1,7 +1,9 @@
-import { cpSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 const output = ".next/standalone";
+if (existsSync("public"))
+  cpSync("public", join(output, "public"), { recursive: true });
 cpSync(".next/static", join(output, ".next/static"), { recursive: true });
 // Next.js traces local dotenv files into standalone output. Runtime secrets
 // belong in the deployment environment, never in the packaged artifact.

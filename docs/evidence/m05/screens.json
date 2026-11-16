@@ -1,0 +1,709 @@
+{
+  "note": "Private screenshots show explicitly fictional Development data; no live integration or verified supply is claimed.",
+  "screens": [
+    {
+      "name": "location",
+      "route": "/location",
+      "files": [
+        {
+          "width": 320,
+          "file": "location-320.png"
+        },
+        {
+          "width": 390,
+          "file": "location-390.png"
+        },
+        {
+          "width": 768,
+          "file": "location-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "location-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "public-empty",
+      "route": "/?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "public-empty-320.png"
+        },
+        {
+          "width": 390,
+          "file": "public-empty-390.png"
+        },
+        {
+          "width": 768,
+          "file": "public-empty-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "public-empty-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "sign-in",
+      "route": "/sign-in",
+      "files": [
+        {
+          "width": 320,
+          "file": "sign-in-320.png"
+        },
+        {
+          "width": 390,
+          "file": "sign-in-390.png"
+        },
+        {
+          "width": 768,
+          "file": "sign-in-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "sign-in-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "account",
+      "route": "/account",
+      "files": [
+        {
+          "width": 320,
+          "file": "account-320.png"
+        },
+        {
+          "width": 390,
+          "file": "account-390.png"
+        },
+        {
+          "width": 768,
+          "file": "account-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "account-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "explore",
+      "route": "/dev?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "explore-320.png"
+        },
+        {
+          "width": 390,
+          "file": "explore-390.png"
+        },
+        {
+          "width": 768,
+          "file": "explore-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "explore-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "route": "/dev/search?area=Uyo&q=ring+light",
+      "files": [
+        {
+          "width": 320,
+          "file": "search-320.png"
+        },
+        {
+          "width": 390,
+          "file": "search-390.png"
+        },
+        {
+          "width": 768,
+          "file": "search-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "search-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "category",
+      "route": "/dev/explore/solar?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "category-320.png"
+        },
+        {
+          "width": 390,
+          "file": "category-390.png"
+        },
+        {
+          "width": 768,
+          "file": "category-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "category-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "route": "/dev/b/amber-roof?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "profile-320.png"
+        },
+        {
+          "width": 390,
+          "file": "profile-390.png"
+        },
+        {
+          "width": 768,
+          "file": "profile-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "profile-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "profile-selected",
+      "route": "/dev/b/amber-roof?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+      "files": [
+        {
+          "width": 320,
+          "file": "profile-selected-320.png"
+        },
+        {
+          "width": 390,
+          "file": "profile-selected-390.png"
+        },
+        {
+          "width": 768,
+          "file": "profile-selected-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "profile-selected-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "profile-reviews",
+      "route": "/dev/b/amber-roof?area=Uyo&tab=reviews",
+      "files": [
+        {
+          "width": 320,
+          "file": "profile-reviews-320.png"
+        },
+        {
+          "width": 390,
+          "file": "profile-reviews-390.png"
+        },
+        {
+          "width": 768,
+          "file": "profile-reviews-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "profile-reviews-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "profile-details",
+      "route": "/dev/b/amber-roof?area=Uyo&tab=details",
+      "files": [
+        {
+          "width": 320,
+          "file": "profile-details-320.png"
+        },
+        {
+          "width": 390,
+          "file": "profile-details-390.png"
+        },
+        {
+          "width": 768,
+          "file": "profile-details-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "profile-details-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "post",
+      "route": "/dev/posts/demo-pocket-beam-post?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "post-320.png"
+        },
+        {
+          "width": 390,
+          "file": "post-390.png"
+        },
+        {
+          "width": 768,
+          "file": "post-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "post-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "expired-post",
+      "route": "/dev/posts/demo-sunward-offer?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "expired-post-320.png"
+        },
+        {
+          "width": 390,
+          "file": "expired-post-390.png"
+        },
+        {
+          "width": 768,
+          "file": "expired-post-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "expired-post-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "feed",
+      "route": "/dev/feed?area=Uyo&type=arrival",
+      "files": [
+        {
+          "width": 320,
+          "file": "feed-320.png"
+        },
+        {
+          "width": 390,
+          "file": "feed-390.png"
+        },
+        {
+          "width": 768,
+          "file": "feed-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "feed-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "compare-builder",
+      "route": "/dev/compare?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "compare-builder-320.png"
+        },
+        {
+          "width": 390,
+          "file": "compare-builder-390.png"
+        },
+        {
+          "width": 768,
+          "file": "compare-builder-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "compare-builder-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "compare-result",
+      "route": "/dev/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "files": [
+        {
+          "width": 320,
+          "file": "compare-result-320.png"
+        },
+        {
+          "width": 390,
+          "file": "compare-result-390.png"
+        },
+        {
+          "width": 768,
+          "file": "compare-result-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "compare-result-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "messages",
+      "route": "/dev/messages?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "messages-320.png"
+        },
+        {
+          "width": 390,
+          "file": "messages-390.png"
+        },
+        {
+          "width": 768,
+          "file": "messages-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "messages-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "notifications",
+      "route": "/dev/notifications?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "notifications-320.png"
+        },
+        {
+          "width": 390,
+          "file": "notifications-390.png"
+        },
+        {
+          "width": 768,
+          "file": "notifications-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "notifications-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "following",
+      "route": "/dev/following?area=Uyo",
+      "files": [
+        {
+          "width": 320,
+          "file": "following-320.png"
+        },
+        {
+          "width": 390,
+          "file": "following-390.png"
+        },
+        {
+          "width": 768,
+          "file": "following-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "following-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-onboarding",
+      "route": "/owner/onboarding",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-onboarding-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-onboarding-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-onboarding-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-onboarding-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-today",
+      "route": "/owner/today",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-today-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-today-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-today-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-today-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-posts",
+      "route": "/owner/posts",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-posts-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-posts-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-posts-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-posts-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-inbox",
+      "route": "/owner/inbox",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-inbox-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-inbox-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-inbox-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-inbox-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-insights",
+      "route": "/owner/insights",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-insights-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-insights-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-insights-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-insights-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-profile",
+      "route": "/owner/profile",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-profile-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-profile-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-profile-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-profile-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "owner-share",
+      "route": "/owner/share",
+      "files": [
+        {
+          "width": 320,
+          "file": "owner-share-320.png"
+        },
+        {
+          "width": 390,
+          "file": "owner-share-390.png"
+        },
+        {
+          "width": 768,
+          "file": "owner-share-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "owner-share-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "route": "/admin",
+      "files": [
+        {
+          "width": 320,
+          "file": "admin-320.png"
+        },
+        {
+          "width": 390,
+          "file": "admin-390.png"
+        },
+        {
+          "width": 768,
+          "file": "admin-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "admin-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "verification",
+      "route": "/verification",
+      "files": [
+        {
+          "width": 320,
+          "file": "verification-320.png"
+        },
+        {
+          "width": 390,
+          "file": "verification-390.png"
+        },
+        {
+          "width": 768,
+          "file": "verification-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "verification-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "help",
+      "route": "/help",
+      "files": [
+        {
+          "width": 320,
+          "file": "help-320.png"
+        },
+        {
+          "width": 390,
+          "file": "help-390.png"
+        },
+        {
+          "width": 768,
+          "file": "help-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "help-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "privacy",
+      "route": "/privacy",
+      "files": [
+        {
+          "width": 320,
+          "file": "privacy-320.png"
+        },
+        {
+          "width": 390,
+          "file": "privacy-390.png"
+        },
+        {
+          "width": 768,
+          "file": "privacy-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "privacy-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "not-found",
+      "route": "/missing-page",
+      "files": [
+        {
+          "width": 320,
+          "file": "not-found-320.png"
+        },
+        {
+          "width": 390,
+          "file": "not-found-390.png"
+        },
+        {
+          "width": 768,
+          "file": "not-found-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "not-found-1280.png"
+        }
+      ]
+    },
+    {
+      "name": "gallery",
+      "route": "/design",
+      "files": [
+        {
+          "width": 320,
+          "file": "gallery-320.png"
+        },
+        {
+          "width": 390,
+          "file": "gallery-390.png"
+        },
+        {
+          "width": 768,
+          "file": "gallery-768.png"
+        },
+        {
+          "width": 1280,
+          "file": "gallery-1280.png"
+        }
+      ]
+    }
+  ]
+}

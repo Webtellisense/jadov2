@@ -2,14 +2,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { safeReturnPath } from "@/lib/navigation";
+import { useHydrated } from "@/lib/use-hydrated";
 
 export function SignInForm({ next }: { next: string }) {
   const router = useRouter();
+  const ready = useHydrated();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   return (
     <form
       className="form-stack"
+      method="post"
+      action="/api/auth/sign-in/email"
       onSubmit={async (event) => {
         event.preventDefault();
         setError("");
@@ -64,7 +68,7 @@ export function SignInForm({ next }: { next: string }) {
           {error}
         </p>
       )}
-      <button className="button" type="submit" disabled={pending}>
+      <button className="button" type="submit" disabled={pending || !ready}>
         {pending ? "Signing in…" : "Sign in"}
       </button>
       <p className="muted fine">

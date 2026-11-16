@@ -1,5 +1,13 @@
 # Technical decisions
 
+## M0.5 — 16 November 2026
+
+- Baseline: fast-forwarded the clean task checkout to `origin/feat/m0-5-ux` (4556151), including M0 (9c830df); no reset or database replacement.
+- Precedence: the approved Brain controls visual interactions within M0.5; Addendum D6/D7 controls launch scope and PostgreSQL. The milestone shell list is amended to exclude AI/Learn. This records existing approved instructions, not new product scope.
+- Design: one CSS token file, self-hosted Bricolage Grotesque/Inter via next/font/local, Lucide icons, accessible native dialogs and a local authenticated `/design` gallery before screen assembly. Fictional media use clearly identified local category illustrations; no Google imagery, ratings or verification is invented.
+- Preview isolation: dedicated development tables and a separate `/dev` namespace. Preview requires explicit local opt-in, a loopback development database and application origin, a nonproduction/nonstaging runtime, and an active development-identity session. Every read rechecks this boundary. Public services never query development tables. No query parameter enables demo data.
+- Prototype state: area, filters, selection and safe intended actions are shareable URLs; data-saver is a local browser preference. The seed has stable IDs, collision checks, a namespace, transactions and targeted undo. It leaves M0 identities/pending fixture and auth/RBAC intact. Message/follow/like continuation shows a truthful milestone-blocked state without creating engagement or sending a message.
+
 ## M0 — 15 November 2026
 
 - **Scope:** Foundation only. The six supplied specifications remain the source of truth; the Decisions Addendum wins conflicts. M0.5 and later work require separate acceptance.
@@ -11,3 +19,13 @@
 - **Fixtures:** Local-only, opt-in seeds are labeled in database rows and the sign-in screen, cannot activate businesses, are reversible, and are rejected by production authentication and application guards. Integration/E2E suites create isolated temporary PostgreSQL databases and tear them down.
 - **Portability:** A standalone Docker image and loopback-only development Compose service are provided. No production host, mail provider, object store, background daemon or paid plan is selected. The app requires a bounded database connection pool; future background work must use scheduled jobs, as specified in Addendum 2a.
 - **UI:** System fonts and local CSS tokens avoid third-party font requests. This milestone contains a minimal welcome, sign-in, account and protected staff screen, with error/loading/not-found states. Explore/Feed/Compare/product shells are M0.5 work.
+
+- Contrast verification found teal text on the specified pale teal at 4.19:1, below AA. VerifiedBadge therefore uses the unchanged teal-600 fill with white text, which passes AA. Development cards never use it.
+
+- Browser tests exposed pre-hydration interaction races. Authentication/account forms now explicitly use POST, and JS-dependent controls stay disabled until hydrated, preventing credential submission in a URL. Comparison selection uses React optimistic transitions with the URL as its authoritative state. Unknown public paths use explicit App Router routes to retain genuine 404 responses. The preserved sign-in route hosts a native accessible sheet rather than replacing M0 auth.
+
+- Binary font cmap inspection found U+20A6 absent in both Latin subsets and present in their original Latin-extended files. Those unmodified OFL files provide a CSS unicode-range U+20A6 fallback only; Inter and Bricolage remain the normal next/font/local families. No system-font assumption is needed for naira prices.
+- Preview routes also fail closed before streaming through a narrowly matched Next.js proxy; page/API/service guards remain authoritative. Disabled previews receive HTTP 404 without rendering fixture content. Area links preserve the coarse area in the URL without adding location storage. Native dialog focus loops, shared comparison transitions and stacked profile/tray offsets were exercised in browser checks.
+- Desktop comparisons use the same fictional evidence in a semantic table; mobile uses contained swipeable cards. Category icons provide explicit no-logo/no-photo placeholders. Prices and offer dates are read from database records and formatted for Africa/Lagos; no fictional Google review, contact number, quality signal or response metric is supplied.
+
+- Final validation: 57 unit, 31 real PostgreSQL integration and 30 browser tests pass; 128 captures at four widths. Optimised local production tests deny fixture pages/API/login even with fixtures present and the preview flag true. Public empty-route lab metrics are recorded separately from the private populated preview; no populated production performance claim is made. No paid transport or deployment was activated.

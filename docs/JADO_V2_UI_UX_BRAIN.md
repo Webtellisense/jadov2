@@ -337,3 +337,7 @@ A hero paragraph or brand statement above businesses · sign-in as the main butt
 
 ## 14. Change control
 Any change to colour, type, navigation or a component's behaviour is recorded in `/docs/DECISION_LOG.md` with the reason. When the real Webtellisense identity arrives, only the tokens file, wordmark and icon are replaced. If a screen needs a pattern not defined here, add it to the gallery and this document first, then use it.
+
+### M0.5 implementation clarification, 16 November 2026
+
+The preserved `/sign-in?next=...` route hosts the shared native modal sheet. It traps focus, supports Escape/continue-browsing and retains the exact safe action URL. Provider and registration controls remain explicitly unavailable per M0 rather than simulating Google or email OTP. JS-dependent controls start disabled until hydration; authentication forms explicitly use POST even before JavaScript is ready. Local illustration fallbacks contain no claimed owner photographs.

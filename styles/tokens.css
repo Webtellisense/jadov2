@@ -1,0 +1,100 @@
+:root {
+  --ink-900: #1b1740;
+  --ink-700: #3b3766;
+  --ink-500: #5e5b80;
+  --ink-400: #8c8aa6;
+  --sunrise-500: #ffb020;
+  --sunrise-600: #f29900;
+  --sunrise-100: #fff1d6;
+  --coral-600: #d6382e;
+  --coral-100: #ffe6e3;
+  --teal-600: #0a7d91;
+  --teal-100: #ddf3f7;
+  --whatsapp-600: #0a7a3c;
+  --bg: #fffbf5;
+  --surface: #fff;
+  --sand-100: #f6efe3;
+  --border: #e9e1d3;
+  --success-text: #17703d;
+  --success-bg: #e4f5ea;
+  --warning-text: #8a5200;
+  --warning-bg: #fff1d6;
+  --danger-text: #b42318;
+  --beauty-tint: #f3e6fa;
+  --home-tint: #e3eeff;
+  --fashion-tint: #ffe9f1;
+  --education-tint: #e7f4e0;
+  --auto-tint: #eaeaf2;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-card: 16px;
+  --radius-control: 12px;
+  --radius-pill: 999px;
+  --radius-sheet: 24px;
+  --text-display: 32px;
+  --text-h1: 26px;
+  --text-h2: 20px;
+  --text-h3: 17px;
+  --text-body: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+  --line-body: 1.45;
+  --line-heading: 1.15;
+  --tracking-heading: -0.035em;
+  --control-height: 48px;
+  --target-min: 44px;
+  --icon-size: 20px;
+  --icon-small: 16px;
+  --icon-large: 40px;
+  --overlay: #1b174080;
+  --shadow-card: 0 1px 2px #1b17400f;
+  --shadow-tray: 0 -8px 24px #1b17401a;
+  --page-max: 1200px;
+  --reading-max: 70ch;
+  --form-max: 480px;
+  --feed-max: 640px;
+  --card-featured: 260px;
+  --card-thumb: 96px;
+  --nav-height: 72px;
+  --header-height: 72px;
+  --tray-height: 80px;
+  --focus-width: 2px;
+  --hairline: 1px;
+  --motion: 180ms ease-out;
+  --grid-mobile: 1fr;
+  --grid-tablet: repeat(2, minmax(0, 1fr));
+  --grid-desktop: repeat(3, minmax(0, 1fr));
+}
+@media (min-width: 768px) {
+  :root {
+    --text-display: 44px;
+    --text-h1: 34px;
+    --text-h2: 26px;
+    --text-h3: 20px;
+  }
+}
+/* These unmodified OFL subsets are selected only for the missing naira glyph. */
+@font-face {
+  font-family: "Jado Inter Currency";
+  src: url("/fonts/inter-currency.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+20A6;
+}
+@font-face {
+  font-family: "Jado Bricolage Currency";
+  src: url("/fonts/bricolage-currency.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+20A6;
+}
+:root {
+  --font-body: "Jado Inter Currency", var(--font-inter), Arial, sans-serif;
+  --font-heading:
+    "Jado Bricolage Currency", var(--font-bricolage), Arial, sans-serif;
+}
