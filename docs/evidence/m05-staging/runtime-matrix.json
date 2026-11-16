@@ -1,0 +1,219 @@
+{
+  "environment": "Local optimised Next.js runtime, isolated PostgreSQL; no Vercel account or production database accessed.",
+  "checks": [
+    {
+      "scenario": "production",
+      "name": "CLI seed refused before writing",
+      "pass": true
+    },
+    {
+      "scenario": "disabledSeed",
+      "name": "CLI seed refused before writing",
+      "pass": true
+    },
+    {
+      "scenario": "productionDatabase",
+      "name": "CLI seed refused before writing",
+      "pass": true
+    },
+    {
+      "scenario": "production",
+      "name": "/dev?area=Uyo&JADO_STAGING_PREVIEW_ENABLED=true",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "production",
+      "name": "/design",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "production",
+      "name": "/api/dev/discovery?area=Uyo&preview=true",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "production",
+      "name": "public API remains verified-only and empty",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "production",
+      "name": "public homepage never imports fixtures",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-disabled",
+      "name": "/dev?area=Uyo&JADO_STAGING_PREVIEW_ENABLED=true",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "preview-disabled",
+      "name": "/design",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "preview-disabled",
+      "name": "/api/dev/discovery?area=Uyo&preview=true",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "scenario": "preview-disabled",
+      "name": "public API remains verified-only and empty",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-disabled",
+      "name": "public homepage never imports fixtures",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "/dev?area=Uyo&JADO_STAGING_PREVIEW_ENABLED=true",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "/design",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "/api/dev/discovery?area=Uyo&preview=true",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "public API remains verified-only and empty",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "public homepage never imports fixtures",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "unauthenticated /dev?area=Uyo denied",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "unauthenticated /design denied",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "unauthenticated /api/dev/discovery?area=Uyo denied",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "all ten DB businesses and twenty posts, labelled and no-store",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "reviewer credentials grant no Jado account access or mutations",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "explore at 320px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "profile at 320px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "compare at 320px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "read-only at 320px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "explore at 390px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "profile at 390px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "compare at 390px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "read-only at 390px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "explore at 768px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "profile at 768px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "compare at 768px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "read-only at 768px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "explore at 1280px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "profile at 1280px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "compare at 1280px: accessible, labelled, no overflow",
+      "pass": true
+    },
+    {
+      "scenario": "preview-enabled",
+      "name": "read-only at 1280px: accessible, labelled, no overflow",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "context": "Disposable local PostgreSQL; not live staging",
+  "application": "Local optimised runtime, normal routes",
+  "businesses": [
+    {
+      "id": "demo-amber-roof",
+      "slug": "amber-roof"
+    },
+    {
+      "id": "demo-daybreak",
+      "slug": "daybreak"
+    },
+    {
+      "id": "demo-sunward",
+      "slug": "sunward"
+    },
+    {
+      "id": "demo-pepper-clay",
+      "slug": "pepper-clay"
+    },
+    {
+      "id": "demo-crumb-cove",
+      "slug": "crumb-cove"
+    },
+    {
+      "id": "demo-soft-hour",
+      "slug": "soft-hour"
+    },
+    {
+      "id": "demo-tidy-nest",
+      "slug": "tidy-nest"
+    },
+    {
+      "id": "demo-thread-lane",
+      "slug": "thread-lane"
+    },
+    {
+      "id": "demo-little-ladder",
+      "slug": "little-ladder"
+    },
+    {
+      "id": "demo-pocket-beam",
+      "slug": "pocket-beam"
+    }
+  ],
+  "posts": 20,
+  "checks": [
+    "Anonymous normal discovery returns all ten SQL fixture businesses",
+    "Search: Amber Roof Solar",
+    "Search: Solar and power",
+    "Search: inverter diagnostics",
+    "Search: ring light",
+    "Anonymous account reads/writes remain denied",
+    "All ten normal profile routes open",
+    "Explore card opens profile",
+    "Populated Feed links to post detail",
+    "Search refresh and compare selection persist in URL",
+    "Two/three business comparison renders seeded prices",
+    "20 normal-route captures at 320/390/768/1280; labels and no page overflow"
+  ]
+}

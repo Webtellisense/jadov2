@@ -62,7 +62,7 @@ export function DevelopmentNotice({ compact = false }: { compact?: boolean }) {
       <strong>Development data</strong>
       {!compact && (
         <span>
-          Fictional businesses · private prototype · no Google verification
+          Fictional businesses · development prototype · no Google verification
         </span>
       )}
     </div>

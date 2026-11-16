@@ -6,21 +6,11 @@ import {
   developmentPost as p,
 } from "@/db/schema";
 import type { DiscoveryData, Filters } from "@/lib/discovery";
-import { assertActive, type Principal } from "./authorization";
-import { previewEnabled } from "@/lib/preview-policy";
-import { AppError } from "./errors";
 export async function readPrototype(
   db: Database,
-  principal: Principal | null,
   filters: Filters,
-  env: Record<string, string | undefined> = process.env,
   now = new Date(),
 ): Promise<DiscoveryData> {
-  if (!previewEnabled(env))
-    throw new AppError(404, "NOT_FOUND", "This page is unavailable.");
-  assertActive(principal, false);
-  if (!principal.isFixture)
-    throw new AppError(403, "FORBIDDEN", "Development identity required.");
   const predicates = [eq(b.seedKey, "jado-m05-v1")];
   if (filters.area) predicates.push(eq(b.city, filters.area));
   else predicates.push(sql`false`);

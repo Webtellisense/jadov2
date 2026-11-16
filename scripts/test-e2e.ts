@@ -12,7 +12,6 @@ await withIsolatedDatabase(async (env) => {
       ...env,
       NODE_ENV: "development",
       APP_ENV: "local",
-      DEV_PREVIEW_ENABLED: "true",
       APP_ORIGIN: "http://localhost:3100",
     },
   );

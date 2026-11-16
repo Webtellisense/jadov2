@@ -1,6 +1,6 @@
 # Jado v2
 
-M0 foundation plus the M0.5 interactive UI prototype: Next.js App Router, strict TypeScript, PostgreSQL 17, Drizzle migrations and Better Auth sessions. Public registration and all external providers remain unavailable. The restricted development preview is described below.
+M0 foundation plus the M0.5 interactive UI prototype: Next.js App Router, strict TypeScript, PostgreSQL 17, Drizzle migrations and Better Auth sessions. Public registration and all external providers remain unavailable. The shared staging workflow is described below.
 
 Read [AGENTS.md](AGENTS.md) and all seven documents in its specified order. The Decisions Addendum requires PostgreSQL from M0 and limits launch to M0–M4. Implementation proceeds one accepted milestone at a time.
 
@@ -59,7 +59,7 @@ npm run test:integration
 npx playwright install chromium  # only if no compatible Chromium is installed
 npm run test:e2e
 NEXT_TELEMETRY_DISABLED=1 npm run build
-npm run test:production
+npm run test:discovery
 npm start
 ```
 
@@ -81,43 +81,21 @@ TLS verification remains enabled and the CA is not copied into the image. A prod
 
 See [technical decisions](docs/DECISION_LOG.md), [security boundaries](docs/SECURITY.md) and [M0 acceptance evidence](docs/M0_ACCEPTANCE.md) for scope and limitations.
 
-## M0.5 interactive UI prototype
+## M0.5 shared staging workflow
 
-The current branch preserves M0 and adds an **authenticated local development preview**, not a live business directory. Read the UI/UX Brain and Decisions Addendum in the order in AGENTS.md. AI and Learn are intentionally absent from launch navigation.
+Permanent workflow: **feature branch -> staging -> main**. Staging is the continuously deployed integration/review branch; main is reserved for future production. Feature branches are temporary and merge into staging after acceptance.
 
-After the existing local setup and migrations, set these values in your ignored `.env`:
+Normal Explore, Search, Feed, Profile and Compare routes read DATABASE_URL. The fixture seed supplies exactly ten namespaced fictional businesses and twenty structured posts to the shared staging database, visibly labelled Development data. There is no private Preview mode or reviewer login. Production uses separate unseeded infrastructure and credentials; never seed production. Existing sign-in/RBAC boundaries still protect account actions. M1 has not started.
 
-```dotenv
-APP_ENV=local
-DEV_PREVIEW_ENABLED=true
-```
-
-Then run:
+With staging DATABASE_URL in your ignored .env:
 
 ```bash
-ALLOW_DEV_SEED=true npm run db:seed
-ALLOW_DEV_SEED=true npm run db:prototype:seed
-npm run dev
-```
-
-Sign in through `/sign-in` with a local fixture account, then open `/design` to inspect the component gallery or `/dev?area=Uyo` to explore the prototype. `/account` also links to both when authorised. The dedicated dataset contains exactly ten fictional businesses across seven categories and twenty typed posts (one expired offer). Names, prices and post dates are fictional and visibly labelled **Development data**. Google ratings, verified badges, genuine activity metrics and fabricated contact numbers are absent. Category illustrations stand in for unavailable owner photos.
-
-Search and filters run through the PostgreSQL repository; area, category, query, post type, offer filter, sort and comparison selections use URLs. Choose two or three businesses to compare. Message, Follow and Like preserve the intended business/post through authentication, then explain which milestone will connect the action. No fake write occurs. Owner and admin screens remain protected, honest shells.
-
-Public routes remain open without sign-in after an area choice. They show an honest empty state; the M0 foundation has no activated public profiles yet. `/api/discovery` never falls back to development records. Production denies `/dev`, `/design`, the private API and fixture sign-in even if a preview flag was accidentally retained. Never run `next dev` as a public staging or production service.
-
-Reversible operations:
-
-```bash
-ALLOW_DEV_SEED=true npm run db:prototype:undo
-ALLOW_DEV_SEED=true npm run db:prototype:seed
-# Optional schema reversal, disposable local database only:
-ALLOW_DEV_SEED=true CONFIRM_PROTOTYPE_ROLLBACK=true npm run db:prototype:rollback
 npm run db:migrate
+ALLOW_DEV_SEED=true npm run db:prototype:seed
+# Targeted reversal:
+ALLOW_DEV_SEED=true npm run db:prototype:undo
 ```
 
-Seed undo removes only the ten-record prototype namespace and its dependent posts/categories, preserving M0 auth, users, pending business and audit data. Schema rollback removes the three prototype tables only when the known two-migration history matches. The existing initial-M0 rollback remains separately guarded.
+Open `/?area=Uyo`, `/search?area=Uyo&q=ring+light`, `/feed?area=Uyo`, `/b/amber-roof?area=Uyo`, `/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak`, and `/design`.
 
-The full `test:e2e` command now captures all major screens at 320/390/768/1280px in `docs/evidence/m05/`; no external service is activated. See `docs/M05_ACCEPTANCE.md` for the final acceptance evidence and deviations. Visual founder approval is required before M1.
-
-`npm run test:production` starts the optimised standalone runtime against an isolated PostgreSQL database seeded with fixtures, proves production denies them, checks packaged fonts/secrets, measures four public routes under a throttled mobile profile, and shuts down the test server/database. It does not deploy or access a production account.
+See [deployment and exact verification workflow](docs/DEPLOYMENT.md). Local checks use isolated databases and are sufficient for this code branch under founder decision D12. Remote database and live deployment verification are operational steps performed outside Codex, not code acceptance blockers. See [current status](docs/STAGING_WORKFLOW_ACCEPTANCE.md).

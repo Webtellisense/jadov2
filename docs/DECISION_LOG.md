@@ -1,5 +1,23 @@
 # Technical decisions
 
+## Permanent staging workflow — 16 November 2026
+
+- D12: founder explicitly accepted local verification for code completion and requested all changes committed on feat/staging-workflow. No main merge or M1 work; remote database verification remains an operational step outside Codex.
+
+- Founder decision PRD14/D11 supersedes the protected Preview follow-up below. feature branch -> staging -> main. No branch merge or deployment is implied by local implementation.
+- Use DATABASE_URL for all discovery reads. Normal anonymous routes render namespaced fixtures actually present in that database; no Vercel gates, HTTP Basic, separate fixture URL or reserved database names. Main must use separate production infrastructure/credentials with no fixture seed.
+- ALLOW_DEV_SEED=true is the explicit CLI control; no automatic build/request seeding. Namespaced idempotent seed and targeted undo preserve genuine application records and never confer verification. M0 auth/mutation guards remain.
+- Validation: 48 unit, 31 real PostgreSQL integration, 8 focused browser and 12 optimised discovery checks pass locally; 20 captures at four widths. Types/lint/build pass. The founder-supplied shared Supabase hostname fails DNS (EAI_AGAIN, including enabled network/elevated lookup); no successful remote migration/seed or actual-staging UI verification is claimed. No staging merge, push or Vercel mapping change occurred; the founder subsequently accepted this as an execution-environment limitation (D12): code acceptance is complete on local evidence; remote verification is an operational deployment step outside Codex. See STAGING_WORKFLOW_ACCEPTANCE.md.
+
+
+## M0.5 — protected Vercel Preview follow-up, 16 November 2026
+
+- The founder explicitly authorised protected Vercel Preview reads, superseding the prior blanket staging ban; recorded in PRD section 13 and Addendum D10 before code changes. Production's verified-only empty discovery and all Google/business activation rules are retained.
+- `VERCEL_ENV=production` takes precedence over every local/preview flag. Preview requires the exact pair `VERCEL_ENV=preview` and `JADO_STAGING_PREVIEW_ENABLED=true`; NODE_ENV=production is expected for optimised Preview builds. Request input never selects the mode. The pair is also necessary for local fixture UI; DEV_PREVIEW_ENABLED alone cannot expose data. Local session-backed access remains available only with the pair plus the original local/database guards.
+- Preview uses a high-entropy server-only HTTP Basic reviewer credential, constant-time comparison, no-store/noindex responses and a private `/dev`/`/design` namespace. This gives read-only prototype access without opening fixture Jado logins or granting owner/admin privileges. Vercel Deployment Protection may additionally protect the deployment; no paid protection tier is required by the code.
+- Fixtures use `JADO_STAGING_DATABASE_URL`, never an implicit production DATABASE_URL fallback. A reserved `jado_preview`/`jado_preview_*` database name, explicit matching seed confirmation, actual PostgreSQL identity checks and rejection of real users/businesses protect the staging seed. Runtime and seed both fail closed on production context. Existing local seeding and M0 data remain unchanged.
+- Final local validation: 91 unit, 37 PostgreSQL integration and 10 focused browser regressions passed; 39 optimised staging/runtime checks and 14 existing production checks passed. Sixteen new screenshots cover four widths. Types, lint and production build passed. All hosted environment checks use a local optimised runtime and disposable database; no actual Vercel configuration/deployment, production access or spend occurred. See `M05_STAGING_ACCEPTANCE.md` and `VERCEL_PREVIEW.md`; live Preview setup and visual acceptance remain pending.
+
 ## M0.5 — 16 November 2026
 
 - Baseline: fast-forwarded the clean task checkout to `origin/feat/m0-5-ux` (4556151), including M0 (9c830df); no reset or database replacement.

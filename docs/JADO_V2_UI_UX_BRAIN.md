@@ -341,3 +341,11 @@ Any change to colour, type, navigation or a component's behaviour is recorded in
 ### M0.5 implementation clarification, 16 November 2026
 
 The preserved `/sign-in?next=...` route hosts the shared native modal sheet. It traps focus, supports Escape/continue-browsing and retains the exact safe action URL. Provider and registration controls remain explicitly unavailable per M0 rather than simulating Google or email OTP. JS-dependent controls start disabled until hydration; authentication forms explicitly use POST even before JavaScript is ready. Local illustration fallbacks contain no claimed owner photographs.
+
+### Founder review hosting exception, 16 November 2026
+
+PRD section 13/Addendum D10 now allow the same labelled M0.5 fixtures in a password-protected Vercel Preview with the exact two server-side flags. This supersedes the earlier blanket staging exclusion only for this private founder review. Production stays fixture-free; no new look/feel or verified badge is introduced. Hosted reviewer access is read-only and is not consumer/owner authentication.
+
+### Current staging override (PRD14 / D11)
+
+The founder now requires the ten labelled fixtures on normal staging routes. This supersedes all private/local-only and Preview-password requirements above. Layout/tokens and visible Development data labels remain; staging uses its shared DATABASE_URL, future production uses a separate unseeded database. No M1 is authorised.

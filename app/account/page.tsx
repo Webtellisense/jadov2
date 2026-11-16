@@ -7,7 +7,6 @@ import { getRuntime } from "@/server/runtime";
 import { AppError } from "@/server/errors";
 import { DataSaver } from "@/components/discovery-interactions";
 import { BackLink, ButtonLink, PageHeading } from "@/components/ui/core";
-import { previewEnabled } from "@/lib/preview-policy";
 export const dynamic = "force-dynamic";
 export default async function Account() {
   const requestHeaders = await headers();
@@ -68,13 +67,13 @@ export default async function Account() {
           Privacy and account help
         </Link>
       </div>
-      {principal.isFixture && previewEnabled() && (
+      {principal.isFixture && (
         <div className="notice preview-entry">
-          <strong>Private prototype</strong>
-          <p>Ten fictional businesses stored in local PostgreSQL.</p>
+          <strong>Development workspace</strong>
+          <p>Ten fictional businesses stored in the development database.</p>
           <div className="flex-wrap">
-            <ButtonLink href="/dev?area=Uyo" variant="secondary">
-              Open development preview
+            <ButtonLink href="/?area=Uyo" variant="secondary">
+              Explore development data
             </ButtonLink>
             <ButtonLink href="/design" variant="secondary">
               Component gallery

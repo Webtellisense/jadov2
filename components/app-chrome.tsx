@@ -39,7 +39,7 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
   const selection = useComparison();
   const path = usePathname(),
     params = useSearchParams();
-  const prefix = path.startsWith("/dev") ? "/dev" : "";
+  const prefix = "";
   const area = params.get("area") || "";
   const staff = path.startsWith("/admin");
   const gallery = path === "/design";
@@ -69,7 +69,7 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           <Link className="brand" href="/">
             jado<span className="brand-dot">.</span>
           </Link>
-          <Link className="back-link" href={gallery ? "/dev" : "/account"}>
+          <Link className="back-link" href={gallery ? "/" : "/account"}>
             <ArrowLeft aria-hidden="true" />
             Back to {gallery ? "preview" : "account"}
           </Link>

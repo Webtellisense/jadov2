@@ -16,18 +16,9 @@ import {
 import { seedDevelopment } from "@/db/seed-data";
 import { readPrototype } from "@/server/prototype-repository";
 import { parseFilters } from "@/lib/discovery";
-import type { Principal } from "@/server/authorization";
 const { db, pool } = connectDatabase(process.env.DATABASE_URL!);
-const principal: Principal = {
-  id: "dev-consumer",
-  email: "consumer@example.invalid",
-  name: "Development consumer",
-  role: "consumer",
-  state: "active",
-  isFixture: true,
-};
 const query = (values: Record<string, string> = {}) =>
-  readPrototype(db, principal, parseFilters({ area: "Uyo", ...values }));
+  readPrototype(db, parseFilters({ area: "Uyo", ...values }));
 beforeAll(async () => {
   await seedDevelopment(db);
   await seedPrototype(db);
@@ -91,37 +82,15 @@ it("sorts from stored names, creation dates and sample post timestamps", async (
   const active = await query({ sort: "active" });
   expect(active.businesses).toHaveLength(10);
 });
-it("rejects anonymous, suspended and nonfixture access to development reads", async () => {
-  await expect(
-    readPrototype(db, null, parseFilters({ area: "Uyo" })),
-  ).rejects.toMatchObject({ status: 401 });
-  await expect(
-    readPrototype(
-      db,
-      { ...principal, state: "suspended" },
-      parseFilters({ area: "Uyo" }),
-    ),
-  ).rejects.toMatchObject({ status: 403 });
-  await expect(
-    readPrototype(
-      db,
-      { ...principal, isFixture: false },
-      parseFilters({ area: "Uyo" }),
-    ),
-  ).rejects.toMatchObject({ status: 403 });
-});
-it("rejects production and staging reads even with an authenticated fixture", async () => {
-  for (const override of [
-    { NODE_ENV: "production" },
-    { APP_ENV: "staging" },
-    { DEV_PREVIEW_ENABLED: "false" },
+it("supports anonymous database-backed discovery without environment switches", async () => {
+  expect((await query()).businesses).toHaveLength(10);
+  for (const q of [
+    "Amber Roof Solar",
+    "Solar and power",
+    "inverter diagnostics",
+    "18-inch ring light kit",
   ])
-    await expect(
-      readPrototype(db, principal, parseFilters({ area: "Uyo" }), {
-        ...process.env,
-        ...override,
-      }),
-    ).rejects.toMatchObject({ status: 404 });
+    expect((await query({ q })).businesses.length).toBeGreaterThan(0);
 });
 it("fails closed on seed collisions without partial changes", async () => {
   await db
@@ -138,15 +107,12 @@ it("fails closed on seed collisions without partial changes", async () => {
       .where(eq(developmentCategory.id, "solar"));
   }
 });
-it("guards seed and undo against production and nonlocal databases", async () => {
+it("refuses seed and undo without explicit opt-in", async () => {
   await expect(
-    seedPrototype(db, { ...process.env, NODE_ENV: "production" }),
+    seedPrototype(db, { ...process.env, ALLOW_DEV_SEED: "false" }),
   ).rejects.toThrow();
   await expect(
-    undoPrototype(db, {
-      ...process.env,
-      DATABASE_URL: "postgresql://jado@remote.invalid/jado_dev",
-    }),
+    undoPrototype(db, { ...process.env, ALLOW_DEV_SEED: "false" }),
   ).rejects.toThrow();
 });
 it("enforces relational ownership and allowed post types", async () => {
@@ -174,4 +140,26 @@ it("undo removes only the prototype namespace, preserves M0 and supports reseedi
   );
   await seedPrototype(db);
   expect((await query()).businesses).toHaveLength(10);
+});
+
+it("seed and undo preserve genuine businesses while coexisting", async () => {
+  await db
+    .insert(business)
+    .values({
+      id: "real-staging",
+      slug: "real-staging",
+      googlePlaceId: "test-real-id",
+      isFixture: false,
+      status: "pending",
+    });
+  try {
+    await seedPrototype(db);
+    await undoPrototype(db);
+    expect(
+      await db.select().from(business).where(eq(business.id, "real-staging")),
+    ).toHaveLength(1);
+    await seedPrototype(db);
+  } finally {
+    await db.delete(business).where(eq(business.id, "real-staging"));
+  }
 });

@@ -11,3 +11,6 @@ playwright-report/
 *.tsbuildinfo
 .local/
 *.log
+
+# Vercel CLI project linkage and deployment metadata stay local.
+.vercel/

@@ -1,0 +1,52 @@
+{
+  "runtime": "Optimised local production build, public empty data only; development preview is deliberately disabled in production.",
+  "profile": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "uploadBytesPerSecond": 93750,
+    "coldBrowserContext": true
+  },
+  "measurements": [
+    {
+      "path": "/?area=Uyo",
+      "viewport": "390x844",
+      "lcp": 692,
+      "cls": 0.008342114481843486,
+      "navigationMs": 2112.0999999996275,
+      "initialJavascriptGzipBytes": 174351,
+      "scriptFiles": 13,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/location",
+      "viewport": "390x844",
+      "lcp": 720,
+      "cls": 0,
+      "navigationMs": 2177.39999999851,
+      "initialJavascriptGzipBytes": 174351,
+      "scriptFiles": 13,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/search?area=Uyo&q=solar",
+      "viewport": "390x844",
+      "lcp": 640,
+      "cls": 0.012057936259480545,
+      "navigationMs": 2079.199999999255,
+      "initialJavascriptGzipBytes": 174351,
+      "scriptFiles": 13,
+      "thirdPartyOrigins": []
+    },
+    {
+      "path": "/compare?area=Uyo",
+      "viewport": "390x844",
+      "lcp": 768,
+      "cls": 0,
+      "navigationMs": 2206.300000000745,
+      "initialJavascriptGzipBytes": 170310,
+      "scriptFiles": 10,
+      "thirdPartyOrigins": []
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-import { requirePreview } from "@/server/preview";
 import {
   BackLink,
   Badge,
@@ -28,15 +27,13 @@ import { getRuntime } from "@/server/runtime";
 import { parseFilters } from "@/lib/discovery";
 export const dynamic = "force-dynamic";
 export default async function Design() {
-  const principal = await requirePreview("/design");
   const data = await readPrototype(
     getRuntime().db,
-    principal,
     parseFilters({ area: "Uyo" }),
   );
   return (
     <>
-      <BackLink href="/dev" />
+      <BackLink href="/" />
       <DevelopmentNotice />
       <PageHeading
         eyebrow="M0.5 · component library"
@@ -71,8 +68,8 @@ export default async function Design() {
         </section>
         <section className="panel">
           <h2>Find your next connection</h2>
-          <LocationChip area="Uyo" href="/dev/location" />
-          <SearchBar prefix="/dev" area="Uyo" />
+          <LocationChip area="Uyo" href="/location" />
+          <SearchBar prefix="" area="Uyo" />
           <label htmlFor="gallery-name">Business name</label>
           <input id="gallery-name" placeholder="Name" />
           <label htmlFor="gallery-notes">Notes</label>
@@ -156,7 +153,7 @@ export default async function Design() {
           <ComparisonTable
             businesses={data.businesses.slice(0, 2)}
             posts={data.posts}
-            prefix="/dev"
+            prefix=""
             area="Uyo"
             ids=""
           />
@@ -167,19 +164,19 @@ export default async function Design() {
           <ComparisonCard
             business={data.businesses[0]}
             posts={data.posts}
-            prefix="/dev"
+            prefix=""
             area="Uyo"
           />
           <BusinessCard
             business={data.businesses[0]}
             posts={data.posts}
-            prefix="/dev"
+            prefix=""
             area="Uyo"
           />
           <BusinessCard
             business={data.businesses[0]}
             posts={data.posts}
-            prefix="/dev"
+            prefix=""
             area="Uyo"
             featured
           />
@@ -189,7 +186,7 @@ export default async function Design() {
                 (p) => p.businessId === data.businesses[0].id,
               )!}
               business={data.businesses[0]}
-              prefix="/dev"
+              prefix=""
               area="Uyo"
             />
           )}
@@ -214,7 +211,7 @@ export default async function Design() {
             "suspended",
           ],
         ].map(([title, body, kind]) => (
-          <StateCard key={kind} title={title} kind={kind} href="/dev">
+          <StateCard key={kind} title={title} kind={kind} href="/">
             {body}
           </StateCard>
         ))}

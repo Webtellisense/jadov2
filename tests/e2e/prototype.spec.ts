@@ -18,30 +18,16 @@ async function login(page: Page, email = "consumer@example.invalid") {
   });
   expect(response.status()).toBe(200);
 }
-test("private records require sign-in and never enter public discovery", async ({
+test("normal discovery anonymously exposes labelled persisted fixtures", async ({
   page,
 }) => {
-  expect((await page.request.get("/api/dev/discovery?area=Uyo")).status()).toBe(
-    401,
-  );
-  await page.goto("/dev?area=Uyo");
-  await expect(page).toHaveURL(/sign-in\?next=/);
-  await login(page);
-  const privateData = await page.request.get("/api/dev/discovery?area=Uyo");
-  expect(privateData.status()).toBe(200);
-  expect((await privateData.json()).businesses).toHaveLength(10);
-  const publicData = await page.request.get(
-    "/api/discovery?area=Uyo&demo=true",
-  );
-  expect((await publicData.json()).businesses).toHaveLength(0);
-  await page.goto("/?area=Uyo&demo=true");
-  await expect(
-    page.getByRole("heading", { name: "No matching businesses yet" }),
-  ).toBeVisible();
-  await expect(page.getByText("Amber Roof Solar")).toHaveCount(0);
+  const result = await page.request.get("/api/discovery?area=Uyo");
+  expect((await result.json()).businesses).toHaveLength(10);
+  await page.goto("/?area=Uyo");
+  await expect(page.getByText("Development data").first()).toBeVisible();
   await page.goto("/b/amber-roof?area=Uyo");
   await expect(
-    page.getByRole("heading", { name: "We couldn’t find that page." }),
+    page.getByRole("heading", { name: "Amber Roof Solar", exact: true }),
   ).toBeVisible();
 });
 test("manual area and denied GPS both reach anonymous Explore", async ({
@@ -55,9 +41,7 @@ test("manual area and denied GPS both reach anonymous Explore", async ({
   await page.getByLabel("City or area").selectOption("Uyo");
   await page.getByRole("button", { name: "Explore this area" }).click();
   await expect(page).toHaveURL("/?area=Uyo");
-  await expect(
-    page.getByRole("heading", { name: "No matching businesses yet" }),
-  ).toBeVisible();
+  await expect(page.getByText("Development data").first()).toBeVisible();
 });
 test("GPS suggests Uyo without saving coordinates", async ({
   page,
@@ -80,7 +64,7 @@ test("SQL-backed search, filters and back/forward preserve the query", async ({
   page,
 }) => {
   await login(page);
-  await page.goto("/dev?area=Uyo");
+  await page.goto("/?area=Uyo");
   await page.getByRole("searchbox").fill("ring light");
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page).toHaveURL(/q=ring\+light/);
@@ -92,7 +76,7 @@ test("SQL-backed search, filters and back/forward preserve the query", async ({
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
-  await page.goto("/dev/search?area=Uyo");
+  await page.goto("/search?area=Uyo");
   await page.getByRole("button", { name: "Filters", exact: true }).click();
   await page.getByLabel("Category", { exact: true }).selectOption("solar");
   await page.getByLabel("Current offers only").check();
@@ -109,7 +93,7 @@ test("comparison selection prevents duplicates and a fourth selection", async ({
   page,
 }) => {
   await login(page);
-  await page.goto("/dev/search?area=Uyo");
+  await page.goto("/search?area=Uyo");
   for (const name of [
     "Amber Roof Solar",
     "Daybreak Power Studio",
@@ -135,7 +119,7 @@ test("comparison selection prevents duplicates and a fourth selection", async ({
   await expect(page.locator(".comparison-card").first()).toContainText(
     "Not available · no Google data",
   );
-  await page.goto("/dev/compare?area=Uyo&ids=demo-amber-roof,demo-amber-roof");
+  await page.goto("/compare?area=Uyo&ids=demo-amber-roof,demo-amber-roof");
   await expect(
     page.getByRole("heading", { name: "Check your search" }),
   ).toBeVisible();
@@ -146,7 +130,7 @@ for (const kind of ["message", "follow", "like"]) {
   }) => {
     await login(page);
     const post = kind === "like" ? "&post=demo-amber-roof-post" : "";
-    const target = `/dev/action?kind=${kind}&business=demo-amber-roof&area=Uyo${post}`;
+    const target = `/action?kind=${kind}&business=demo-amber-roof&area=Uyo${post}`;
     await page.context().clearCookies();
     await page.goto(target);
     await expect(page).toHaveURL(/sign-in\?next=/);
@@ -173,18 +157,18 @@ test("expired offer, unavailable profile, empty area and invalid input are hones
   page,
 }) => {
   await login(page);
-  await page.goto("/dev/posts/demo-sunward-offer?area=Uyo");
+  await page.goto("/posts/demo-sunward-offer?area=Uyo");
   await expect(page.getByText("This offer has ended")).toBeVisible();
-  await page.goto("/dev/search?area=Eket");
+  await page.goto("/search?area=Eket");
   await expect(
     page.getByRole("heading", { name: "No matching businesses yet" }),
   ).toBeVisible();
-  await page.goto("/dev/b/missing?area=Uyo");
+  await page.goto("/b/missing?area=Uyo");
   await expect(
     page.getByRole("heading", { name: "We couldn’t find that page." }),
   ).toBeVisible();
   expect(
-    (await page.request.get("/api/dev/discovery?area=Uyo&sort=bogus")).status(),
+    (await page.request.get("/api/discovery?area=Uyo&sort=bogus")).status(),
   ).toBe(400);
 });
 test("offline notice, data saver persistence and keyboard dialog access", async ({
@@ -202,7 +186,7 @@ test("offline notice, data saver persistence and keyboard dialog access", async 
     page.getByRole("alert").filter({ hasText: "offline" }),
   ).toBeVisible();
   await context.setOffline(false);
-  await page.goto("/dev/search?area=Uyo");
+  await page.goto("/search?area=Uyo");
   await page.getByRole("button", { name: "Filters", exact: true }).focus();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -223,7 +207,7 @@ test("copy and WhatsApp share preserve the comparison URL without contacting a p
 }) => {
   await login(page);
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-  await page.goto("/dev/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak");
+  await page.goto("/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak");
   await page.getByRole("button", { name: "Copy link", exact: true }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "Link copied" }),
@@ -256,7 +240,7 @@ test("real database wait and failure show skeletons, safe error and working retr
     "LOCK TABLE development_business IN ACCESS EXCLUSIVE MODE",
   );
   try {
-    await page.goto("/dev/search?area=Uyo", { waitUntil: "commit" });
+    await page.goto("/search?area=Uyo", { waitUntil: "commit" });
     await expect(
       page.getByRole("status", { name: "Loading businesses" }).first(),
     ).toBeVisible();
@@ -269,7 +253,7 @@ test("real database wait and failure show skeletons, safe error and working retr
     sql`ALTER TABLE development_category RENAME TO unavailable_category`,
   );
   try {
-    await page.goto("/dev/search?area=Uyo");
+    await page.goto("/search?area=Uyo");
     await expect(
       page.getByRole("heading", { name: "Something is unavailable." }),
     ).toBeVisible();
@@ -302,9 +286,7 @@ test("selected profile keeps its Message bar and comparison tray apart", async (
   await login(page);
   for (const width of [320, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto(
-      "/dev/b/amber-roof?area=Uyo&ids=demo-amber-roof,demo-daybreak",
-    );
+    await page.goto("/b/amber-roof?area=Uyo&ids=demo-amber-roof,demo-daybreak");
     const action = await page.locator(".action-bar").boundingBox();
     const tray = await page.locator(".compare-tray").boundingBox();
     expect(action && tray && action.y + action.height <= tray.y).toBe(true);
@@ -312,30 +294,30 @@ test("selected profile keeps its Message bar and comparison tray apart", async (
 });
 const screens: [string, string][] = [
   ["location", "/location"],
-  ["public-empty", "/?area=Uyo"],
+  ["public-empty", "/?area=Eket"],
   ["sign-in", "/sign-in"],
   ["account", "/account"],
-  ["explore", "/dev?area=Uyo"],
-  ["search", "/dev/search?area=Uyo&q=ring+light"],
-  ["category", "/dev/explore/solar?area=Uyo"],
-  ["profile", "/dev/b/amber-roof?area=Uyo"],
+  ["explore", "/?area=Uyo"],
+  ["search", "/search?area=Uyo&q=ring+light"],
+  ["category", "/explore/solar?area=Uyo"],
+  ["profile", "/b/amber-roof?area=Uyo"],
   [
     "profile-selected",
-    "/dev/b/amber-roof?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+    "/b/amber-roof?area=Uyo&ids=demo-amber-roof,demo-daybreak",
   ],
-  ["profile-reviews", "/dev/b/amber-roof?area=Uyo&tab=reviews"],
-  ["profile-details", "/dev/b/amber-roof?area=Uyo&tab=details"],
-  ["post", "/dev/posts/demo-pocket-beam-post?area=Uyo"],
-  ["expired-post", "/dev/posts/demo-sunward-offer?area=Uyo"],
-  ["feed", "/dev/feed?area=Uyo&type=arrival"],
-  ["compare-builder", "/dev/compare?area=Uyo"],
+  ["profile-reviews", "/b/amber-roof?area=Uyo&tab=reviews"],
+  ["profile-details", "/b/amber-roof?area=Uyo&tab=details"],
+  ["post", "/posts/demo-pocket-beam-post?area=Uyo"],
+  ["expired-post", "/posts/demo-sunward-offer?area=Uyo"],
+  ["feed", "/feed?area=Uyo&type=arrival"],
+  ["compare-builder", "/compare?area=Uyo"],
   [
     "compare-result",
-    "/dev/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+    "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
   ],
-  ["messages", "/dev/messages?area=Uyo"],
-  ["notifications", "/dev/notifications?area=Uyo"],
-  ["following", "/dev/following?area=Uyo"],
+  ["messages", "/messages?area=Uyo"],
+  ["notifications", "/notifications?area=Uyo"],
+  ["following", "/following?area=Uyo"],
   ["owner-onboarding", "/owner/onboarding"],
   ["owner-today", "/owner/today"],
   ["owner-posts", "/owner/posts"],

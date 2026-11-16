@@ -42,13 +42,11 @@ import {
   type BusinessRecord,
 } from "@/lib/discovery";
 import { safeReturnPath } from "@/lib/navigation";
-import { requirePreview } from "@/server/preview";
 import { getRuntime } from "@/server/runtime";
 import { readPrototype } from "@/server/prototype-repository";
-import { requirePrincipal } from "@/server/authorization";
+import { type Principal, requirePrincipal } from "@/server/authorization";
 import { AppError } from "@/server/errors";
 
-const blank: DiscoveryData = { businesses: [], posts: [], categories: [] };
 const routes = [
   "",
   "location",
@@ -804,20 +802,18 @@ function Compare({
 export async function DiscoveryScreen({
   path = [],
   query = {},
-  preview = false,
 }: {
   path?: string[];
   query?: Query;
-  preview?: boolean;
 }) {
-  const prefix = preview ? "/dev" : "";
+  const prefix = "";
   const key = path[0] ?? "";
   if (!routes.includes(key)) notFound();
   const nextPath = `${prefix}/${path.join("/")}${suffix(query)}`.replace(
     /^\/\?/,
     "/?",
   );
-  const principal = preview ? await requirePreview(nextPath) : null;
+  const principal: Principal | null = null;
   let filters: Filters;
   try {
     filters = parseFilters({
@@ -846,8 +842,7 @@ export async function DiscoveryScreen({
       typeof query.next === "string"
         ? safeReturnPath(query.next)
         : prefix || "/";
-    const next =
-      preview && (raw === "/account" || !raw.startsWith("/dev")) ? prefix : raw;
+    const next = raw;
     return (
       <div className="narrow">
         <BackLink href={prefix || "/"} />
@@ -859,14 +854,10 @@ export async function DiscoveryScreen({
       </div>
     );
   }
-  let data = blank,
-    all = blank;
-  if (preview) {
-    const db = getRuntime().db;
-    all = await readPrototype(db, principal, parseFilters({ area: "Uyo" }));
-    data = await readPrototype(db, principal, filters);
-  }
-  const notice = preview ? <DevelopmentNotice /> : null;
+  const { db } = getRuntime();
+  const all = await readPrototype(db, parseFilters({ area: "Uyo" }));
+  const data = await readPrototype(db, filters);
+  const notice = all.businesses.length ? <DevelopmentNotice /> : null;
   let content;
   if (key === "")
     content = <Explore data={data} prefix={prefix} filters={filters} />;
@@ -1005,7 +996,7 @@ export async function DiscoveryScreen({
   } else if (key === "compare")
     content = <Compare data={all} prefix={prefix} filters={filters} />;
   else if (["messages", "notifications", "following", "action"].includes(key)) {
-    let viewer = principal;
+    let viewer: Principal | null = principal;
     if (!viewer) {
       try {
         const { db, auth } = getRuntime();
@@ -1089,7 +1080,7 @@ export async function DiscoveryScreen({
     <>
       {notice}
       {content}
-      {preview && (
+      {all.businesses.length > 0 && (
         <CompareTray
           businesses={all.businesses.map((b) => ({ id: b.id, name: b.name }))}
           prefix={prefix}

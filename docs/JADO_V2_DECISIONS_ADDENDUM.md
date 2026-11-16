@@ -105,3 +105,13 @@ Everything in Jado verification depends on this. Google reviews each request its
 2. Meta business verification, WhatsApp Business Platform account and a dedicated number (section 3).
 3. Google Business Profile API application (section 4). This is the critical path.
 4. Founder confirmation of the monthly budget once free tiers are outgrown (suggest USD 15 to 25 per month for infrastructure, excluding WhatsApp).
+
+## 7. Historical M0.5 private Preview exception (superseded by D11)
+
+**D10 — 16 November 2026, founder-approved M0.5 follow-up:** Protected Vercel Preview fixture reads are allowed only with both `VERCEL_ENV=preview` and `JADO_STAGING_PREVIEW_ENABLED=true`, visible Development data labels, server-side reviewer authentication and a separate Preview database. Production remains fixture-free. A separately opted-in seed must refuse production deployment/database contexts. This narrow exception supersedes the earlier blanket staging ban; M1 and production verification rules are unchanged. See PRD section 13 and `VERCEL_PREVIEW.md`.
+
+## 8. D11 — permanent staging workflow (supersedes D10)
+
+Founder-approved: feature branch -> staging -> main; staging is permanent review/integration, main is future production. Normal staging routes read DATABASE_URL and render labelled namespaced fixtures without Preview flags or Basic auth. Production uses separate unseeded infrastructure/credentials. Seed requires ALLOW_DEV_SEED=true; targeted undo preserves real records. See PRD section 14 and DEPLOYMENT.md. M1 remains closed.
+
+**D12 — founder acceptance clarification, 16 November 2026:** Local implementation and verification suffice for feat/staging-workflow code completion. Remote database verification is an operational deployment step outside Codex; EAI_AGAIN is an accepted execution-environment limitation, not a code acceptance blocker. Commit the feature branch; do not merge main or start M1.

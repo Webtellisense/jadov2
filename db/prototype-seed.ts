@@ -1,7 +1,7 @@
 import { connectDatabase } from "./connection";
 import { seedPrototype, undoPrototype } from "./prototype-data";
-import { assertLocalDevelopmentDatabase } from "./dev-guard";
-assertLocalDevelopmentDatabase();
+import { assertPrototypeSeedAllowed } from "./prototype-guard";
+assertPrototypeSeedAllowed();
 const { db, pool } = connectDatabase(process.env.DATABASE_URL!);
 try {
   if (process.argv.includes("--undo")) {

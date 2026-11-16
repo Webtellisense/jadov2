@@ -1,37 +1,20 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
-import { previewEnabled } from "@/lib/preview-policy";
+import { assertPrototypeSeedAllowed } from "@/db/prototype-guard";
 import { comparisonIds, parseFilters, money } from "@/lib/discovery";
-const local = {
-  NODE_ENV: "test",
-  APP_ENV: "local",
-  DEV_PREVIEW_ENABLED: "true",
-  APP_ORIGIN: "http://localhost:3000",
-  DATABASE_URL: "postgresql://jado@127.0.0.1/jado_test_unit",
-};
-describe("private preview boundary", () => {
-  it("requires a local opted-in runtime", () => {
-    expect(previewEnabled(local)).toBe(true);
-    expect(previewEnabled({ ...local, DEV_PREVIEW_ENABLED: "false" })).toBe(
-      false,
-    );
-  });
-  for (const change of [
-    { NODE_ENV: "production" },
-    { APP_ENV: "staging" },
-    { APP_ENV: "production" },
-    { VERCEL: "1" },
-    { CI_PREVIEW: "true" },
-    { APP_ORIGIN: "https://public.example.invalid" },
-    { DATABASE_URL: "postgresql://jado@remote.invalid/jado_dev" },
-    { DATABASE_URL: "postgresql://jado@localhost/customers" },
-  ])
-    it(`rejects ${Object.keys(change)[0]}=${Object.values(change)[0]}`, () =>
-      expect(previewEnabled({ ...local, ...change })).toBe(false));
-  it("fails closed with missing or malformed configuration", () => {
-    expect(previewEnabled({})).toBe(false);
-    expect(previewEnabled({ ...local, APP_ORIGIN: "invalid" })).toBe(false);
-  });
+it("seed requires explicit opt-in and accepts an ordinary hosted staging URL", () => {
+  const env = {
+    ALLOW_DEV_SEED: "true",
+    DATABASE_URL: "postgresql://staging@host.example.invalid/postgres",
+    NODE_ENV: "production",
+  };
+  expect(() => assertPrototypeSeedAllowed(env)).not.toThrow();
+  expect(() =>
+    assertPrototypeSeedAllowed({ ...env, ALLOW_DEV_SEED: "false" }),
+  ).toThrow();
+  expect(() =>
+    assertPrototypeSeedAllowed({ ...env, DATABASE_URL: "" }),
+  ).toThrow();
 });
 describe("validated prototype input", () => {
   it("parses only known fields and bounds query size", () => {

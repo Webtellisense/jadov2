@@ -1,6 +1,6 @@
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, sql, notExists } from "drizzle-orm";
 import type { Database } from "./connection";
-import { assertLocalDevelopmentDatabase } from "./dev-guard";
+import { assertPrototypeSeedAllowed } from "./prototype-guard";
 import {
   developmentBusiness as businesses,
   developmentCategory as categories,
@@ -133,9 +133,11 @@ export async function seedPrototype(
   db: Database,
   env: Record<string, string | undefined> = process.env,
 ) {
-  assertLocalDevelopmentDatabase(env);
-  if (env.APP_ENV !== "local")
-    throw new Error("Prototype seed requires APP_ENV=local.");
+  assertPrototypeSeedAllowed(env);
+  return seedPrototypeRows(db);
+}
+
+async function seedPrototypeRows(db: Database) {
   await db.transaction(async (tx) => {
     for (const row of categoryRows) {
       const existing = await tx
@@ -230,10 +232,25 @@ export async function undoPrototype(
   db: Database,
   env: Record<string, string | undefined> = process.env,
 ) {
-  assertLocalDevelopmentDatabase(env);
-  if (env.APP_ENV !== "local")
-    throw new Error("Prototype undo requires APP_ENV=local.");
+  assertPrototypeSeedAllowed(env);
+  return undoPrototypeRows(db);
+}
+
+async function undoPrototypeRows(db: Database) {
   await db.transaction(async (tx) => {
+    const owned = await tx
+      .select({ id: posts.id })
+      .from(posts)
+      .where(
+        and(
+          inArray(posts.businessId, prototypeIds),
+          sql`${posts.seedKey} <> ${seedKey}`,
+        ),
+      );
+    if (owned.length)
+      throw new Error(
+        "Fixture businesses contain unrelated posts; refusing undo.",
+      );
     await tx
       .delete(businesses)
       .where(
@@ -248,6 +265,12 @@ export async function undoPrototype(
         inArray(
           categories.id,
           categoryRows.map((c) => c.id),
+        ),
+        notExists(
+          tx
+            .select({ id: businesses.id })
+            .from(businesses)
+            .where(eq(businesses.categoryId, categories.id)),
         ),
       ),
     );

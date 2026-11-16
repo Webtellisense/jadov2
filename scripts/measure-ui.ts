@@ -92,7 +92,7 @@ try {
 mkdirSync("docs/evidence/m05", { recursive: true });
 const result = {
   runtime:
-    "Optimised local production build, public empty data only; development preview is deliberately disabled in production.",
+    "Optimised runtime; discovery reflects records present in the configured database.",
   profile: {
     cpuSlowdown: 4,
     latencyMs: 150,
