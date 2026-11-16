@@ -55,6 +55,8 @@ DISCOVERY_EVIDENCE_CONTEXT='Founder-approved shared staging database' \
 npm run verify:staging
 ```
 
+`verify:staging` automatically loads `.env` without overriding shell-supplied variables. It only reads existing database records and issues GET requests; it never migrates, seeds or sends account mutations. Successful verification terminates its own spawned server before printing `10 businesses found; Feed populated; Search working; profiles working; Compare working` and returning exit 0. Cleanup handles an already-exited/failed child and bounds shutdown with SIGTERM followed by SIGKILL if required.
+
 This reads the configured `DATABASE_URL`, starts the app locally on port 3300, checks all ten profiles, four search modes, populated Feed/detail navigation, two/three-business comparisons and selection refresh; it captures five screens at four widths. It does not seed or mutate remote application records. This proves the actual database flows, not an already deployed Vercel site.
 
 After acceptance, merge the feature branch into `staging`, push `staging`, and verify the Vercel deployment actually tracks that commit and uses staging credentials. Visit the actual deployment's normal routes, test search/filter refresh and compare navigation, and retain deployment/commit evidence. Do not claim this step passed without live evidence. No automatic main merge, production deployment or M1 work is authorised.

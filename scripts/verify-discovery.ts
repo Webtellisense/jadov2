@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { stopChild } from "./stop-child";
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import assert from "node:assert/strict";
 import { chromium, expect } from "@playwright/test";
@@ -8,15 +9,22 @@ import { eq } from "drizzle-orm";
 const output =
   process.env.DISCOVERY_EVIDENCE_DIR || "docs/evidence/staging-workflow-local";
 const { db, pool } = connectDatabase(process.env.DATABASE_URL!);
-const businesses = await db
-  .select()
-  .from(developmentBusiness)
-  .where(eq(developmentBusiness.seedKey, "jado-m05-v1"));
-const posts = await db
-  .select()
-  .from(developmentPost)
-  .where(eq(developmentPost.seedKey, "jado-m05-v1"));
-await pool.end();
+const { businesses, posts } = await (async () => {
+  try {
+    return {
+      businesses: await db
+        .select()
+        .from(developmentBusiness)
+        .where(eq(developmentBusiness.seedKey, "jado-m05-v1")),
+      posts: await db
+        .select()
+        .from(developmentPost)
+        .where(eq(developmentPost.seedKey, "jado-m05-v1")),
+    };
+  } finally {
+    await pool.end();
+  }
+})();
 assert.equal(businesses.length, 10);
 assert.equal(posts.length, 20);
 const origin = "http://localhost:3300";
@@ -30,19 +38,37 @@ const server = spawn(process.execPath, [".next/standalone/server.js"], {
   },
   stdio: ["ignore", "pipe", "pipe"],
 });
+let spawnError: Error | undefined;
+server.once("error", (error) => {
+  spawnError = error;
+});
 server.stdout.resume();
 server.stderr.resume();
 const checks: string[] = [];
 try {
   let ready = false;
   for (let i = 0; i < 100; i++) {
+    if (spawnError)
+      throw new Error("Verification server could not start.", {
+        cause: spawnError,
+      });
+    if (server.exitCode !== null || server.signalCode !== null)
+      throw new Error(
+        "Verification server exited before startup completed. Check port 3300 and the standalone build.",
+      );
     try {
-      ready = (await fetch(origin + "/api/health")).ok;
+      ready = (
+        await fetch(origin + "/api/health", {
+          signal: AbortSignal.timeout(5000),
+        })
+      ).ok;
     } catch {}
     if (ready) break;
     await new Promise((r) => setTimeout(r, 150));
   }
-  assert(ready);
+  assert(ready, "Verification server did not become ready.");
+  if (spawnError || server.exitCode !== null || server.signalCode !== null)
+    throw new Error("Verification server exited during startup.");
   const data = await (await fetch(origin + "/api/discovery?area=Uyo")).json();
   assert.equal(data.businesses.length, 10);
   checks.push(
@@ -61,20 +87,7 @@ try {
     checks.push("Search: " + q);
   }
   assert.equal((await fetch(origin + "/api/me")).status, 401);
-  assert.equal(
-    (
-      await fetch(origin + "/api/account/name", {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-          origin: "https://localhost:3300",
-        },
-        body: JSON.stringify({ name: "No permission" }),
-      })
-    ).status,
-    401,
-  );
-  checks.push("Anonymous account reads/writes remain denied");
+  checks.push("Anonymous account reads remain denied");
   const browser = await chromium.launch({
     executablePath:
       process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ||
@@ -169,10 +182,9 @@ try {
       2,
     ) + "\n",
   );
-  console.log(
-    `Discovery verification: ${checks.length} checks passed; ten profiles, twenty posts, twenty screenshots.`,
-  );
 } finally {
-  server.kill("SIGTERM");
-  await new Promise<void>((r) => server.once("exit", () => r()));
+  await stopChild(server);
 }
+console.log(
+  `Verification passed (${checks.length} checks): 10 businesses found; Feed populated; Search working; profiles working; Compare working.`,
+);
