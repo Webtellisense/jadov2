@@ -7,7 +7,8 @@ export function connectDatabase(connectionString: string) {
   const pool = new Pool({
     connectionString,
     max: 5,
-    connectionTimeoutMillis: 5000,
+    // Allow the hosted session pooler time to establish or supply a connection.
+    connectionTimeoutMillis: 15000,
     idleTimeoutMillis: 10000,
   });
   return { pool, db: drizzle(pool, { schema }) };

@@ -1,5 +1,10 @@
 # Technical decisions
 
+## PostgreSQL connection timeout investigation — 16 November 2026
+
+- The shared node-postgres pool allowed 5 seconds to connect or wait for a pool slot, while the founder's successful direct-client test allowed 15 seconds. Increased the pool timeout to 15 seconds for migrations and application reads; retained the maximum of five connections, idle timeout, URL-based TLS and existing pool lifecycle. This is a plausible explanation for the reported timeout, not a confirmed remote root cause: the workspace cannot resolve the Supabase pooler (EAI_AGAIN).
+- A delayed TCP handshake regression verifies that the pool does not abort at five seconds and remains bounded. The existing integration suite exercises migrations and pool shutdown against disposable local PostgreSQL. The shared migration, seed and staging UI checks remain pending until the staging host is reachable; no shared database reset or seed was performed here.
+
 ## M0.5 visual polish — 16 November 2026
 
 - Created feat/m05-visual-polish from staging 1147e29; no staging/main merge or deployment. PRD15/D13 records the founder-approved imagery, fixture-field and disclosure changes before implementation.
