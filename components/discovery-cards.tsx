@@ -1,6 +1,21 @@
+import {
+  BusinessLogo,
+  BusinessIdentity,
+  BusinessCover,
+  PostMediaGallery,
+} from "./business-media";
 import Link from "next/link";
-import { MessageCircle, Heart } from "lucide-react";
-import { Badge, ButtonLink, CategoryArt, DevelopmentNotice } from "./ui/core";
+import {
+  MessageCircle,
+  Heart,
+  ShoppingBag,
+  Clock,
+  Package,
+  Megaphone,
+  CalendarDays,
+  Images,
+} from "lucide-react";
+import { Badge, ButtonLink } from "./ui/core";
 import { CompareToggle, ShareButton } from "./discovery-interactions";
 import {
   money,
@@ -43,6 +58,7 @@ export function BusinessCard({
   area,
   ids = "",
   featured = false,
+  priority = false,
 }: {
   business: BusinessRecord;
   posts: PostRecord[];
@@ -50,6 +66,7 @@ export function BusinessCard({
   area: string;
   ids?: string;
   featured?: boolean;
+  priority?: boolean;
 }) {
   const offer = posts.find(
     (p) =>
@@ -65,11 +82,9 @@ export function BusinessCard({
           className="feature-link"
           href={discoveryHref(prefix, `/b/${business.slug}`, area, ids)}
         >
-          <CategoryArt category={business.icon} name={business.name} />
+          <BusinessCover business={business} eager={priority} sizes="260px" />
           <div className="feature-body">
-            <DevelopmentNotice compact />
-            <h3>{business.name}</h3>
-            <p className="muted">{business.neighbourhood}</p>
+            <BusinessIdentity business={business} heading />
           </div>
         </Link>
         <CompareToggle id={business.id} name={business.name} />
@@ -81,13 +96,12 @@ export function BusinessCard({
         className="business-summary"
         href={discoveryHref(prefix, `/b/${business.slug}`, area, ids)}
       >
-        <CategoryArt category={business.icon} name={business.name} />
+        <BusinessCover
+          business={business}
+          sizes="(max-width:389px) 92vw, 96px"
+        />
         <div className="business-summary-text">
-          <DevelopmentNotice compact />
-          <h3>{business.name}</h3>
-          <p>
-            {business.categoryName} · {business.neighbourhood}
-          </p>
+          <BusinessIdentity business={business} heading />
           <p>{business.tagline}</p>
         </div>
       </Link>
@@ -109,32 +123,49 @@ export function BusinessCard({
     </article>
   );
 }
+const typeIcons = {
+  service: ShoppingBag,
+  offer: Clock,
+  arrival: Package,
+  update: Megaphone,
+  event: CalendarDays,
+  portfolio: Images,
+};
+export function TypeIndicator({ type }: { type: PostRecord["type"] }) {
+  const Icon = typeIcons[type];
+  return (
+    <span className="type-indicator">
+      <Icon aria-hidden="true" />
+      {typeLabels[type]}
+    </span>
+  );
+}
 export function PostCard({
   post,
   business,
   prefix,
   area,
   ids = "",
+  priority = false,
 }: {
   post: PostRecord;
   business: BusinessRecord;
   prefix: string;
   area: string;
   ids?: string;
+  priority?: boolean;
 }) {
   const expired = !!post.expiresAt && post.expiresAt <= new Date();
   return (
     <article className="post-card">
       <div className="post-top">
-        <CategoryArt category={business.icon} name={business.name} />
+        <BusinessLogo business={business} />
         <div>
           <Link href={discoveryHref(prefix, `/b/${business.slug}`, area, ids)}>
             {business.name}
           </Link>
           <div>
-            <DevelopmentNotice compact /> ·{" "}
             <span className="caption muted">
-              Sample post ·{" "}
               {post.publishedAt.toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "short",
@@ -144,16 +175,11 @@ export function PostCard({
           </div>
         </div>
       </div>
-      <Link
-        href={discoveryHref(prefix, `/posts/${post.id}`, area, ids)}
-        aria-label={`View ${post.title}`}
-      >
-        <CategoryArt category={business.icon} name={post.title} />
-      </Link>
+      <div className={`post-type post-type-${post.type}`}>
+        <TypeIndicator type={post.type} />
+      </div>
+      <PostMediaGallery post={post} eager={priority} />
       <div className="post-body">
-        <Badge tone={post.type === "offer" ? "offer" : "neutral"}>
-          {typeLabels[post.type]}
-        </Badge>
         <h2>
           <Link href={discoveryHref(prefix, `/posts/${post.id}`, area, ids)}>
             {post.title}
@@ -163,8 +189,18 @@ export function PostCard({
         {post.priceNaira !== null && (
           <>
             <p className="price">{money(post.priceNaira)}</p>
-            <p className="caption">Fictional development price · not a quote</p>
           </>
+        )}
+        {post.presentation?.eventAt && (
+          <p className="event-date">
+            <CalendarDays aria-hidden="true" />
+            {new Date(post.presentation.eventAt).toLocaleDateString("en-GB", {
+              timeZone: "Africa/Lagos",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
         )}
         {post.expiresAt && (
           <p className={expired ? "muted" : "small"}>
@@ -215,8 +251,7 @@ export function ComparisonCard({
   const latest = posts.find((p) => p.businessId === b.id);
   return (
     <article className="panel comparison-card">
-      <DevelopmentNotice compact />
-      <CategoryArt category={b.icon} name={b.name} />
+      <BusinessLogo business={b} />
       <h2 className="section">{b.name}</h2>
       <CompareToggle id={b.id} name={b.name} />
       <dl>
@@ -225,19 +260,25 @@ export function ComparisonCard({
         <dt>Google rating and review count</dt>
         <dd>Not available · no Google data</dd>
         <dt>Management verification</dt>
-        <dd>Not verified · fictional business</dd>
-        <dt>Latest sample post</dt>
+        <dd>Not verified</dd>
+        <dt>Latest post</dt>
         <dd>
           {latest?.publishedAt.toLocaleDateString("en-GB", {
             timeZone: "Africa/Lagos",
           }) ?? "Unknown"}
         </dd>
-        <dt>Current sample offers</dt>
-        <dd>{offers.length} · fictional, not live activity</dd>
-        <dt>Sample price</dt>
+        <dt>Current offers</dt>
+        <dd>{offers.length}</dd>
+        <dt>Listed price</dt>
         <dd>{money(latest?.priceNaira ?? null)}</dd>
-        <dt>Hours and distance</dt>
-        <dd>Unknown</dd>
+        <dt>Opening hours</dt>
+        <dd>
+          {b.presentation?.hours
+            .map((h) => `${h.days}: ${h.opens}–${h.closes}`)
+            .join("; ") ?? "Not listed"}
+        </dd>
+        <dt>Distance</dt>
+        <dd>Not available</dd>
       </dl>
       <div className="stack">
         <ButtonLink href={actionHref(prefix, "message", b, area)}>
@@ -269,9 +310,9 @@ export function ComparisonTable({
   const rows = [
     ["Category", (b: BusinessRecord) => b.categoryName],
     ["Google rating and review count", () => "Not available · no Google data"],
-    ["Management verification", () => "Not verified · fictional business"],
+    ["Management verification", () => "Not verified"],
     [
-      "Latest sample post",
+      "Latest post",
       (b: BusinessRecord) =>
         posts
           .find((p) => p.businessId === b.id)
@@ -280,28 +321,33 @@ export function ComparisonTable({
           }) ?? "Unknown",
     ],
     [
-      "Current sample offers",
+      "Current offers",
       (b: BusinessRecord) =>
-        `${posts.filter((p) => p.businessId === b.id && p.type === "offer" && p.expiresAt && p.expiresAt > new Date()).length} · fictional, not live activity`,
+        `${posts.filter((p) => p.businessId === b.id && p.type === "offer" && p.expiresAt && p.expiresAt > new Date()).length}`,
     ],
     [
-      "Sample price",
+      "Listed price",
       (b: BusinessRecord) =>
         money(posts.find((p) => p.businessId === b.id)?.priceNaira ?? null),
     ],
-    ["Hours and distance", () => "Unknown"],
+    [
+      "Opening hours",
+      (b: BusinessRecord) =>
+        b.presentation?.hours
+          .map((h) => `${h.days}: ${h.opens}–${h.closes}`)
+          .join("; ") ?? "Not listed",
+    ],
+    ["Distance", () => "Not available"],
   ] as const;
   return (
     <table className="comparison-table">
-      <caption>
-        Development data · available facts, with no overall quality ranking
-      </caption>
+      <caption>Available facts, with no overall quality ranking</caption>
       <thead>
         <tr>
           <th scope="col">Compare by</th>
           {businesses.map((b) => (
             <th scope="col" key={b.id}>
-              <CategoryArt category={b.icon} name={b.name} />
+              <BusinessLogo business={b} />
               {b.name}
               <CompareToggle id={b.id} name={b.name} />
             </th>

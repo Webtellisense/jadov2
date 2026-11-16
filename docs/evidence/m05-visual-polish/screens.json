@@ -1,0 +1,545 @@
+{
+  "runtime": "Local application, populated PostgreSQL fixture dataset; not deployed Vercel",
+  "views": [
+    {
+      "name": "explore",
+      "path": "/?area=Uyo",
+      "width": 320,
+      "images": 47,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "feed",
+      "path": "/feed?area=Uyo",
+      "width": 320,
+      "images": 58,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "search",
+      "path": "/search?area=Uyo&q=ring+light",
+      "width": 320,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "category",
+      "path": "/explore/solar?area=Uyo",
+      "width": 320,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile",
+      "path": "/b/amber-roof?area=Uyo",
+      "width": 320,
+      "images": 5,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "products",
+      "path": "/b/amber-roof?area=Uyo&tab=products",
+      "width": 320,
+      "images": 4,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "gallery",
+      "path": "/b/daybreak?area=Uyo&tab=gallery",
+      "width": 320,
+      "images": 8,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "details",
+      "path": "/b/amber-roof?area=Uyo&tab=details",
+      "width": 320,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "event",
+      "path": "/posts/demo-little-ladder-post?area=Uyo",
+      "width": 320,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "portfolio",
+      "path": "/posts/demo-daybreak-post?area=Uyo",
+      "width": 320,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-two",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+      "width": 320,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-three",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "width": 320,
+      "images": 3,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "design",
+      "path": "/design",
+      "width": 320,
+      "images": 31,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-posts",
+      "path": "/b/amber-roof?area=Uyo&tab=posts",
+      "width": 320,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-reviews",
+      "path": "/b/amber-roof?area=Uyo&tab=reviews",
+      "width": 320,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "explore",
+      "path": "/?area=Uyo",
+      "width": 390,
+      "images": 47,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "feed",
+      "path": "/feed?area=Uyo",
+      "width": 390,
+      "images": 58,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "search",
+      "path": "/search?area=Uyo&q=ring+light",
+      "width": 390,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "category",
+      "path": "/explore/solar?area=Uyo",
+      "width": 390,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile",
+      "path": "/b/amber-roof?area=Uyo",
+      "width": 390,
+      "images": 5,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "products",
+      "path": "/b/amber-roof?area=Uyo&tab=products",
+      "width": 390,
+      "images": 4,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "gallery",
+      "path": "/b/daybreak?area=Uyo&tab=gallery",
+      "width": 390,
+      "images": 8,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "details",
+      "path": "/b/amber-roof?area=Uyo&tab=details",
+      "width": 390,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "event",
+      "path": "/posts/demo-little-ladder-post?area=Uyo",
+      "width": 390,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "portfolio",
+      "path": "/posts/demo-daybreak-post?area=Uyo",
+      "width": 390,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-two",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+      "width": 390,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-three",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "width": 390,
+      "images": 3,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "design",
+      "path": "/design",
+      "width": 390,
+      "images": 31,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-posts",
+      "path": "/b/amber-roof?area=Uyo&tab=posts",
+      "width": 390,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-reviews",
+      "path": "/b/amber-roof?area=Uyo&tab=reviews",
+      "width": 390,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "explore",
+      "path": "/?area=Uyo",
+      "width": 768,
+      "images": 47,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "feed",
+      "path": "/feed?area=Uyo",
+      "width": 768,
+      "images": 58,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "search",
+      "path": "/search?area=Uyo&q=ring+light",
+      "width": 768,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "category",
+      "path": "/explore/solar?area=Uyo",
+      "width": 768,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile",
+      "path": "/b/amber-roof?area=Uyo",
+      "width": 768,
+      "images": 5,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "products",
+      "path": "/b/amber-roof?area=Uyo&tab=products",
+      "width": 768,
+      "images": 4,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "gallery",
+      "path": "/b/daybreak?area=Uyo&tab=gallery",
+      "width": 768,
+      "images": 8,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "details",
+      "path": "/b/amber-roof?area=Uyo&tab=details",
+      "width": 768,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "event",
+      "path": "/posts/demo-little-ladder-post?area=Uyo",
+      "width": 768,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "portfolio",
+      "path": "/posts/demo-daybreak-post?area=Uyo",
+      "width": 768,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-two",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+      "width": 768,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-three",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "width": 768,
+      "images": 3,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "design",
+      "path": "/design",
+      "width": 768,
+      "images": 31,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-posts",
+      "path": "/b/amber-roof?area=Uyo&tab=posts",
+      "width": 768,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-reviews",
+      "path": "/b/amber-roof?area=Uyo&tab=reviews",
+      "width": 768,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "explore",
+      "path": "/?area=Uyo",
+      "width": 1280,
+      "images": 47,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "feed",
+      "path": "/feed?area=Uyo",
+      "width": 1280,
+      "images": 58,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "search",
+      "path": "/search?area=Uyo&q=ring+light",
+      "width": 1280,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "category",
+      "path": "/explore/solar?area=Uyo",
+      "width": 1280,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile",
+      "path": "/b/amber-roof?area=Uyo",
+      "width": 1280,
+      "images": 5,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "products",
+      "path": "/b/amber-roof?area=Uyo&tab=products",
+      "width": 1280,
+      "images": 4,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "gallery",
+      "path": "/b/daybreak?area=Uyo&tab=gallery",
+      "width": 1280,
+      "images": 8,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "details",
+      "path": "/b/amber-roof?area=Uyo&tab=details",
+      "width": 1280,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "event",
+      "path": "/posts/demo-little-ladder-post?area=Uyo",
+      "width": 1280,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "portfolio",
+      "path": "/posts/demo-daybreak-post?area=Uyo",
+      "width": 1280,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-two",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak",
+      "width": 1280,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "compare-three",
+      "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+      "width": 1280,
+      "images": 3,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "design",
+      "path": "/design",
+      "width": 1280,
+      "images": 31,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-posts",
+      "path": "/b/amber-roof?area=Uyo&tab=posts",
+      "width": 1280,
+      "images": 6,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "name": "profile-reviews",
+      "path": "/b/amber-roof?area=Uyo&tab=reviews",
+      "width": 1280,
+      "images": 2,
+      "brokenImages": 0,
+      "overflow": false,
+      "axeViolations": 0
+    }
+  ]
+}

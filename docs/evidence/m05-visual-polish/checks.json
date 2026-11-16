@@ -1,0 +1,52 @@
+{
+  "context": "Local and disposable PostgreSQL; not shared Supabase or deployed Vercel",
+  "unit": {
+    "command": "npm test",
+    "exitCode": 0,
+    "passed": 55,
+    "failed": 0
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exitCode": 0,
+    "passed": 32,
+    "failed": 0
+  },
+  "browserVisualAndSecurity": {
+    "command": "npm run test:e2e -- --grep 'photo-led screens|gallery keyboard|Data Saver|SQL-backed|comparison selection|gate preserves|consumer cannot|mutation checks|selected profile|profile post and review tabs|unavailable media'",
+    "exitCode": 0,
+    "passed": 17,
+    "failed": 0
+  },
+  "browserStates": {
+    "command": "npm run test:e2e -- --grep 'expired offer|real database wait|copy and WhatsApp|authentication forms'",
+    "exitCode": 0,
+    "passed": 4,
+    "failed": 0
+  },
+  "optimisedDiscovery": {
+    "command": "DISCOVERY_EVIDENCE_DIR=/tmp/jado-polish-runtime npm run test:discovery",
+    "exitCode": 0,
+    "checksPassed": 12,
+    "populatedPerformanceRoutes": 5
+  },
+  "build": {
+    "command": "NEXT_TELEMETRY_DISABLED=1 npm run build",
+    "exitCode": 0
+  },
+  "linter": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "compiler": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "performanceLimit": "184616 initial gzip JavaScript bytes exceeds approximate 170 KB guide",
+  "notPerformed": [
+    "Shared database writes",
+    "Vercel deployment",
+    "Human screen-reader audit",
+    "Founder visual approval"
+  ]
+}

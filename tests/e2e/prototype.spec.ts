@@ -24,7 +24,9 @@ test("normal discovery anonymously exposes labelled persisted fixtures", async (
   const result = await page.request.get("/api/discovery?area=Uyo");
   expect((await result.json()).businesses).toHaveLength(10);
   await page.goto("/?area=Uyo");
-  await expect(page.getByText("Development data").first()).toBeVisible();
+  await expect(
+    page.getByRole("complementary", { name: "Staging disclosure" }),
+  ).toBeVisible();
   await page.goto("/b/amber-roof?area=Uyo");
   await expect(
     page.getByRole("heading", { name: "Amber Roof Solar", exact: true }),
@@ -41,7 +43,9 @@ test("manual area and denied GPS both reach anonymous Explore", async ({
   await page.getByLabel("City or area").selectOption("Uyo");
   await page.getByRole("button", { name: "Explore this area" }).click();
   await expect(page).toHaveURL("/?area=Uyo");
-  await expect(page.getByText("Development data").first()).toBeVisible();
+  await expect(
+    page.getByRole("complementary", { name: "Staging disclosure" }),
+  ).toBeVisible();
 });
 test("GPS suggests Uyo without saving coordinates", async ({
   page,

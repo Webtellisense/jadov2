@@ -143,15 +143,13 @@ it("undo removes only the prototype namespace, preserves M0 and supports reseedi
 });
 
 it("seed and undo preserve genuine businesses while coexisting", async () => {
-  await db
-    .insert(business)
-    .values({
-      id: "real-staging",
-      slug: "real-staging",
-      googlePlaceId: "test-real-id",
-      isFixture: false,
-      status: "pending",
-    });
+  await db.insert(business).values({
+    id: "real-staging",
+    slug: "real-staging",
+    googlePlaceId: "test-real-id",
+    isFixture: false,
+    status: "pending",
+  });
   try {
     await seedPrototype(db);
     await undoPrototype(db);
@@ -162,4 +160,34 @@ it("seed and undo preserve genuine businesses while coexisting", async () => {
   } finally {
     await db.delete(business).where(eq(business.id, "real-staging"));
   }
+});
+
+it("enriches existing known fixtures deterministically while preserving unrelated records", async () => {
+  await db
+    .update(developmentBusiness)
+    .set({ presentation: null })
+    .where(eq(developmentBusiness.id, "demo-daybreak"));
+  await seedPrototype(db);
+  const first = await db
+    .select()
+    .from(developmentBusiness)
+    .where(eq(developmentBusiness.id, "demo-daybreak"));
+  expect(first[0].presentation?.gallery).toHaveLength(6);
+  await seedPrototype(db);
+  const second = await db
+    .select()
+    .from(developmentBusiness)
+    .where(eq(developmentBusiness.id, "demo-daybreak"));
+  expect(second[0].presentation).toEqual(first[0].presentation);
+  expect(
+    (await db.select().from(developmentBusiness)).every(
+      (b) => b.presentation?.logo,
+    ),
+  ).toBe(true);
+  const posts = await db.select().from(developmentPost);
+  expect(posts.every((p) => p.presentation?.media.length)).toBe(true);
+  expect(posts.some((p) => p.presentation?.media.length === 5)).toBe(true);
+  expect(
+    posts.some((p) => /sample|fictional|prototype/i.test(p.description)),
+  ).toBe(false);
 });

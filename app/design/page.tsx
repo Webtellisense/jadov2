@@ -1,10 +1,18 @@
 import {
+  BusinessLogo,
+  BusinessCover,
+  BusinessAvatar,
+  BusinessIdentity,
+  BusinessGallery,
+  SocialLinks,
+  PostMediaGallery,
+} from "@/components/business-media";
+import {
   BackLink,
   Badge,
   Button,
   CardSkeleton,
   CategoryArt,
-  DevelopmentNotice,
   LocationChip,
   PageHeading,
   SearchBar,
@@ -34,7 +42,6 @@ export default async function Design() {
   return (
     <>
       <BackLink href="/" />
-      <DevelopmentNotice />
       <PageHeading
         eyebrow="M0.5 · component library"
         title="Made for the neighbourhood."
@@ -99,7 +106,6 @@ export default async function Design() {
             <Badge tone="offer">Offer</Badge>
             <Badge tone="warning">Pending</Badge>
             <Badge>Expired</Badge>
-            <DevelopmentNotice compact />
           </div>
           <p>Genuine ownership badge specification (component sample only):</p>
           <VerifiedBadge />
@@ -146,6 +152,41 @@ export default async function Design() {
             "Complete your page",
           ]}
         />
+      </div>
+      <h2>Business identity and media</h2>
+      {data.businesses[0] && (
+        <section className="panel stack">
+          <BusinessLogo business={data.businesses[0]} large />
+          <BusinessAvatar business={data.businesses[0]} />
+          <BusinessIdentity business={data.businesses[0]} heading />
+          <BusinessCover business={data.businesses[0]} />
+          <BusinessGallery business={data.businesses[0]} />
+          <SocialLinks business={data.businesses[0]} />
+        </section>
+      )}
+      <div className="gallery-grid">
+        {[1, 2, 3, 4, 5].map((count) => {
+          const post = data.posts.find(
+            (p) => (p.presentation?.media.length ?? 0) >= count,
+          );
+          return (
+            post && (
+              <section className="panel" key={count}>
+                <h3>{count}-image layout</h3>
+                <PostMediaGallery
+                  post={{
+                    ...post,
+                    type: "portfolio",
+                    presentation: {
+                      ...post.presentation!,
+                      media: post.presentation!.media.slice(0, count),
+                    },
+                  }}
+                />
+              </section>
+            )
+          );
+        })}
       </div>
       <h2>Database-backed domain components</h2>
       {data.businesses.length > 1 && (

@@ -1,3 +1,7 @@
+import type {
+  BusinessPresentation,
+  PostPresentation,
+} from "@/lib/business-media";
 import { sql } from "drizzle-orm";
 import {
   bigint,
@@ -5,6 +9,7 @@ import {
   check,
   index,
   integer,
+  jsonb,
   pgEnum,
   pgTable,
   primaryKey,
@@ -193,6 +198,7 @@ export const developmentBusiness = pgTable(
     neighbourhood: text("neighbourhood").notNull(),
     description: text("description").notNull(),
     tagline: text("tagline").notNull(),
+    presentation: jsonb("presentation").$type<BusinessPresentation>(),
     tags: text("tags").array().notNull(),
     seedKey: text("seed_key").notNull(),
     createdAt: createdAt(),
@@ -216,6 +222,7 @@ export const developmentPost = pgTable(
     description: text("description").notNull(),
     tags: text("tags").array().notNull(),
     priceNaira: integer("price_naira"),
+    presentation: jsonb("presentation").$type<PostPresentation>(),
     publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
     expiresAt: timestamp("expires_at", { withTimezone: true }),
     seedKey: text("seed_key").notNull(),

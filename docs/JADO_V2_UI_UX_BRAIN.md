@@ -349,3 +349,11 @@ PRD section 13/Addendum D10 now allow the same labelled M0.5 fixtures in a passw
 ### Current staging override (PRD14 / D11)
 
 The founder now requires the ten labelled fixtures on normal staging routes. This supersedes all private/local-only and Preview-password requirements above. Layout/tokens and visible Development data labels remain; staging uses its shared DATABASE_URL, future production uses a separate unseeded database. No M1 is authorised.
+
+## 15. Approved M0.5 visual patterns (PRD15 / D13)
+
+Keep the existing palette, fonts, navigation, sections and Compare. Build BusinessLogo, BusinessAvatar, BusinessCover, BusinessIdentity, BusinessGallery, SocialLinks and PostMediaGallery in /design before screen use. Logos are contained on padded tiles; photographs cover reserved aspect-ratio frames. Profile cover supports overlapping logo tile. Gallery controls are keyboard accessible and do not autoplay; native dialogs keep Escape/focus semantics. Missing media retains a category fallback. Responsive local WebP assets have fixed dimensions, lazy loading and smaller Data Saver variants.
+
+Post indicators always pair Lucide icon and text: service ShoppingBag (3 media), offer Clock (3), arrival Package (3), update Megaphone (2), event CalendarDays (5), portfolio Images (5). Layout: one full image; two balanced; three asymmetric; four/five controlled collage. A shared geometry keeps headers/actions stable; media opens an accessible gallery. Enforce these limits in fixture validation and rendering.
+
+The single quiet footer disclosure explains staging/demo businesses, generated imagery and representative contact/details. Remove repeated card banners and sample/prototype strings from descriptions. No rating, review count, verified badge, overall score or engagement metric may be invented. Fixture address/hours/contacts remain fixture-owned and explicitly distinct from unavailable Google information. External example contacts must not route to a real unrelated business.

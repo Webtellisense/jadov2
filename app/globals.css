@@ -143,7 +143,7 @@ textarea {
 }
 main.wrap {
   padding-bottom: calc(var(--nav-height) + var(--tray-height) + var(--space-8));
-  min-height: 70vh;
+  min-height: calc(100svh - var(--header-height));
 }
 .muted,
 .fine {
@@ -1243,5 +1243,370 @@ main[data-has-selection="true"] .action-bar {
 @media (min-width: 1024px) {
   main[data-has-selection="true"] .action-bar {
     bottom: calc(var(--tray-height) + var(--space-4));
+  }
+}
+/* M0.5 media patterns: contained identities, reserved frames, no remote image requests. */
+.business-logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  padding: var(--space-1);
+  background: var(--surface);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+}
+.business-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.business-logo .category-art {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+}
+.business-logo-large {
+  width: var(--logo-large);
+  height: var(--logo-large);
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.business-cover {
+  position: relative;
+  aspect-ratio: var(--media-landscape);
+  overflow: hidden;
+  background: var(--sand-100);
+}
+.business-cover img,
+.product-photo img,
+.gallery-item img {
+  object-fit: cover;
+}
+.business-cover > .category-art {
+  height: 100%;
+  aspect-ratio: auto;
+}
+.business-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.business-identity > div {
+  min-width: 0;
+}
+.business-identity h3 {
+  margin: 0 0 var(--space-1);
+}
+.business-identity a {
+  text-decoration: none;
+}
+.business-identity p {
+  margin: var(--space-1) 0 0;
+}
+.business-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.gallery-item {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--media-landscape);
+  overflow: hidden;
+  background: var(--sand-100);
+  border-radius: var(--radius-control);
+}
+.post-media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1);
+  aspect-ratio: var(--media-square);
+  overflow: hidden;
+  background: var(--sand-100);
+}
+.post-media .gallery-item {
+  aspect-ratio: auto;
+  border-radius: 0;
+  min-height: 0;
+}
+.media-count-1 .gallery-item,
+.media-reduced .gallery-item {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+}
+.media-count-2 .gallery-item {
+  grid-row: 1/-1;
+}
+.media-count-3 .gallery-item:first-child {
+  grid-row: 1/-1;
+}
+.media-count-5 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.media-count-5 .gallery-item:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+.media-count-5 .gallery-item:nth-child(n + 3) {
+  grid-column: span 2;
+}
+.post-media.media-reduced .gallery-item {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+}
+.media-more {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  background: var(--surface);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-small);
+}
+.media-error {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--ink-500);
+}
+.media-dialog {
+  width: min(calc(100% - var(--space-8)), var(--gallery-max));
+  max-height: 90dvh;
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  color: var(--ink-900);
+  background: var(--surface);
+}
+.media-dialog::backdrop {
+  background: var(--overlay);
+}
+.media-dialog-top,
+.media-dialog-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+.media-dialog figure {
+  margin: var(--space-3) 0;
+}
+.media-dialog-photo {
+  position: relative;
+  aspect-ratio: var(--media-landscape);
+  max-height: 65dvh;
+}
+.media-dialog-photo img {
+  object-fit: contain;
+}
+.media-dialog figcaption {
+  font-size: var(--text-small);
+  margin-top: var(--space-3);
+}
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.contact-phone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  overflow-wrap: anywhere;
+}
+.product-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.product-card {
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+}
+.product-body {
+  padding: var(--space-4);
+}
+.product-body h3 {
+  overflow-wrap: anywhere;
+}
+.product-photo {
+  position: relative;
+  aspect-ratio: var(--media-landscape);
+  background: var(--sand-100);
+}
+.staging-disclosure {
+  font-size: var(--text-caption);
+  color: var(--ink-500);
+  margin: var(--space-4) 0;
+  max-width: var(--reading-max);
+}
+@media (min-width: 768px) {
+  .business-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 389px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .media-dialog-controls .button {
+    padding-inline: var(--space-2);
+    font-size: var(--text-small);
+  }
+}
+/* Identity placement retains the approved card and action geometry. */
+.featured-card .business-cover {
+  border-radius: 0;
+}
+.featured-card .business-identity {
+  align-items: flex-start;
+}
+.business-summary > .business-cover {
+  width: var(--card-thumb);
+  height: var(--card-thumb);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: var(--radius-control);
+}
+.business-summary .business-identity {
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.business-summary .business-logo {
+  width: var(--icon-large);
+  height: var(--icon-large);
+}
+.business-summary-text .business-identity h3 {
+  font-size: var(--text-h3);
+}
+.business-identity .category-art {
+  width: 100%;
+  height: 100%;
+}
+.post-top .business-logo {
+  width: var(--logo-size);
+  height: var(--logo-size);
+}
+.post-type {
+  padding: 0 var(--space-4) var(--space-3);
+}
+.type-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--sand-100);
+}
+.post-type-offer .type-indicator {
+  background: var(--coral-100);
+  color: var(--danger-text);
+}
+.post-type-arrival .type-indicator {
+  background: var(--sunrise-100);
+}
+.post-type-event .type-indicator {
+  background: var(--education-tint);
+}
+.post-type-portfolio .type-indicator {
+  background: var(--fashion-tint);
+}
+.post-type-update .type-indicator {
+  background: var(--home-tint);
+}
+.event-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+}
+.profile-cover {
+  height: auto;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+.profile-cover .business-cover {
+  aspect-ratio: var(--profile-cover-ratio);
+}
+.profile-intro > .business-logo-large {
+  margin-top: calc(-1 * var(--space-8));
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-3);
+}
+.profile-intro {
+  padding-top: 0;
+}
+.profile-intro .social-links {
+  margin-bottom: var(--space-4);
+}
+.comparison-table .business-logo {
+  display: flex;
+  margin: 0 auto var(--space-3);
+}
+.comparison-card > .business-logo {
+  width: var(--logo-large);
+  height: var(--logo-large);
+}
+.details-list li span {
+  overflow-wrap: anywhere;
+}
+.business-grid > .panel > .post-media {
+  aspect-ratio: var(--media-landscape);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-control);
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-height);
+  height: var(--control-height);
+  border: var(--hairline) solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-control);
+  color: var(--ink-900);
+}
+@media (max-width: 389px) {
+  .business-summary {
+    flex-direction: column;
+  }
+  .business-summary > .business-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--profile-cover-ratio);
+  }
+}
+/* Fixed contact tracks avoid a font-swap wrap changing the profile header height. */
+.social-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.social-links .chip {
+  justify-content: center;
+  min-width: 0;
+}
+.social-links .contact-phone {
+  min-width: 0;
+  min-height: var(--target-min);
+}
+@media (min-width: 768px) {
+  .social-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .social-links .contact-phone {
+    grid-column: 1/-1;
   }
 }

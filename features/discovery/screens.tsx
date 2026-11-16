@@ -1,3 +1,12 @@
+import {
+  BusinessLogo,
+  BusinessCover,
+  BusinessGallery,
+  SocialLinks,
+  ProductImage,
+  BusinessIdentity,
+  PostMediaGallery,
+} from "@/components/business-media";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -7,10 +16,7 @@ import {
   BackLink,
   Badge,
   ButtonLink,
-  CategoryArt,
-  LogoTile,
   CategoryIcon,
-  DevelopmentNotice,
   PageHeading,
   SearchBar,
   StateCard,
@@ -121,8 +127,8 @@ function FiltersForm({
         <label htmlFor="filter-sort">Sort by</label>
         <select id="filter-sort" name="sort" defaultValue={filters.sort}>
           <option value="name">Business name A–Z</option>
-          <option value="newest">Newest sample profile</option>
-          <option value="active">Latest sample post</option>
+          <option value="newest">Newest business</option>
+          <option value="active">Latest post</option>
         </select>
       </div>
       <label className="check-label">
@@ -248,7 +254,7 @@ function Explore({
                 <Sun aria-hidden="true" />
               </div>
               <div className="feature-grid">
-                {solar.slice(0, 3).map((b) => (
+                {solar.slice(0, 3).map((b, i) => (
                   <BusinessCard
                     key={b.id}
                     business={b}
@@ -257,6 +263,7 @@ function Explore({
                     area={filters.area}
                     ids={filters.ids}
                     featured
+                    priority={i === 0}
                   />
                 ))}
               </div>
@@ -271,7 +278,7 @@ function Explore({
                   <ArrowRight aria-hidden="true" />
                 </ButtonLink>
                 <span className="caption muted">
-                  Fictional comparison · no quality ranking
+                  No overall quality ranking
                 </span>
               </div>
             </section>
@@ -295,7 +302,7 @@ function Explore({
                   )!;
                   return (
                     <article key={post.id} className="panel">
-                      <DevelopmentNotice compact />
+                      <PostMediaGallery post={post} />
                       <Badge tone="offer">Offer</Badge>
                       <h3>
                         <Link
@@ -309,10 +316,19 @@ function Explore({
                           {post.title}
                         </Link>
                       </h3>
-                      <p className="small muted">{b.name}</p>
+                      <BusinessIdentity
+                        business={b}
+                        href={discoveryHref(
+                          prefix,
+                          `/b/${b.slug}`,
+                          filters.area,
+                          filters.ids,
+                        )}
+                      />
+                      <p className="small muted">{post.description}</p>
                       <p className="price">{money(post.priceNaira)}</p>
                       <p className="caption muted">
-                        Sample price · ends{" "}
+                        Ends{" "}
                         {post.expiresAt?.toLocaleDateString("en-GB", {
                           day: "numeric",
                           month: "short",
@@ -334,8 +350,8 @@ function Explore({
                     <div>
                       <p className="eyebrow">
                         {section === "Just joined"
-                          ? "Sample profile dates"
-                          : "Sample post dates"}
+                          ? "Profile dates"
+                          : "Post dates"}
                       </p>
                       <h2>{section}</h2>
                     </div>
@@ -377,7 +393,7 @@ function Explore({
             <div className="section-head">
               <h2>All businesses in {filters.area}</h2>
               <span className="small muted">
-                {data.businesses.length} fictional profiles
+                {data.businesses.length} businesses
               </span>
             </div>
             <Cards data={data} prefix={prefix} filters={filters} />
@@ -442,8 +458,8 @@ function SearchScreen({
         {filters.sort === "name"
           ? "Business name A–Z"
           : filters.sort === "newest"
-            ? "Newest sample profile first"
-            : "Latest sample post first"}{" "}
+            ? "Newest business first"
+            : "Latest post first"}{" "}
         · Matches describe published content, not stock availability.
       </p>
       {data.businesses.length ? (
@@ -486,17 +502,17 @@ function BusinessProfile({
       <div className="profile-layout">
         <div>
           <div className="profile-cover">
-            <CategoryArt category={business.icon} name={business.name} />
+            <BusinessCover business={business} eager />
           </div>
           <div className="profile-intro">
-            <LogoTile category={business.icon} name={business.name} />
-            <DevelopmentNotice compact />
+            <BusinessLogo business={business} large />
             <PageHeading title={business.name}>
               <p>
                 {business.categoryName} · {business.neighbourhood},{" "}
                 {business.city}
               </p>
             </PageHeading>
+            <SocialLinks business={business} />
             <div className="flex-wrap">
               <ButtonLink
                 variant="secondary"
@@ -525,11 +541,9 @@ function BusinessProfile({
             {tab === "about" ? (
               <>
                 <h2>A little about {business.name}</h2>
-                <p>{business.description}</p>
-                <p className="muted">
-                  Fictional owner-written description for this development
-                  prototype.
-                </p>
+                <p>{business.presentation?.about ?? business.description}</p>
+                <h3 className="section">A closer look</h3>
+                <BusinessGallery business={business} />
                 <div className="flex-wrap">
                   {business.tags.map((t) => (
                     <Badge key={t}>{t}</Badge>
@@ -539,38 +553,52 @@ function BusinessProfile({
             ) : tab === "posts" ? (
               <>
                 <h2>Offers and posts</h2>
-                <div className="stack">
+                <div className="post-feed">
                   {posts.map((p) => (
-                    <Link
-                      className="text-link"
+                    <PostCard
                       key={p.id}
-                      href={discoveryHref(
-                        prefix,
-                        `/posts/${p.id}`,
-                        filters.area,
-                        filters.ids,
-                      )}
-                    >
-                      <Badge>{typeLabels[p.type]}</Badge>
-                      {p.title}
-                      {p.expiresAt && p.expiresAt < new Date() && (
-                        <Badge>Expired</Badge>
-                      )}
-                    </Link>
+                      post={p}
+                      business={business}
+                      prefix={prefix}
+                      area={filters.area}
+                      ids={filters.ids}
+                    />
                   ))}
                 </div>
               </>
             ) : tab === "products" ? (
               <>
                 <h2>Products and services</h2>
-                {posts
-                  .filter((p) => p.type !== "offer")
-                  .map((p) => (
-                    <div key={p.id}>
-                      <h3>{p.title}</h3>
-                      <p>{money(p.priceNaira)} · fictional sample price</p>
-                    </div>
-                  ))}
+                <div className="product-grid">
+                  {business.presentation?.services.map((service) => (
+                    <article className="product-card" key={service.title}>
+                      <ProductImage photo={service.image} />
+                      <div className="product-body">
+                        <h3>{service.title}</h3>
+                        <p className="small muted">{service.description}</p>
+                        <p className="price">{money(service.priceNaira)}</p>
+                        <ButtonLink
+                          href={actionHref(
+                            prefix,
+                            "message",
+                            business,
+                            filters.area,
+                          )}
+                        >
+                          Ask about this
+                        </ButtonLink>
+                      </div>
+                    </article>
+                  )) ??
+                    posts
+                      .filter((p) => p.type !== "offer")
+                      .map((p) => (
+                        <div key={p.id}>
+                          <h3>{p.title}</h3>
+                          <p>{money(p.priceNaira)}</p>
+                        </div>
+                      ))}
+                </div>
                 <p className="muted">
                   A mention isn&apos;t a promise of stock. Ask the business
                   about availability.
@@ -579,10 +607,7 @@ function BusinessProfile({
             ) : tab === "gallery" ? (
               <>
                 <h2>Gallery</h2>
-                <CategoryArt category={business.icon} name={business.name} />
-                <p className="muted">
-                  Category illustration. No owner photos have been uploaded.
-                </p>
+                <BusinessGallery business={business} />
               </>
             ) : tab === "reviews" ? (
               <>
@@ -597,20 +622,28 @@ function BusinessProfile({
                 <h2>Business details</h2>
                 <ul className="details-list">
                   {[
-                    "Google name",
-                    "Address",
-                    "Primary phone",
-                    "Opening hours",
-                    "Distance",
-                    "Website",
-                  ].map((label) => (
+                    ["Business name", business.name],
+                    ["Address", business.presentation?.address],
+                    [
+                      "Opening hours",
+                      business.presentation?.hours
+                        .map((h) => `${h.days}: ${h.opens}–${h.closes}`)
+                        .join("; "),
+                    ],
+                    ["Phone", business.presentation?.phone],
+                    ["Website", business.presentation?.website],
+                    ["Email", business.presentation?.email],
+                    ["Distance", null],
+                  ].map(([label, value]) => (
                     <li key={label}>
-                      <strong>{label}</strong>Not listed
+                      <strong>{label}</strong>
+                      <span>{value ?? "Not listed"}</span>
                     </li>
                   ))}
                 </ul>
                 <p className="caption muted">
-                  No Google data has been fetched.
+                  Details provided for this business profile. Google information
+                  is unavailable.
                 </p>
                 <Link href="/help">Report a concern</Link>
               </>
@@ -619,11 +652,9 @@ function BusinessProfile({
         </div>
         <aside className="stack">
           <section className="panel">
-            <Badge tone="warning">Fictional · unverified</Badge>
             <h2 className="section">Let&apos;s talk about what you need.</h2>
             <p className="muted">
-              Preview the contact journey. Messaging isn&apos;t connected in
-              M0.5.
+              Have a question? Start with the business on Jado.
             </p>
             <ButtonLink
               href={actionHref(prefix, "message", business, filters.area)}
@@ -636,7 +667,7 @@ function BusinessProfile({
             <h3>What does verified mean?</h3>
             <p className="small muted">
               Authorised business management access, checked through Google.
-              This fictional record has no such authorisation.
+              This business has not been verified.
             </p>
             <Link className="text-link" href="/verification">
               Read about verification
@@ -651,10 +682,7 @@ function BusinessProfile({
           Message on Jado
         </ButtonLink>
         <Sheet title="Other contact options" trigger="More">
-          <p>
-            WhatsApp, call, directions and website are not listed for fictional
-            businesses.
-          </p>
+          <p>Message on Jado is the primary contact option.</p>
           <ShareButton />
           <Link className="text-link" href="/help">
             Get help
@@ -709,8 +737,7 @@ function Compare({
               <div key={i} className="compare-slot">
                 {selected[i] ? (
                   <>
-                    <DevelopmentNotice compact />
-                    <h2>{selected[i].name}</h2>
+                    <BusinessIdentity business={selected[i]} heading />
                     <CompareToggle
                       id={selected[i].id}
                       name={selected[i].name}
@@ -783,14 +810,12 @@ function Compare({
               trigger="How Jado compares businesses"
             >
               <p>
-                This prototype compares stored fictional categories, declared
-                sample prices, post dates and unexpired sample offers. Unknown
-                facts stay unknown.
+                This comparison uses categories, listed prices, post dates and
+                unexpired offers. Unknown facts stay unknown.
               </p>
               <p>
-                No Google rating, response-time metric, quality score, overall
-                winner or live ranking is available. All records on this page
-                are Development data.
+                Google ratings and response-time metrics are unavailable. There
+                is no overall winner or quality score.
               </p>
             </Sheet>
           </div>
@@ -857,7 +882,7 @@ export async function DiscoveryScreen({
   const { db } = getRuntime();
   const all = await readPrototype(db, parseFilters({ area: "Uyo" }));
   const data = await readPrototype(db, filters);
-  const notice = all.businesses.length ? <DevelopmentNotice /> : null;
+
   let content;
   if (key === "")
     content = <Explore data={data} prefix={prefix} filters={filters} />;
@@ -906,6 +931,7 @@ export async function DiscoveryScreen({
           <PostCard
             business={b}
             post={post}
+            priority
             prefix={prefix}
             area={filters.area}
           />
@@ -972,14 +998,15 @@ export async function DiscoveryScreen({
           </div>
         )}
         <p className="caption muted">
-          Newest sample posts first · no engagement boost or live ranking.
+          Newest posts first · no engagement boost or live ranking.
         </p>
         <div className="post-feed">
           {posts.length ? (
-            posts.map((p) => (
+            posts.map((p, i) => (
               <PostCard
                 key={p.id}
                 post={p}
+                priority={i === 0}
                 business={data.businesses.find((b) => b.id === p.businessId)!}
                 prefix={prefix}
                 area={filters.area}
@@ -1078,7 +1105,6 @@ export async function DiscoveryScreen({
   }
   return (
     <>
-      {notice}
       {content}
       {all.businesses.length > 0 && (
         <CompareTray

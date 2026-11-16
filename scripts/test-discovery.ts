@@ -6,4 +6,9 @@ await withIsolatedDatabase(async (env) => {
     ["--import", "tsx", "scripts/verify-discovery.ts"],
     env,
   );
+  await run(
+    process.execPath,
+    ["--import", "tsx", "scripts/measure-populated-ui.ts"],
+    env,
+  );
 });

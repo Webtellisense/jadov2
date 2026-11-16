@@ -6,6 +6,10 @@ import {
   developmentCategory as categories,
   developmentPost as posts,
 } from "./schema";
+import {
+  fixturePresentation,
+  fixturePostPresentation,
+} from "./prototype-presentation";
 export const seedKey = "jado-m05-v1";
 const categoryRows = [
   { id: "solar", name: "Solar and power", icon: "solar" },
@@ -159,6 +163,7 @@ async function seedPrototypeRows(db: Database) {
         .where(eq(businesses.id, id));
       if (existing.some((e) => e.seedKey !== seedKey))
         throw new Error("Business seed collision.");
+      const presentation = fixturePresentation(e[0], e[1], e[3], e[7], e[8], i);
       await tx
         .insert(businesses)
         .values({
@@ -170,13 +175,18 @@ async function seedPrototypeRows(db: Database) {
           neighbourhood: e[3],
           description: e[4],
           tagline: e[5],
+          presentation,
           tags: e[6].split(" "),
           seedKey,
           createdAt: new Date(
             `2026-11-${String(15 - i).padStart(2, "0")}T09:00:00Z`,
           ),
         })
-        .onConflictDoNothing();
+        .onConflictDoUpdate({
+          target: businesses.id,
+          set: { presentation },
+          setWhere: eq(businesses.seedKey, seedKey),
+        });
       const postTypes = {
         "amber-roof": "service",
         daybreak: "portfolio",
@@ -198,16 +208,26 @@ async function seedPrototypeRows(db: Database) {
           .select()
           .from(posts)
           .where(eq(posts.id, postId));
-        if (existingPost.some((e) => e.seedKey !== seedKey))
+        if (
+          existingPost.some((e) => e.seedKey !== seedKey || e.businessId !== id)
+        )
           throw new Error("Post seed collision.");
+        const type = offer ? "offer" : postTypes[e[0]];
+        const postPresentation = fixturePostPresentation(
+          type,
+          presentation.gallery,
+          i,
+        );
+        const description = `${e[4]} ${offer ? "An introductory package. Ask about the full scope before deciding." : "Contact the business to discuss the details and availability."}`;
         await tx
           .insert(posts)
           .values({
             id: postId,
             businessId: id,
-            type: offer ? "offer" : postTypes[e[0]],
+            type,
+            presentation: postPresentation,
             title: offer ? `${e[7]} · introductory offer` : e[7],
-            description: `${e[4]} ${offer ? "A sample introductory package. Ask about the full scope before deciding." : "Contact the business to discuss the details and availability."} Fictional development content.`,
+            description,
             tags: e[6].split(" "),
             priceNaira: e[8],
             publishedAt:
@@ -223,7 +243,11 @@ async function seedPrototypeRows(db: Database) {
               : null,
             seedKey,
           })
-          .onConflictDoNothing();
+          .onConflictDoUpdate({
+            target: posts.id,
+            set: { presentation: postPresentation, description },
+            setWhere: and(eq(posts.seedKey, seedKey), eq(posts.businessId, id)),
+          });
       }
     }
   });

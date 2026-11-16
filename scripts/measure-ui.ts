@@ -9,12 +9,14 @@ const browser = await chromium.launch({
   args: ["--no-sandbox"],
 });
 const measurements = [];
+const output = process.env.PERF_OUTPUT_DIR ?? "docs/evidence/m05";
 try {
   for (const path of [
     "/?area=Uyo",
-    "/location",
+    "/feed?area=Uyo",
+    "/b/amber-roof?area=Uyo",
     "/search?area=Uyo&q=solar",
-    "/compare?area=Uyo",
+    "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
   ]) {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
@@ -30,10 +32,17 @@ try {
     });
     await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
     const scripts = new Map<string, number>();
+    const images = new Map<string, number>();
     const jobs: Promise<void>[] = [];
     const destinations = new Set<string>();
     page.on("request", (r) => destinations.add(new URL(r.url()).origin));
     page.on("response", (r) => {
+      if (r.request().resourceType() === "image")
+        jobs.push(
+          r.body().then((body) => {
+            images.set(r.url(), body.byteLength);
+          }),
+        );
       if (r.request().resourceType() === "script")
         jobs.push(
           r.body().then((body) => {
@@ -42,23 +51,42 @@ try {
         );
     });
     await page.addInitScript(() => {
-      const results = { lcp: 0, cls: 0 };
+      const results = {
+        lcp: 0,
+        cls: 0,
+        lcpSource: "",
+        shifts: [] as { value: number; nodes: string[] }[],
+      };
       Object.assign(window, { jadoPerformance: results });
       new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) results.lcp = entry.startTime;
+        for (const entry of list.getEntries()) {
+          results.lcp = entry.startTime;
+          results.lcpSource = (
+            (entry as PerformanceEntry & { element?: HTMLImageElement }).element
+              ?.currentSrc ?? ""
+          ).replace(location.origin, "");
+        }
       }).observe({ type: "largest-contentful-paint", buffered: true });
       new PerformanceObserver((list) => {
         for (const entry of list.getEntries())
           if (
             !(entry as PerformanceEntry & { hadRecentInput: boolean })
               .hadRecentInput
-          )
+          ) {
+            results.shifts.push({
+              value: (entry as PerformanceEntry & { value: number }).value,
+              nodes: (
+                (entry as PerformanceEntry & { sources?: { node?: Element }[] })
+                  .sources ?? []
+              ).map((s) => s.node?.tagName + "." + s.node?.className),
+            });
             results.cls += (
               entry as PerformanceEntry & { value: number }
             ).value;
+          }
       }).observe({ type: "layout-shift", buffered: true });
     });
-    await page.goto(`${origin}${path}`, { waitUntil: "networkidle" });
+    await page.goto(`${origin}${path}`, { waitUntil: "load", timeout: 60000 });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(3000);
     await Promise.all(jobs);
@@ -82,6 +110,18 @@ try {
         0,
       ),
       scriptFiles: scripts.size,
+      imageRequests: images.size,
+      imageBytes: [...images.values()].reduce((a, b) => a + b, 0),
+      brokenImages: await page
+        .locator("img:visible")
+        .evaluateAll(
+          (imgs) =>
+            imgs.filter(
+              (img) =>
+                (img as HTMLImageElement).complete &&
+                (img as HTMLImageElement).naturalWidth === 0,
+            ).length,
+        ),
       thirdPartyOrigins: [...destinations].filter((x) => x !== origin),
     });
     await context.close();
@@ -89,7 +129,7 @@ try {
 } finally {
   await browser.close();
 }
-mkdirSync("docs/evidence/m05", { recursive: true });
+mkdirSync(output, { recursive: true });
 const result = {
   runtime:
     "Optimised runtime; discovery reflects records present in the configured database.",
@@ -103,7 +143,7 @@ const result = {
   measurements,
 };
 writeFileSync(
-  "docs/evidence/m05/performance.json",
+  `${output}/performance.json`,
   JSON.stringify(result, null, 2) + "\n",
 );
 console.log(JSON.stringify(result, null, 2));

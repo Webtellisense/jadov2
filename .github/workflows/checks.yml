@@ -47,3 +47,4 @@ jobs:
             playwright-report/
             docs/evidence/m05/
             docs/evidence/staging-workflow-local/
+            docs/evidence/m05-visual-polish/

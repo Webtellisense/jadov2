@@ -1,0 +1,386 @@
+{
+  "provenance": "Original fictional logos authored for Jado. Photographic assets generated with OpenAI image generation for this M0.5 prototype; not Google, competitor or owner photographs.",
+  "date": "2026-11-16",
+  "sources": [
+    {
+      "file": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "sha256": "021196df7a0985fec9db148d40357f7d9eb02815efdac424dbbdf232cd09491d",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "amber-roof",
+        "daybreak"
+      ]
+    },
+    {
+      "file": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "sha256": "1455e4bbb0e45a334029a0be9379b55e6b423d1052f6d95e65c55aefb2c0481a",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "sunward",
+        "pepper-clay"
+      ]
+    },
+    {
+      "file": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "sha256": "e73e4935ccf031acfb210607ffcd4552537f786c01bbe63a90b3d0d50908a9b9",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "crumb-cove",
+        "soft-hour"
+      ]
+    },
+    {
+      "file": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "sha256": "ec20abaa64c21837351902f430987b2e653c3eb22657e81d0470ad9ee14aba5b",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "tidy-nest",
+        "thread-lane"
+      ]
+    },
+    {
+      "file": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "sha256": "d8ef20b756ad2cefd4c7ca94e823169ea69fc85aea43955eda4bc6cee7834772",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "little-ladder",
+        "pocket-beam"
+      ]
+    },
+    {
+      "file": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "sha256": "799f05361607fd2ade1f495c27d0582c58d290cd1b11e9da5ae00232cad60dff",
+      "grid": "3 columns, 2 rows",
+      "businesses": [
+        "daybreak",
+        "little-ladder"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "src": "/demo-businesses/amber-roof/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 36384
+    },
+    {
+      "src": "/demo-businesses/amber-roof/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 7004
+    },
+    {
+      "src": "/demo-businesses/amber-roof/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 21982
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 40922
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 14918
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-e9d304e4-846f-4f24-8be8-6ce2b77d6d3a.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 27232
+    },
+    {
+      "src": "/demo-businesses/sunward/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 39220
+    },
+    {
+      "src": "/demo-businesses/sunward/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 30530
+    },
+    {
+      "src": "/demo-businesses/sunward/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 57334
+    },
+    {
+      "src": "/demo-businesses/pepper-clay/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 50564
+    },
+    {
+      "src": "/demo-businesses/pepper-clay/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 26566
+    },
+    {
+      "src": "/demo-businesses/pepper-clay/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-9a8b94a4-03f4-44de-8690-950e4982dbe4.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 36492
+    },
+    {
+      "src": "/demo-businesses/crumb-cove/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 44304
+    },
+    {
+      "src": "/demo-businesses/crumb-cove/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 33782
+    },
+    {
+      "src": "/demo-businesses/crumb-cove/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 36768
+    },
+    {
+      "src": "/demo-businesses/soft-hour/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 37304
+    },
+    {
+      "src": "/demo-businesses/soft-hour/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 23744
+    },
+    {
+      "src": "/demo-businesses/soft-hour/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-eaad0a2a-c711-4408-8686-3bdd631b9b95.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 20318
+    },
+    {
+      "src": "/demo-businesses/tidy-nest/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 44954
+    },
+    {
+      "src": "/demo-businesses/tidy-nest/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 27546
+    },
+    {
+      "src": "/demo-businesses/tidy-nest/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 22496
+    },
+    {
+      "src": "/demo-businesses/thread-lane/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 27246
+    },
+    {
+      "src": "/demo-businesses/thread-lane/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 19992
+    },
+    {
+      "src": "/demo-businesses/thread-lane/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-40f153d1-9c3b-4874-b650-d832a55a72b7.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 32190
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 38782
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 27530
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 34308
+    },
+    {
+      "src": "/demo-businesses/pocket-beam/photo-1.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 21562
+    },
+    {
+      "src": "/demo-businesses/pocket-beam/photo-2.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 13828
+    },
+    {
+      "src": "/demo-businesses/pocket-beam/photo-3.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-90f661a8-119a-4643-9b4b-3e75f632a63c.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 28204
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-4.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 0,
+      "col": 0,
+      "bytes": 45034
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-5.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 0,
+      "col": 1,
+      "bytes": 23382
+    },
+    {
+      "src": "/demo-businesses/daybreak/photo-6.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 0,
+      "col": 2,
+      "bytes": 19752
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-4.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 1,
+      "col": 0,
+      "bytes": 19982
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-5.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 1,
+      "col": 1,
+      "bytes": 30700
+    },
+    {
+      "src": "/demo-businesses/little-ladder/photo-6.webp",
+      "width": 508,
+      "height": 508,
+      "source": "exec-f85ca790-7983-48e4-a585-7689083bb131.png",
+      "row": 1,
+      "col": 2,
+      "bytes": 45058
+    }
+  ]
+}

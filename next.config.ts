@@ -4,6 +4,10 @@ const config: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   devIndicators: false,
+  images: {
+    deviceSizes: [320, 390, 512, 640, 768, 1024, 1280],
+    imageSizes: [48, 96, 128, 256],
+  },
   experimental: { cpus: 2 },
   async headers() {
     return [
