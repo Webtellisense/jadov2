@@ -43,8 +43,10 @@ export function InfoScreen({ kind }: { kind: string }) {
             businesses are excluded from production.
           </p>
           <p className="notice">
-            This prototype notice is not the final approved legal policy. Public
-            registration and consumer messaging are not open.
+            This prototype notice is not the final approved legal policy. Email
+            registration and recovery require genuine configured delivery.
+            Private business drafts are restricted to authorized accounts.
+            Consumer messaging is not connected.
           </p>
         </>
       ) : (

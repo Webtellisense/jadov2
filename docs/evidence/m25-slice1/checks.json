@@ -1,0 +1,67 @@
+{
+  "context": "Local PostgreSQL / isolated test databases; not live Google, email or deployed staging",
+  "baseline": "77f65819741fbeefa30abd3b386a026829fd6ad9",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "unit": {
+    "command": "npm test",
+    "exitCode": 0,
+    "passed": 61,
+    "failed": 0
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exitCode": 0,
+    "passed": 41,
+    "failed": 0,
+    "additionalUpgradeAssertions": 5
+  },
+  "browser": {
+    "command": "npm run test:e2e -- --grep 'M25|SQL-backed|comparison selection|gate preserves|consumer cannot|mutation checks'",
+    "exitCode": 0,
+    "passed": 14,
+    "failed": 0,
+    "captures": 28,
+    "widths": [
+      320,
+      390,
+      768,
+      1280
+    ]
+  },
+  "build": {
+    "command": "NEXT_TELEMETRY_DISABLED=1 npm run build",
+    "exitCode": 0
+  },
+  "localMigration": {
+    "command": "npm run db:migrate",
+    "exitCode": 0,
+    "fixtureBusinessesBeforeAndAfter": 10,
+    "fixturePostsBeforeAndAfter": 20
+  },
+  "existingLocalRuntime": {
+    "command": "DISCOVERY_EVIDENCE_DIR=/tmp/jado-m25-existing-local DISCOVERY_EVIDENCE_CONTEXT='Existing local PostgreSQL after M2.5 migration; not shared staging' npm run verify:staging",
+    "exitCode": 0,
+    "checksPassed": 12
+  },
+  "externalDependencies": [
+    "Google identity OAuth credentials/consent setup",
+    "Real transactional email sender and credentials",
+    "Shared migration/deployment at an approved acceptance gate",
+    "GBP API approval (Slice 2 live gate)",
+    "Supabase Storage configuration (Slice 3)"
+  ],
+  "notPerformed": [
+    "M2.5 staging/main merge",
+    "Shared database mutation",
+    "Live email delivery",
+    "Live Google sign-in or GBP verification",
+    "Human screen-reader certification"
+  ]
+}

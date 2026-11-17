@@ -107,3 +107,9 @@ The ten stable fixture businesses now have original logos, locally generated Web
 Review the additive migration `0002_m05_visual_media.sql` and [deployment notes](docs/DEPLOYMENT.md). Once visual approval is given, normal migration + explicitly opted-in prototype seeding enrich the same namespaced records without replacing genuine records. No shared database reset is required.
 
 [Visual acceptance report](docs/M05_VISUAL_POLISH_ACCEPTANCE.md) · [four-width screenshot index](docs/evidence/m05-visual-polish/index.md). `npm run measure:populated` measures the existing enriched DATABASE_URL without migrating or seeding; `npm run test:discovery` uses a disposable local database and also records populated performance. No paid image host or transformation API is used.
+
+## M2.5 Slice 1 — private business foundation
+
+[Approved contract](docs/M25_APPROVED_CONTRACT.md) · [configuration guide](docs/M25_SLICE1_CONFIGURATION.md) · [Slice 1 report](docs/M25_SLICE1_ACCEPTANCE.md). Better Auth remains the account/session system. Google identity and genuine email signup/verification/recovery are feature-gated until credentials are provided. Verified non-fixture accounts may save private business drafts at `/my-business`; creation does not assign OWNER, verify Google authority or publish a listing.
+
+Apply reviewed migration 0003 with `npm run db:migrate`. No fixture reseed is needed; existing ten businesses/twenty posts remain. Staging needs `APP_ENV=staging` and `JADO_FIXTURES_VISIBLE=true`; future main production uses false plus separate unseeded infrastructure. Google GBP OAuth is Slice 2, media/identity fallbacks Slice 3; stop for Slice 1 acceptance before progressing.

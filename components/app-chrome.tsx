@@ -35,7 +35,13 @@ function OfflineBanner() {
     )
   );
 }
-export function AppChrome({ children }: { children: React.ReactNode }) {
+export function AppChrome({
+  children,
+  showFixtures = false,
+}: {
+  children: React.ReactNode;
+  showFixtures?: boolean;
+}) {
   const selection = useComparison();
   const path = usePathname(),
     params = useSearchParams();
@@ -90,6 +96,12 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
                 href={`${prefix}/location?next=${encodeURIComponent(`${path}${params.size ? `?${params}` : ""}`)}${area ? `&area=${area}` : ""}`}
               />
             </div>
+            <details className="business-menu">
+              <summary>Business</summary>
+              <div className="panel">
+                <Link href="/my-business">My Business / Add a business</Link>
+              </div>
+            </details>
             <nav className="desktop-nav" aria-label="Main navigation">
               {links}
             </nav>
@@ -104,14 +116,16 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
       >
         {children}
       </main>
-      <aside
-        className="wrap staging-disclosure"
-        aria-label="Staging disclosure"
-      >
-        Staging demo · Businesses, imagery, addresses and contact details are
-        representative examples. No Google verification or real customer
-        activity is implied.
-      </aside>
+      {showFixtures && (
+        <aside
+          className="wrap staging-disclosure"
+          aria-label="Staging disclosure"
+        >
+          Staging includes fictional development businesses and generated
+          imagery. Development records have no Google verification or real
+          customer activity.
+        </aside>
+      )}
       {!staff && !gallery && (
         <>
           <footer className="site-footer wrap">

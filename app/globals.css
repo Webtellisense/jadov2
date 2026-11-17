@@ -1610,3 +1610,24 @@ main[data-has-selection="true"] .action-bar {
     grid-column: 1/-1;
   }
 }
+
+/* Shared private workspace controls use the existing design tokens. */
+.business-menu {
+  display: none;
+  position: relative;
+}
+.business-menu summary {
+  cursor: pointer;
+  padding: var(--space-3);
+}
+.business-menu .panel {
+  position: absolute;
+  z-index: var(--business-menu-layer);
+  right: 0;
+  min-width: var(--business-menu-min);
+}
+@media (min-width: 1024px) {
+  .business-menu {
+    display: block;
+  }
+}

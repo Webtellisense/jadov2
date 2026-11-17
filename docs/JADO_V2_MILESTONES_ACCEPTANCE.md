@@ -312,3 +312,7 @@ Provide, in order:
 7. **Next:** One recommended next milestone; stop pending instruction.
 
 Never report "done" for a milestone that fails its stated live acceptance gate.
+
+## 16. M2.5 replaces separate M1/M2 delivery
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

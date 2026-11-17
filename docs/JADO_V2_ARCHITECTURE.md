@@ -331,3 +331,7 @@ If external provider approval blocks implementation, build isolated adapters, ho
 - https://support.google.com/business/answer/3403100
 - https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
 - https://ndpc.gov.ng/wp-content/uploads/2024/03/Nigeria_Data_Protection_Act_2023.pdf
+
+## 14. M2.5 approved architecture
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

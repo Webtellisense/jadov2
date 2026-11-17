@@ -272,3 +272,7 @@ Plan details and agreed limits, request form, audits with dates and evidence, as
 Every route must handle loading, empty, no-connection, unauthorized, suspended account, deleted entity, API unavailable and retry states. Interfaces need keyboard operation, responsive layout, accessible focus and labels, and no fake metrics or dummy successes in production.
 
 **Implementation order:** Follow JADO_V2_MILESTONES_ACCEPTANCE.md. Do not create every screen at once merely because this map lists them.
+
+## 8. M2.5 owner journey override
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

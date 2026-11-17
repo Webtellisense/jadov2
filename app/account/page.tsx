@@ -60,7 +60,7 @@ export default async function Account() {
         <Link className="text-link" href="/notifications">
           Notifications
         </Link>
-        <Link className="text-link" href="/owner/onboarding">
+        <Link className="text-link" href="/my-business">
           Add your business
         </Link>
         <Link className="text-link" href="/privacy">

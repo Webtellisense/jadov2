@@ -67,3 +67,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Current M0.5 visual refinement
 
 PRD15 / Addendum D13 supersede repeated fixture banners: exactly one quiet staging/demo disclosure outside main content. Preserve internal seed namespace and all verification/auth boundaries. Enrich only known fictional IDs; use additive migrations, original/licensed assets and no production fixture seeding. feat/m05-visual-polish must not merge into staging until founder visual approval. M1 remains closed.
+
+## Current approved milestone — M2.5 Slice 1
+
+Read docs/M25_APPROVED_CONTRACT.md with the standing specs. Founder approved Phase 0; singular business tables, optional Place ID, private drafts and simple JADO_FIXTURES_VISIBLE are approved overrides. Only Slice 1 is authorised now. Slice 3 includes official logo > selected category identity > deterministic monogram and cover fallback; do not implement that early. No M2.5 merge without acceptance.

@@ -18,7 +18,6 @@ try {
   });
   if (
     history.rows.length !== 3 ||
-    migrations.length !== 3 ||
     history.rows.some((row, index) => row.hash !== migrations[index].hash)
   )
     throw new Error(

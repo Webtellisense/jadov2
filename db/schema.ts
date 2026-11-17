@@ -1,3 +1,4 @@
+import type { DraftDetails } from "@/lib/business-draft";
 import type {
   BusinessPresentation,
   PostPresentation,
@@ -124,14 +125,27 @@ export const rateLimit = pgTable("auth_rate_limit", {
 });
 
 // No Google-controlled business fields or activation endpoint exist in M0.
-export const business = pgTable("business", {
-  id: text("id").primaryKey(),
-  googlePlaceId: text("google_place_id").notNull().unique(),
-  slug: text("slug").notNull().unique(),
-  status: businessState("status").notNull().default("pending"),
-  isFixture: boolean("is_fixture").notNull().default(false),
-  createdAt: createdAt(),
-});
+export const business = pgTable(
+  "business",
+  {
+    id: text("id").primaryKey(),
+    googlePlaceId: text("google_place_id").unique(),
+    gbpLocationId: text("gbp_location_id").unique(),
+    lifecycleState: text("lifecycle_state").notNull().default("draft"),
+    reasonCode: text("reason_code"),
+    archivedAt: timestamp("archived_at", { withTimezone: true }),
+    slug: text("slug").notNull().unique(),
+    status: businessState("status").notNull().default("pending"),
+    isFixture: boolean("is_fixture").notNull().default(false),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    check(
+      "business_lifecycle_valid",
+      sql`${t.lifecycleState} in ('draft','pending_gbp_approval','gbp_unverified','verified_eligible','published','reverification_required','suspended')`,
+    ),
+  ],
+);
 export const membership = pgTable(
   "business_membership",
   {
@@ -143,6 +157,8 @@ export const membership = pgTable(
       .references(() => business.id, { onDelete: "cascade" }),
     role: memberRole("role").notNull(),
     active: boolean("active").notNull().default(false),
+    grantSource: text("grant_source"),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
     createdAt: createdAt(),
   },
   (table) => [
@@ -237,5 +253,67 @@ export const developmentPost = pgTable(
       "development_post_type",
       sql`${t.type} in ('service','offer','arrival','update','event','portfolio')`,
     ),
+  ],
+);
+
+// Real private onboarding is separate from every development table.
+export const businessOnboarding = pgTable(
+  "business_onboarding",
+  {
+    businessId: text("business_id")
+      .primaryKey()
+      .references(() => business.id),
+    applicantUserId: text("applicant_user_id")
+      .notNull()
+      .references(() => user.id),
+    identitySource: text("identity_source")
+      .notNull()
+      .default("pre_approval_draft"),
+    details: jsonb("details").$type<DraftDetails>().notNull(),
+    step: text("step").notNull().default("business-details"),
+    version: integer("version").notNull().default(1),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    index("onboarding_applicant_idx").on(t.applicantUserId),
+    check("onboarding_version_positive", sql`${t.version}>0`),
+  ],
+);
+export const businessProfile = pgTable("business_profile", {
+  source: text("source").notNull().default("jado_user"),
+  businessId: text("business_id")
+    .primaryKey()
+    .references(() => business.id),
+  description: text("description").notNull().default(""),
+  serviceArea: text("service_area").notNull().default(""),
+  updatedAt: updatedAt(),
+});
+export const businessVerification = pgTable("business_verifications", {
+  id: text("id").primaryKey(),
+  businessId: text("business_id")
+    .notNull()
+    .references(() => business.id),
+  outcome: text("outcome").notNull(),
+  reasonCode: text("reason_code").notNull(),
+  checkedAt: createdAt(),
+  validUntil: timestamp("valid_until", { withTimezone: true }),
+});
+export const verificationAudit = pgTable(
+  "verification_audit_logs",
+  {
+    id: text("id").primaryKey(),
+    businessId: text("business_id")
+      .notNull()
+      .references(() => business.id),
+    actorId: text("actor_id").references(() => user.id),
+    event: text("event").notNull(),
+    fromState: text("from_state"),
+    toState: text("to_state"),
+    reasonCode: text("reason_code"),
+    requestId: text("request_id").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("verification_audit_business_idx").on(t.businessId, t.createdAt),
   ],
 );

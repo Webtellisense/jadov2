@@ -1,3 +1,4 @@
+import { fixturesVisible } from "./fixture-policy";
 import { and, asc, desc, eq, exists, ilike, or, sql } from "drizzle-orm";
 import type { Database } from "@/db/connection";
 import {
@@ -11,6 +12,7 @@ export async function readPrototype(
   filters: Filters,
   now = new Date(),
 ): Promise<DiscoveryData> {
+  if (!fixturesVisible()) return { businesses: [], posts: [], categories: [] };
   const predicates = [eq(b.seedKey, "jado-m05-v1")];
   if (filters.area) predicates.push(eq(b.city, filters.area));
   else predicates.push(sql`false`);

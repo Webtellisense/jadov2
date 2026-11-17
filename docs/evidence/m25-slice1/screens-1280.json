@@ -1,0 +1,51 @@
+[
+  {
+    "name": "workspace",
+    "path": "/my-business",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "draft",
+    "path": "/my-business/d75e008b-83c0-47fd-9601-9fc7c2acf316",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "register-unavailable",
+    "path": "/register",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "verify-unavailable",
+    "path": "/verify-email",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "recovery-unavailable",
+    "path": "/recover-account",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "reset-unavailable",
+    "path": "/reset-password",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "name": "explore",
+    "path": "/?area=Uyo",
+    "width": 1280,
+    "overflow": false,
+    "axeViolations": 0
+  }
+]

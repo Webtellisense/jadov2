@@ -1,3 +1,4 @@
+import { BusinessDraftForm } from "@/components/business-draft-form";
 import {
   BusinessLogo,
   BusinessCover,
@@ -48,6 +49,19 @@ export default async function Design() {
       >
         <p>Shared patterns, clear states and a warm, practical foundation.</p>
       </PageHeading>
+      <section className="panel section">
+        <h2>Private business draft</h2>
+        <Badge tone="warning">Google authorization pending · Private</Badge>
+        <p>Provisional details; no verification or publishing rights.</p>
+        <BusinessDraftForm readOnly />
+        <StateCard
+          title="Verify your email first"
+          href="/verify-email"
+          action="Verify email"
+        >
+          A real verified Jado account is required.
+        </StateCard>
+      </section>
       <div className="gallery-grid">
         <section className="panel">
           <h2>Actions</h2>
@@ -142,6 +156,19 @@ export default async function Design() {
         </section>
       </div>
       <h2>Workspace patterns</h2>
+      <section className="panel section">
+        <h2>Private business draft</h2>
+        <Badge tone="warning">Google authorization pending · Private</Badge>
+        <p>Provisional details; no verification or publishing rights.</p>
+        <BusinessDraftForm readOnly />
+        <StateCard
+          title="Verify your email first"
+          href="/verify-email"
+          action="Verify email"
+        >
+          A real verified Jado account is required.
+        </StateCard>
+      </section>
       <div className="gallery-grid">
         <StatTile label="Profile views" />
         <StepIndicator
@@ -164,6 +191,19 @@ export default async function Design() {
           <SocialLinks business={data.businesses[0]} />
         </section>
       )}
+      <section className="panel section">
+        <h2>Private business draft</h2>
+        <Badge tone="warning">Google authorization pending · Private</Badge>
+        <p>Provisional details; no verification or publishing rights.</p>
+        <BusinessDraftForm readOnly />
+        <StateCard
+          title="Verify your email first"
+          href="/verify-email"
+          action="Verify email"
+        >
+          A real verified Jado account is required.
+        </StateCard>
+      </section>
       <div className="gallery-grid">
         {[1, 2, 3, 4, 5].map((count) => {
           const post = data.posts.find(
@@ -233,6 +273,19 @@ export default async function Design() {
           )}
         </div>
       )}
+      <section className="panel section">
+        <h2>Private business draft</h2>
+        <Badge tone="warning">Google authorization pending · Private</Badge>
+        <p>Provisional details; no verification or publishing rights.</p>
+        <BusinessDraftForm readOnly />
+        <StateCard
+          title="Verify your email first"
+          href="/verify-email"
+          action="Verify email"
+        >
+          A real verified Jado account is required.
+        </StateCard>
+      </section>
       <div className="gallery-grid">
         {[
           ["No matches yet", "Try another area or a wider category.", "empty"],

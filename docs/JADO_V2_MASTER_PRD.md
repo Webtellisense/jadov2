@@ -314,3 +314,7 @@ Supersedes section 13 and all private/local-only M0.5 fixture restrictions. Work
 ## 15. Founder-approved M0.5 visual polish, 16 November 2026
 
 Within M0.5 only, enrich the ten existing namespaced fictional businesses with original logos/generated or licensed photography, representative address/hours/services/contact fields and structured post media. Use additive migrations and guarded deterministic upserts only for known fixture IDs/namespace; preserve genuine records and shared database contents. These fields are fixture-owned examples, never Google data or authorization. Replace repeated card-level fiction/sample banners with one quiet staging/demo disclosure outside main content; provenance remains in the database. Contacts use reserved .example/.invalid destinations or clearly non-dialable fixture values; never direct users to an unrelated real business. Preserve tokens, typography, routes, comparison limits, action/auth gates and disabled providers. Work only on feat/m05-visual-polish; do not merge staging before visual approval, and do not begin M1.
+
+## 16. M2.5 founder approval
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

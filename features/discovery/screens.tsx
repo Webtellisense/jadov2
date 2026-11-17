@@ -407,7 +407,7 @@ function Explore({
           Get your free Jado page. A Google Business Profile and authorised
           management access are required.
         </p>
-        <ButtonLink variant="secondary" href="/owner/onboarding">
+        <ButtonLink variant="secondary" href="/my-business">
           Add your business
           <ArrowRight aria-hidden="true" />
         </ButtonLink>

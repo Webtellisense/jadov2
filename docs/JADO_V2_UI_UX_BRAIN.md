@@ -357,3 +357,7 @@ Keep the existing palette, fonts, navigation, sections and Compare. Build Busine
 Post indicators always pair Lucide icon and text: service ShoppingBag (3 media), offer Clock (3), arrival Package (3), update Megaphone (2), event CalendarDays (5), portfolio Images (5). Layout: one full image; two balanced; three asymmetric; four/five controlled collage. A shared geometry keeps headers/actions stable; media opens an accessible gallery. Enforce these limits in fixture validation and rendering.
 
 The single quiet footer disclosure explains staging/demo businesses, generated imagery and representative contact/details. Remove repeated card banners and sample/prototype strings from descriptions. No rating, review count, verified badge, overall score or engagement metric may be invented. Fixture address/hours/contacts remain fixture-owned and explicitly distinct from unavailable Google information. External example contacts must not route to a real unrelated business.
+
+## 16. M2.5 approved experience and Slice 3 identity override
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

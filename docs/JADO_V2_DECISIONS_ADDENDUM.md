@@ -119,3 +119,7 @@ Founder-approved: feature branch -> staging -> main; staging is permanent review
 ## 9. D13 — approved M0.5 visual refinement
 
 PRD15 supersedes repeated per-card Development data labels: retain one quiet staging/demo disclosure outside main content and internal fixture provenance. Preserve stable IDs, additive migrations and genuine records. Image-led identities, galleries and post-type media limits are approved only for the prototype. No real business publishing, engagement, Google verification/reviews or M1. Feature branch requires founder visual approval before staging merge.
+
+## 10. D14 — M2.5 founder decisions
+
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.

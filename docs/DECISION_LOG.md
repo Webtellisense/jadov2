@@ -1,5 +1,16 @@
 # Technical decisions
 
+## M2.5 Slice 1 — 17 November 2026
+
+- Phase 0 approved with founder corrections recorded in M25_APPROVED_CONTRACT.md before code. Pending Google approval does not block private foundation work; no runtime test double or verification shortcut.
+- Explicit ref fetch found staging already reconciled at 77f6581 (including 5b8c28f). Fast-forwarded feature branch; no duplicate merge, main change or M2.5 staging push.
+- Extend existing singular business/membership and preserve legacy states. New applicant relation permits safe private edits without assigning OWNER. Optional unique Place ID and GBP location ID, explicit lifecycle, append-only audit, verified account gate and optimistic editing.
+- Email uses a replaceable server HTTP transport (Resend when configured), genuine OTP/recovery only, with test-only injected mailer. Better Auth remains session authority; Google login has identity scope only. No provider credentials or paid transport enabled here.
+- Better Auth catches mail callback errors internally; per-request AsyncLocalStorage records delivery failure so the public handler returns unavailable rather than a false delivery-success response. Tests prove the account stays unverified. No process-global delivery status leaks between requests.
+- Additive 0003 applied to existing local data: 10 fixture businesses / 20 posts unchanged. Integration harness retains original rollback coverage on disposable historical schemas, then tests the full upgrade and refuses destructive prototype rollback after 0003.
+- Final local verification: 61 unit tests, 41 PostgreSQL integration tests, five legacy-upgrade checks and 14 focused browser tests pass; typecheck, lint and standalone build exit 0. Four-width evidence covers 28 captures. Live Google identity/email and actual M2.5 staging deployment remain pending configuration/acceptance. No M2.5 merge or shared database mutation performed.
+
+
 ## PostgreSQL connection timeout investigation — 16 November 2026
 
 - The shared node-postgres pool allowed 5 seconds to connect or wait for a pool slot, while the founder's successful direct-client test allowed 15 seconds. Increased the pool timeout to 15 seconds for migrations and application reads; retained the maximum of five connections, idle timeout, URL-based TLS and existing pool lifecycle. This is a plausible explanation for the reported timeout, not a confirmed remote root cause: the workspace cannot resolve the Supabase pooler (EAI_AGAIN).

@@ -106,3 +106,8 @@
   --media-square: 1;
   --media-landscape: 4 / 3;
 }
+
+:root {
+  --business-menu-min: 200px;
+  --business-menu-layer: 30;
+}

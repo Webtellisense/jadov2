@@ -1,3 +1,5 @@
+import { AuthOptions } from "@/components/auth-options";
+import { authAvailability } from "@/server/email";
 import type { Metadata } from "next";
 import { SignInForm } from "@/components/sign-in-form";
 import { safeReturnPath } from "@/lib/navigation";
@@ -29,13 +31,10 @@ export default async function SignIn({
                 ? "Sign in to like this post. We'll bring you right back."
                 : "Sign in to manage your account. We'll bring you right back."}
         </p>
-        <button className="button secondary full" disabled>
-          Continue with Google
-        </button>
-        <p className="small muted">
-          Google sign-in is not connected. Registration and email verification
-          are not open yet.
-        </p>
+        <AuthOptions
+          {...authAvailability()}
+          next={destination.pathname + destination.search + destination.hash}
+        />
         {process.env.NODE_ENV !== "production" && (
           <div className="notice">
             <strong>Development preview</strong>

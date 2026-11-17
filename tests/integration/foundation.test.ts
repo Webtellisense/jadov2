@@ -72,7 +72,7 @@ describe("PostgreSQL persistence and seeds", () => {
     const result = await db.execute(
       sql`select count(*)::int as count from drizzle.__drizzle_migrations`,
     );
-    expect(result.rows[0].count).toBe(3);
+    expect(result.rows[0].count).toBe(4);
   });
   it("repeats the dev seed without duplicating users, credentials or businesses", async () => {
     await seedDevelopment(db);
@@ -86,14 +86,12 @@ describe("PostgreSQL persistence and seeds", () => {
   });
   it("enforces unique Google Place IDs", async () => {
     await expect(
-      db
-        .insert(business)
-        .values({
-          id: "duplicate-place",
-          googlePlaceId: "DEV_FIXTURE_NOT_A_GOOGLE_PLACE",
-          slug: "duplicate-place",
-          isFixture: true,
-        }),
+      db.insert(business).values({
+        id: "duplicate-place",
+        googlePlaceId: "DEV_FIXTURE_NOT_A_GOOGLE_PLACE",
+        slug: "duplicate-place",
+        isFixture: true,
+      }),
     ).rejects.toHaveProperty("cause.code", "23505");
   });
   it("rolls back a failed transaction", async () => {
@@ -356,14 +354,12 @@ describe("authenticated writes and reversible fixtures", () => {
     ).toBe("Test name 9");
   });
   it("removes only labeled fixture data and can recreate it", async () => {
-    await db
-      .insert(user)
-      .values({
-        id: "nonfixture-test",
-        email: "preserved@example.invalid",
-        name: "Nonfixture test record",
-        isFixture: false,
-      });
+    await db.insert(user).values({
+      id: "nonfixture-test",
+      email: "preserved@example.invalid",
+      name: "Nonfixture test record",
+      isFixture: false,
+    });
     await undoDevelopmentSeed(db);
     await undoDevelopmentSeed(db);
     const remaining = await db.select().from(user);

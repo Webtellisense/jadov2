@@ -71,9 +71,7 @@ export function SignInForm({ next }: { next: string }) {
       <button className="button" type="submit" disabled={pending || !ready}>
         {pending ? "Signing in…" : "Sign in"}
       </button>
-      <p className="muted fine">
-        Registration and Google sign-in are not open yet.
-      </p>
+      <p className="muted fine">You can browse without signing in.</p>
     </form>
   );
 }

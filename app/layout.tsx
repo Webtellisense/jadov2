@@ -1,3 +1,4 @@
+import { fixturesVisible } from "@/server/fixture-policy";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { CardSkeleton } from "@/components/ui/core";
@@ -49,7 +50,7 @@ export default function RootLayout({
           }
         >
           <ComparisonProvider>
-            <AppChrome>{children}</AppChrome>
+            <AppChrome showFixtures={fixturesVisible()}>{children}</AppChrome>
           </ComparisonProvider>
         </Suspense>
       </body>
