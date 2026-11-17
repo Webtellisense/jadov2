@@ -8,11 +8,13 @@ export function BusinessDraftForm({
   initial,
   version = 1,
   readOnly = false,
+  identityLocked = false,
 }: {
   id?: string;
   initial?: DraftDetails;
   version?: number;
   readOnly?: boolean;
+  identityLocked?: boolean;
 }) {
   const ready = useHydrated(),
     router = useRouter();
@@ -82,7 +84,18 @@ export function BusinessDraftForm({
           <label htmlFor={`draft-${key}`}>{label}</label>
           {key === "description" ? (
             <textarea
-              readOnly={readOnly}
+              readOnly={
+                readOnly ||
+                (identityLocked &&
+                  [
+                    "name",
+                    "category",
+                    "location",
+                    "address",
+                    "phone",
+                    "website",
+                  ].includes(key))
+              }
               id={`draft-${key}`}
               name={key}
               maxLength={max}
@@ -91,7 +104,18 @@ export function BusinessDraftForm({
             />
           ) : (
             <input
-              readOnly={readOnly}
+              readOnly={
+                readOnly ||
+                (identityLocked &&
+                  [
+                    "name",
+                    "category",
+                    "location",
+                    "address",
+                    "phone",
+                    "website",
+                  ].includes(key))
+              }
               id={`draft-${key}`}
               name={key}
               type={
@@ -111,7 +135,9 @@ export function BusinessDraftForm({
       ))}
       <p className="small muted">
         These are provisional details supplied by you. They are not synced from
-        Google.
+        Google.{" "}
+        {identityLocked &&
+          "A Google identity has been selected; provisional identity fields are now locked. Jado About and supplementary contact fields remain editable."}
       </p>
       {message && <p role={failed ? "alert" : "status"}>{message}</p>}
       <button

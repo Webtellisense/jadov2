@@ -1,3 +1,4 @@
+import { GbpConnection } from "./gbp-connection";
 import { WorkspaceRetry } from "./workspace-retry";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import {
 } from "@/server/business-drafts";
 import { AppError } from "@/server/errors";
 import { BusinessDraftForm } from "./business-draft-form";
-import { BackLink, StateCard, Badge } from "./ui/core";
+import { BackLink, StateCard } from "./ui/core";
 export async function BusinessWorkspace({ id }: { id?: string }) {
   let rows: Awaited<ReturnType<typeof listBusinessDrafts>> = [];
   let current: Awaited<ReturnType<typeof readBusinessDraft>> | null = null;
@@ -69,18 +70,7 @@ export async function BusinessWorkspace({ id }: { id?: string }) {
       <h1>{current ? current.details.name : "My Business"}</h1>
       {current ? (
         <>
-          <Badge tone="warning">Google authorization pending · Private</Badge>
-          <section className="panel section">
-            <h2>Connect Google Business Profile</h2>
-            <p>
-              Google Business Profile access is pending. Your draft is saved
-              privately while synchronization and verification are unavailable.
-            </p>
-            <p>No verification badge or public listing has been created.</p>
-            <button className="button secondary" disabled>
-              Google connection unavailable
-            </button>
-          </section>
+          <GbpConnection id={current.id} />
           <section className="panel section">
             <h2>Business details</h2>
             <p>
@@ -91,6 +81,7 @@ export async function BusinessWorkspace({ id }: { id?: string }) {
               id={id}
               initial={current.details}
               version={current.version}
+              identityLocked={current.identityLocked}
             />
           </section>
         </>

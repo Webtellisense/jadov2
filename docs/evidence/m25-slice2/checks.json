@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-17",
+  "branch": "feat/m25-business-onboarding",
+  "baseline": "a196a093ee78f5487a7c10414b83139a323b6525",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "unit": {
+    "command": "npm run test -- --reporter=dot",
+    "exitCode": 0,
+    "files": 7,
+    "passed": 84,
+    "failed": 0
+  },
+  "integration": {
+    "command": "npm run test:integration",
+    "exitCode": 0,
+    "passed": 71,
+    "failed": 0,
+    "groups": {
+      "foundationAndPrototype": 32,
+      "slice1": 9,
+      "slice2": 30
+    },
+    "additionalUpgradePreservationChecks": 12,
+    "database": "guarded disposable loopback PostgreSQL only"
+  },
+  "browser": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/gbp.spec.ts tests/e2e/foundation.spec.ts",
+      "passed": 19,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/gbp.spec.ts tests/e2e/prototype.spec.ts tests/e2e/m25.spec.ts --grep 'GBP|Slice 2|pending Google|M25 private|SQL-backed|comparison selection|selected profile|share preserve'",
+      "passed": 13,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/gbp.spec.ts --grep 'endpoints|Slice 2 and preserved'",
+      "passed": 5,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/gbp.spec.ts --grep 'component state gallery'",
+      "passed": 4,
+      "exitCode": 0
+    }
+  ],
+  "browserCounts": "Recorded runs overlap; do not sum as unique tests.",
+  "resolvedBrowserFailure": "Global referrer header override corrected with callback-specific Next header; restarted-worker test setup made idempotent.",
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "standalonePrepared": true
+  },
+  "screens": {
+    "count": 28,
+    "widths": [
+      320,
+      390,
+      768,
+      1280
+    ],
+    "axeViolations": 0,
+    "documentHorizontalOverflow": 0,
+    "brokenVisibleImages": 0
+  },
+  "security": {
+    "clientFilesChecked": 62,
+    "serverFilesChecked": 104,
+    "clientSecretMatches": 0,
+    "runtimeProviderDoubleMatches": 0
+  },
+  "external": {
+    "gbp": "pending approval/configuration; no live call",
+    "sharedDatabase": "untouched; 0003/0004 pending separate authorization",
+    "email": "live configuration pending",
+    "deployment": "not initiated",
+    "merged": false
+  },
+  "next": "Stop for Slice 2 acceptance; Slice 3 not implemented",
+  "stagedSecretScan": {
+    "textFilesChecked": 48,
+    "matches": 0
+  }
+}

@@ -334,4 +334,8 @@ If external provider approval blocks implementation, build isolated adapters, ho
 
 ## 14. M2.5 approved architecture
 
-17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Slice 1 is accepted at a196a09; Slice 2 only is now authorised. No Slice 3, M3, shared database write, deployment or M2.5 staging/main merge is authorised.
+
+### Slice 2 provider boundary
+
+`server/gbp` contains the real HTTP adapter, versioned encrypted vault, OAuth state service and private canonical verification service. Migration 0004 adds `gbp_connections`, `gbp_oauth_states`, per-applicant connection grants and selected canonical location relationships, extending existing business/proof tables additively. Better Auth tables are not GBP credential storage. Fresh normalized Google identity data is request-scoped/no-store, not a persisted public projection. See [Slice 2 configuration and ownership contract](M25_SLICE2_CONFIGURATION.md). Pending API access is the default; there is no runtime test provider. Explicit OAuth revocation remains possible after quota access is disabled; unsafe shared-primary disconnects are denied. Scheduled verification, public supply, governance and uploads remain later slices.

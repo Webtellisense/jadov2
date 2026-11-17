@@ -1,3 +1,4 @@
+import { GbpStatus } from "@/components/gbp-status";
 import { BusinessDraftForm } from "@/components/business-draft-form";
 import {
   BusinessLogo,
@@ -50,6 +51,19 @@ export default async function Design() {
         <p>Shared patterns, clear states and a warm, practical foundation.</p>
       </PageHeading>
       <section className="panel section">
+        <h2>GBP connection states</h2>
+        <p>
+          Component examples only. These states do not represent a connected or
+          verified business.
+        </p>
+        {[
+          "pending_gbp_approval",
+          "gbp_unverified",
+          "reverification_required",
+          "verified_eligible",
+        ].map((state) => (
+          <GbpStatus key={state} state={state} />
+        ))}
         <h2>Private business draft</h2>
         <Badge tone="warning">Google authorization pending · Private</Badge>
         <p>Provisional details; no verification or publishing rights.</p>

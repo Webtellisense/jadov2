@@ -1,5 +1,19 @@
 # Technical decisions
 
+## M2.5 Slice 2 — 17 November 2026
+
+- Slice 1 accepted at a196a09; remain on feature branch. No shared database changes, deployment or merge. GBP access still pending; runtime defaults fail closed.
+- Dedicated OAuth/credential domain, no Jado-session or auth_account linking. Vault uses AES-256-GCM with context binding/versioned keys; jose verifies signed OIDC issuer/audience/nonce/expiry.
+- Current Google docs correct the VoM URL to /VoiceOfMerchantState. Account primaryOwner is input-only; display-name Admin matching is prohibited. Explicit stable account delegation chains or existing approved scoped grants are required for role decisions; ambiguous first claims remain pending.
+- Google identity content remains request-scoped, private/no-store, with no snapshot cache/public projection until permitted use is confirmed. Minimal canonical references/proof metadata only. See approved contract/configuration/evidence for exact boundaries.
+
+
+- Callback responses require no-referrer even on validation failure; Next's global header rule required a later callback-specific override, verified through the actual browser HTTP response.
+- Connection refresh is serialized and proof writes recheck the credential version. Reconnect preserves omitted refresh credentials only for an existing connected subject; known revoked credentials cannot be resurrected. Local-first revocation checks every affected business and retains retryable encrypted credentials until remote completion.
+- Optional Google role lookup permission errors preserve an earlier proof. Explicit owner-level authority loss/VoM failure triggers reverification without automatic ownership reassignment. Public freshness/grace enforcement remains Slice 5.
+- Additive 0004 is tested against an actual Slice 1 private draft plus ten/twenty fixtures, preserving details/version/audit. No historical SQL/fixture definition is modified and no shared migration runs.
+
+
 ## M2.5 Slice 1 — 17 November 2026
 
 - Phase 0 approved with founder corrections recorded in M25_APPROVED_CONTRACT.md before code. Pending Google approval does not block private foundation work; no runtime test double or verification shortcut.

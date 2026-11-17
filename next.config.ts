@@ -27,6 +27,10 @@ const config: NextConfig = {
           },
         ],
       },
+      {
+        source: "/api/gbp/oauth/callback",
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+      },
     ];
   },
 };

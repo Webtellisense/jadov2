@@ -2,7 +2,7 @@
 
 17 November 2026 · Webtellisense Consult · **Historical Phase 0 proposal, approved with corrections.**
 
-The founder approved Phase 0 and Slice 1. [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) supersedes the proposals/stop point below, including optional Place ID, ownership policy, baseline integration and Slice 3 identity fallbacks. Preserve this audit as history, not current permission to bypass the approved contract.
+The founder approved Phase 0 and accepted Slice 1 at a196a09; Slice 2 is now authorised. [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) supersedes the proposals/stop point below, including optional Place ID, ownership policy, baseline integration and Slice 3 identity fallbacks. Preserve this audit as history, not current permission to bypass the approved contract.
 
 ## 1. Scope, precedence and Git baseline
 

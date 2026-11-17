@@ -1,0 +1,59 @@
+[
+  {
+    "name": "connection-pending",
+    "path": "/my-business/[private-id]",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "workspace",
+    "path": "/my-business",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "explore",
+    "path": "/?area=Uyo",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "feed",
+    "path": "/feed?area=Uyo",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "profile",
+    "path": "/b/amber-roof?area=Uyo",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "compare",
+    "path": "/compare?area=Uyo&ids=demo-amber-roof,demo-daybreak,demo-sunward",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0
+  },
+  {
+    "name": "gallery",
+    "path": "/design",
+    "width": 390,
+    "overflow": false,
+    "brokenImages": 0,
+    "axeViolations": 0,
+    "componentExamplesLabeled": true
+  }
+]

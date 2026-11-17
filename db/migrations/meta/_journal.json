@@ -29,6 +29,13 @@
       "when": 1794926437029,
       "tag": "0003_m25_business_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794931918483,
+      "tag": "0004_m25_gbp_boundary",
+      "breakpoints": true
     }
   ]
 }

@@ -131,6 +131,8 @@ export const business = pgTable(
     id: text("id").primaryKey(),
     googlePlaceId: text("google_place_id").unique(),
     gbpLocationId: text("gbp_location_id").unique(),
+    lastVerifiedAt: timestamp("last_verified_at", { withTimezone: true }),
+    proofValidUntil: timestamp("proof_valid_until", { withTimezone: true }),
     lifecycleState: text("lifecycle_state").notNull().default("draft"),
     reasonCode: text("reason_code"),
     archivedAt: timestamp("archived_at", { withTimezone: true }),
@@ -293,6 +295,10 @@ export const businessVerification = pgTable("business_verifications", {
   businessId: text("business_id")
     .notNull()
     .references(() => business.id),
+  connectionId: text("connection_id").references(() => gbpConnection.id),
+  locationName: text("location_name"),
+  voiceOfMerchant: boolean("voice_of_merchant"),
+  roleEvidence: text("role_evidence"),
   outcome: text("outcome").notNull(),
   reasonCode: text("reason_code").notNull(),
   checkedAt: createdAt(),
@@ -317,3 +323,71 @@ export const verificationAudit = pgTable(
     index("verification_audit_business_idx").on(t.businessId, t.createdAt),
   ],
 );
+
+export const gbpConnection = pgTable(
+  "gbp_connections",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id),
+    subject: text("google_subject").notNull(),
+    accessCipher: text("access_cipher"),
+    refreshCipher: text("refresh_cipher"),
+    scopes: text("scopes").array().notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    status: text("status").notNull(),
+    version: integer("version").notNull().default(1),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    uniqueIndex("gbp_user_subject_unique").on(t.userId, t.subject),
+    check(
+      "gbp_connection_status",
+      sql`${t.status} in ('connected','reauthorization_required','revocation_pending','revoked')`,
+    ),
+  ],
+);
+export const gbpOAuthState = pgTable("gbp_oauth_states", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  businessId: text("business_id")
+    .notNull()
+    .references(() => business.id),
+  sessionHash: text("session_hash").notNull(),
+  cookieHash: text("cookie_hash").notNull(),
+  nonceHash: text("nonce_hash").notNull(),
+  verifierCipher: text("verifier_cipher").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  consumedAt: timestamp("consumed_at", { withTimezone: true }),
+});
+export const gbpBusinessConnection = pgTable(
+  "gbp_business_connections",
+  {
+    businessId: text("business_id")
+      .notNull()
+      .references(() => business.id),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id),
+    connectionId: text("connection_id")
+      .notNull()
+      .references(() => gbpConnection.id),
+  },
+  (t) => [primaryKey({ columns: [t.businessId, t.userId] })],
+);
+export const businessGbpLocation = pgTable("business_gbp_locations", {
+  businessId: text("business_id")
+    .primaryKey()
+    .references(() => business.id),
+  connectionId: text("connection_id")
+    .notNull()
+    .references(() => gbpConnection.id),
+  accountName: text("account_name").notNull(),
+  locationName: text("location_name").notNull(),
+  role: text("role").notNull(),
+  roleSource: text("role_source").notNull(),
+  checkedAt: createdAt(),
+});

@@ -360,4 +360,8 @@ The single quiet footer disclosure explains staging/demo businesses, generated i
 
 ## 16. M2.5 approved experience and Slice 3 identity override
 
-17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Implement Slice 1 only now; no M3 or M2.5 staging/main merge is authorised.
+17 November 2026: [M25_APPROVED_CONTRACT.md](M25_APPROVED_CONTRACT.md) records the founder-approved scope, policy corrections, slice gates and identity fallback addition. It supersedes conflicting Places-first onboarding, unconditional Place ID, private-draft restrictions and fixture gating rules above. M0.5 is accepted. Preserve its visual design and fixture logos. Slice 1 is accepted at a196a09; Slice 2 only is now authorised. No Slice 3, M3, shared database write, deployment or M2.5 staging/main merge is authorised.
+
+### Slice 2 private Google connection pattern
+
+The existing private workspace now composes the gallery's compact status component with pending/loading/error, dedicated Google consent, paginated account/location selection, re-check and explicit disconnect/retry states. Use existing panels, buttons and status tokens; preserve mobile tabs and public M0.5 imagery. All successful Slice 2 checks remain private; ambiguous role evidence never looks like a verified badge. Provisional identity is labeled as user-supplied, and locked after canonical selection rather than falsely labeled as synchronized Google content. Actual Google fields are shown only in private, live, no-store selection responses. No Slice 3 media/profile redesign is included.

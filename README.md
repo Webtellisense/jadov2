@@ -113,3 +113,11 @@ Review the additive migration `0002_m05_visual_media.sql` and [deployment notes]
 [Approved contract](docs/M25_APPROVED_CONTRACT.md) · [configuration guide](docs/M25_SLICE1_CONFIGURATION.md) · [Slice 1 report](docs/M25_SLICE1_ACCEPTANCE.md). Better Auth remains the account/session system. Google identity and genuine email signup/verification/recovery are feature-gated until credentials are provided. Verified non-fixture accounts may save private business drafts at `/my-business`; creation does not assign OWNER, verify Google authority or publish a listing.
 
 Apply reviewed migration 0003 with `npm run db:migrate`. No fixture reseed is needed; existing ten businesses/twenty posts remain. Staging needs `APP_ENV=staging` and `JADO_FIXTURES_VISIBLE=true`; future main production uses false plus separate unseeded infrastructure. Google GBP OAuth is Slice 2, media/identity fallbacks Slice 3; stop for Slice 1 acceptance before progressing.
+
+## M2.5 Slice 2 — GBP OAuth and verification boundary
+
+Slice 1 at `a196a09` is accepted. [Slice 2 setup/rollback guide](docs/M25_SLICE2_CONFIGURATION.md) describes the separate GBP OAuth client, encrypted credentials, canonical claims and provider errors. API approval remains pending: leave `GBP_PROVIDER_MODE=pending` and `GBP_API_ACCESS_APPROVED=false`. Private drafts remain resumable; neither ordinary Google login nor connecting management access assigns OWNER or publishes a business.
+
+Migration `0004_m25_gbp_boundary.sql` is additive and tested in disposable local PostgreSQL databases only. Shared migration 0003/0004, live Google/email configuration and deployment remain pending separately approved operational steps. Do not run a fixture seed for this change. No M2.5 merge/deployment is included. Slice 3 requires founder acceptance of the Slice 2 evidence first.
+
+[Slice 2 acceptance report](docs/M25_SLICE2_ACCEPTANCE.md) · [28 responsive captures](docs/evidence/m25-slice2/index.md).

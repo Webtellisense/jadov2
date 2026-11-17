@@ -72,7 +72,7 @@ describe("PostgreSQL persistence and seeds", () => {
     const result = await db.execute(
       sql`select count(*)::int as count from drizzle.__drizzle_migrations`,
     );
-    expect(result.rows[0].count).toBe(4);
+    expect(result.rows[0].count).toBe(5);
   });
   it("repeats the dev seed without duplicating users, credentials or businesses", async () => {
     await seedDevelopment(db);

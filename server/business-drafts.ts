@@ -44,6 +44,7 @@ export async function listBusinessDrafts(db: Database, principal: Principal) {
       reason: business.reasonCode,
       details: businessOnboarding.details,
       version: businessOnboarding.version,
+      identityLocked: sql<boolean>`${business.gbpLocationId} is not null`,
     })
     .from(business)
     .innerJoin(
@@ -173,12 +174,29 @@ export async function saveBusinessDraft(
     if (
       row.archivedAt ||
       row.lifecycleState === "suspended" ||
-      !["draft", "pending_gbp_approval"].includes(row.lifecycleState)
+      ![
+        "draft",
+        "pending_gbp_approval",
+        "gbp_unverified",
+        "reverification_required",
+        "verified_eligible",
+      ].includes(row.lifecycleState)
     )
       throw new AppError(
         403,
         "DRAFT_EDIT_UNAVAILABLE",
         "This draft cannot be edited here.",
+      );
+    if (
+      row.gbpLocationId &&
+      (
+        ["name", "category", "location", "address", "phone", "website"] as const
+      ).some((key) => parsed.data.details[key] !== draft.details[key])
+    )
+      throw new AppError(
+        403,
+        "GOOGLE_IDENTITY_LOCKED",
+        "The selected Google identity is read-only. Provisional values are retained privately until live synchronization is approved.",
       );
     if (draft.version !== parsed.data.version)
       throw new AppError(
@@ -187,6 +205,36 @@ export async function saveBusinessDraft(
         "This draft changed. Reload before saving again.",
       );
     await limit(tx, principal.id);
+    if (
+      row.lifecycleState === "verified_eligible" &&
+      (!parsed.data.details.description.trim() ||
+        (draft.details.contactEmail &&
+          !parsed.data.details.contactEmail &&
+          !draft.details.phone &&
+          !draft.details.website) ||
+        (draft.details.serviceArea &&
+          !parsed.data.details.serviceArea &&
+          !draft.details.location &&
+          !draft.details.address))
+    ) {
+      await tx
+        .update(business)
+        .set({
+          lifecycleState: "draft",
+          reasonCode: "PROFILE_RECHECK_REQUIRED",
+        })
+        .where(eq(business.id, id));
+      await tx.insert(verificationAudit).values({
+        id: randomUUID(),
+        businessId: id,
+        actorId: principal.id,
+        event: "business.state_changed",
+        fromState: row.lifecycleState,
+        toState: "draft",
+        reasonCode: "PROFILE_RECHECK_REQUIRED",
+        requestId,
+      });
+    }
     await tx
       .update(businessOnboarding)
       .set({
